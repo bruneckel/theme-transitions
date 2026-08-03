@@ -73,10 +73,22 @@ describe('createController', () => {
 	it('setTheme is a no-op while a transition is already animating', async () => {
 		const controller = createController();
 		const first = controller.toggleTheme();
-		await controller.setTheme('dark');
+		await controller.setTheme('light');
 		await first;
 
 		expect(mocks.writeStoredPreference).toHaveBeenCalledTimes(1);
+		expect(mocks.writeStoredPreference).toHaveBeenCalledWith('dark');
+	});
+
+	it('toggleTheme is a no-op while a transition is already animating', async () => {
+		const controller = createController();
+		const first = controller.toggleTheme();
+		const second = controller.toggleTheme();
+		await first;
+		await second;
+
+		expect(mocks.writeStoredPreference).toHaveBeenCalledTimes(1);
+		expect(mocks.writeStoredPreference).toHaveBeenCalledWith('dark');
 	});
 
 	it('setTheme short-circuits when already on the requested non-system mode', async () => {
