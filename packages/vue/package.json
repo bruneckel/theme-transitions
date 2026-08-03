@@ -39,7 +39,7 @@
 		}
 	},
 	"dependencies": {
-		"@bruneckel/theme-transitions-core": "*"
+		"@bruneckel/theme-transitions-core": "^0.1.0"
 	},
 	"devDependencies": {
 		"@vue/test-utils": "^2.4.11",
