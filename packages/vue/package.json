@@ -49,6 +49,7 @@
 	},
 	"scripts": {
 		"build": "unbuild && node scripts/build-css.mjs",
+		"prepublishOnly": "npm run build",
 		"typecheck": "tsc --noEmit"
 	},
 	"keywords": [

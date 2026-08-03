@@ -27,6 +27,7 @@
 	},
 	"scripts": {
 		"build": "unbuild",
+		"prepublishOnly": "npm run build",
 		"typecheck": "tsc --noEmit"
 	},
 	"keywords": [
