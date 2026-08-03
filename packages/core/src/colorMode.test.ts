@@ -18,6 +18,19 @@ const createLocalStorageMock = () => {
 	};
 };
 
+const createDocumentMock = () => {
+	const classes = new Set<string>();
+	return {
+		documentElement: {
+			classList: {
+				add: (value: string) => classes.add(value),
+				remove: (value: string) => classes.delete(value),
+			},
+		},
+		classes,
+	};
+};
+
 afterEach(() => {
 	vi.unstubAllGlobals();
 });
@@ -90,19 +103,6 @@ describe('writeStoredPreference', () => {
 });
 
 describe('applyThemeClass', () => {
-	const createDocumentMock = () => {
-		const classes = new Set<string>();
-		return {
-			documentElement: {
-				classList: {
-					add: (value: string) => classes.add(value),
-					remove: (value: string) => classes.delete(value),
-				},
-			},
-			classes,
-		};
-	};
-
 	it('does nothing when document is unavailable', () => {
 		vi.stubGlobal('document', undefined);
 		expect(() => applyThemeClass('dark')).not.toThrow();
@@ -133,5 +133,19 @@ describe('buildColorModeInitScript', () => {
 		expect(script).toContain('resolveTheme');
 		expect(script).toContain('readStoredPreference');
 		expect(script).toContain('applyThemeClass');
+	});
+
+	it('produces a script that runs correctly against a mocked DOM', () => {
+		vi.stubGlobal('matchMedia', undefined);
+		vi.stubGlobal('window', {});
+		vi.stubGlobal('localStorage', createLocalStorageMock());
+		const documentMock = createDocumentMock();
+		vi.stubGlobal('document', documentMock);
+
+		localStorage.setItem('theme', 'dark');
+		new Function(buildColorModeInitScript())();
+
+		expect(documentMock.classes.has('dark')).toBe(true);
+		expect(documentMock.classes.has('light')).toBe(false);
 	});
 });
