@@ -1,4 +1,4 @@
-import { computed, onUnmounted, ref } from 'vue';
+import { computed, onScopeDispose, ref } from 'vue';
 import { getController } from '@bruneckel/theme-transitions-core';
 import type {
 	ThemeMode,
@@ -14,7 +14,7 @@ export const useThemeTransition = (options?: ThemeTransitionModuleOptions) => {
 		state.value = controller.getState();
 	});
 
-	onUnmounted(unsubscribe);
+	onScopeDispose(unsubscribe, true);
 
 	return {
 		theme: computed(() => state.value.theme),
