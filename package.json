@@ -9,9 +9,11 @@
 	],
 	"scripts": {
 		"build": "npm run build --workspaces",
+		"pretest": "npm run build --workspace=packages/core",
 		"test": "vitest run",
 		"lint": "eslint .",
-		"typecheck": "npm run typecheck --workspaces"
+		"pretypecheck": "npm run build --workspace=packages/core",
+		"typecheck": "npm run typecheck --workspaces --if-present"
 	},
 	"devDependencies": {
 		"@stylistic/eslint-plugin": "^5.10.0",
