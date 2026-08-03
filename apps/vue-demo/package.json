@@ -5,8 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
-		"build": "vite build",
-		"typecheck": "exit 0"
+		"build": "vite build"
 	},
 	"dependencies": {
 		"@bruneckel/theme-transitions-core": "*",
