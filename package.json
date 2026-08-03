@@ -13,7 +13,8 @@
 		"test": "vitest run",
 		"lint": "eslint .",
 		"pretypecheck": "npm run build --workspace=packages/core",
-		"typecheck": "npm run typecheck --workspaces --if-present"
+		"typecheck": "npm run typecheck --workspaces --if-present",
+		"dev:vue-demo": "npm run dev --workspace=apps/vue-demo"
 	},
 	"devDependencies": {
 		"@stylistic/eslint-plugin": "^5.10.0",
