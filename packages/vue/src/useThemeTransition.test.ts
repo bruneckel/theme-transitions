@@ -28,8 +28,10 @@ const controllerMock = vi.hoisted(() => {
 	};
 });
 
+const getControllerMock = vi.hoisted(() => vi.fn(() => controllerMock));
+
 vi.mock('@bruneckel/theme-transitions-core', () => ({
-	getController: vi.fn(() => controllerMock),
+	getController: getControllerMock,
 }));
 
 import { useThemeTransition } from './useThemeTransition';
@@ -95,5 +97,12 @@ describe('useThemeTransition', () => {
 		await result.setTheme('dark', options);
 
 		expect(controllerMock.setTheme).toHaveBeenCalledWith('dark', options);
+	});
+
+	it('passes options through to getController', () => {
+		const options = { variant: 'spread' as const };
+		withSetup(() => useThemeTransition(options));
+
+		expect(getControllerMock).toHaveBeenCalledWith(options);
 	});
 });
