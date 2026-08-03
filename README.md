@@ -13,22 +13,20 @@ A framework-agnostic core with a thin adapter per framework. Vue is available to
 
 ## Packages
 
-| Package | Description |
-| --- | --- |
+| Package                                              | Description                                                                                                 |
+| ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
 | [`@bruneckel/theme-transitions-core`](packages/core) | Framework-agnostic core: theme detection/persistence, View Transition orchestration, effect CSS generation. |
-| [`@bruneckel/vue-theme-transitions`](packages/vue) | Vue 3 composable and Vite plugin built on the core. |
-
-Each package has its own README with install and usage instructions.
+| [`@bruneckel/vue-theme-transitions`](packages/vue)   | Vue 3 composable and Vite plugin built on the core.                                                         |
 
 ## Development
 
-| Command | Description |
-| --- | --- |
-| `npm install` | Install dependencies |
-| `npm test` | Run the test suite |
-| `npm run lint` | Lint all packages |
-| `npm run typecheck` | Type-check all packages |
-| `npm run build` | Build all packages |
+| Command                | Description                             |
+| ---------------------- | --------------------------------------- |
+| `npm install`          | Install dependencies                    |
+| `npm test`             | Run the test suite                      |
+| `npm run lint`         | Lint all packages                       |
+| `npm run typecheck`    | Type-check all packages                 |
+| `npm run build`        | Build all packages                      |
 | `npm run dev:vue-demo` | Start the [Vue demo app](apps/vue-demo) |
 
 ## License
