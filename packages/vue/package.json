@@ -1,0 +1,64 @@
+{
+	"name": "@bruneckel/vue-theme-transitions",
+	"version": "0.1.0",
+	"description": "Vue 3 composable and Vite plugin for animated dark/light theme transitions using the View Transitions API",
+	"author": "Bruno Neckel",
+	"license": "MIT",
+	"type": "module",
+	"main": "./dist/index.mjs",
+	"types": "./dist/index.d.mts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.mts",
+			"import": "./dist/index.mjs"
+		},
+		"./vite": {
+			"types": "./dist/vite-plugin.d.mts",
+			"import": "./dist/vite-plugin.mjs"
+		},
+		"./style.css": "./dist/style.css"
+	},
+	"files": [
+		"dist"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bruneckel/theme-transitions.git",
+		"directory": "packages/vue"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"peerDependencies": {
+		"vue": "^3.5.0",
+		"vite": "^8.0.0"
+	},
+	"peerDependenciesMeta": {
+		"vite": {
+			"optional": true
+		}
+	},
+	"dependencies": {
+		"@bruneckel/theme-transitions-core": "*"
+	},
+	"devDependencies": {
+		"@vue/test-utils": "^2.4.11",
+		"happy-dom": "^20.11.1",
+		"vite": "^8.2.0",
+		"vue": "^3.5.40"
+	},
+	"scripts": {
+		"build": "unbuild && node scripts/build-css.mjs",
+		"typecheck": "tsc --noEmit"
+	},
+	"keywords": [
+		"vue",
+		"theme",
+		"dark-mode",
+		"view-transitions",
+		"spread",
+		"fade",
+		"transition",
+		"animation"
+	]
+}
