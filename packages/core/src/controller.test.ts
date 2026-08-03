@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const state = vi.hoisted(() => ({
 	stored: 'light' as 'light' | 'dark' | 'system',
@@ -44,6 +44,10 @@ beforeEach(() => {
 	state.stored = 'light';
 	state.system = 'light';
 	vi.clearAllMocks();
+});
+
+afterEach(() => {
+	vi.unstubAllGlobals();
 });
 
 describe('createController', () => {
@@ -136,6 +140,51 @@ describe('createController', () => {
 	it('throws when a variant requiring an origin is used without one', async () => {
 		const controller = createController({ variant: 'spread' });
 		await expect(controller.toggleTheme()).rejects.toThrow('requires an origin point');
+	});
+});
+
+describe('system preference sync', () => {
+	const createMatchMediaMock = () => {
+		let listener: (() => void) | undefined;
+		return {
+			addEventListener: (_event: string, handler: () => void) => {
+				listener = handler;
+			},
+			fireChange: () => listener?.(),
+		};
+	};
+
+	it('updates theme on a system preference change while stored preference is "system"', () => {
+		const media = createMatchMediaMock();
+		vi.stubGlobal('matchMedia', () => media);
+		state.stored = 'system';
+		state.system = 'light';
+
+		const controller = createController();
+		state.system = 'dark';
+		media.fireChange();
+
+		expect(controller.getState().theme).toBe('dark');
+		expect(mocks.applyThemeClass).toHaveBeenCalledWith('dark');
+	});
+
+	it('ignores a system preference change when the stored preference is explicit', () => {
+		const media = createMatchMediaMock();
+		vi.stubGlobal('matchMedia', () => media);
+		state.stored = 'light';
+		state.system = 'light';
+
+		const controller = createController();
+		state.system = 'dark';
+		media.fireChange();
+
+		expect(controller.getState().theme).toBe('light');
+		expect(mocks.applyThemeClass).not.toHaveBeenCalled();
+	});
+
+	it('does not throw when matchMedia is unavailable', () => {
+		vi.stubGlobal('matchMedia', undefined);
+		expect(() => createController()).not.toThrow();
 	});
 });
 

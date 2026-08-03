@@ -47,6 +47,19 @@ export const createController = (
 		notify();
 	};
 
+	if (typeof matchMedia !== 'undefined') {
+		const media = matchMedia('(prefers-color-scheme: dark)');
+		media.addEventListener('change', () => {
+			if (readStoredPreference() !== 'system') {
+				return;
+			}
+
+			const resolved = resolveTheme('system');
+			applyThemeClass(resolved);
+			setState({ theme: resolved });
+		});
+	}
+
 	const applyTheme = async (
 		nextMode: ThemeMode,
 		callOptions: ThemeTransitionOptions = {},
