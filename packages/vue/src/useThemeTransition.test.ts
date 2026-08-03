@@ -32,6 +32,10 @@ const getControllerMock = vi.hoisted(() => vi.fn(() => controllerMock));
 
 vi.mock('@bruneckel/theme-transitions-core', () => ({
 	getController: getControllerMock,
+	originFromEvent: (event: MouseEvent) => ({
+		x: event.clientX,
+		y: event.clientY,
+	}),
 }));
 
 import { useThemeTransition } from './useThemeTransition';
@@ -97,6 +101,28 @@ describe('useThemeTransition', () => {
 		await result.setTheme('dark', options);
 
 		expect(controllerMock.setTheme).toHaveBeenCalledWith('dark', options);
+	});
+
+	it('converts a MouseEvent argument to an origin when calling toggleTheme', async () => {
+		const { result } = withSetup(() => useThemeTransition());
+		const event = new MouseEvent('click', { clientX: 10, clientY: 20 });
+
+		await result.toggleTheme(event);
+
+		expect(controllerMock.toggleTheme).toHaveBeenCalledWith({
+			origin: { x: 10, y: 20 },
+		});
+	});
+
+	it('converts a MouseEvent argument to an origin when calling setTheme', async () => {
+		const { result } = withSetup(() => useThemeTransition());
+		const event = new MouseEvent('click', { clientX: 30, clientY: 40 });
+
+		await result.setTheme('dark', event);
+
+		expect(controllerMock.setTheme).toHaveBeenCalledWith('dark', {
+			origin: { x: 30, y: 40 },
+		});
 	});
 
 	it('passes options through to getController', () => {

@@ -1,10 +1,23 @@
 import { computed, onScopeDispose, ref } from 'vue';
-import { getController } from '@bruneckel/theme-transitions-core';
+import {
+	getController,
+	originFromEvent,
+} from '@bruneckel/theme-transitions-core';
 import type {
 	ThemeMode,
 	ThemeTransitionModuleOptions,
 	ThemeTransitionOptions,
 } from '@bruneckel/theme-transitions-core';
+
+const toOptions = (
+	eventOrOptions?: MouseEvent | ThemeTransitionOptions,
+): ThemeTransitionOptions => {
+	if (eventOrOptions instanceof MouseEvent) {
+		return { origin: originFromEvent(eventOrOptions) };
+	}
+
+	return eventOrOptions ?? {};
+};
 
 export const useThemeTransition = (options?: ThemeTransitionModuleOptions) => {
 	const controller = getController(options);
@@ -19,7 +32,11 @@ export const useThemeTransition = (options?: ThemeTransitionModuleOptions) => {
 	return {
 		theme: computed(() => state.value.theme),
 		isAnimating: computed(() => state.value.isAnimating),
-		toggleTheme: (opts?: ThemeTransitionOptions) => controller.toggleTheme(opts),
-		setTheme: (mode: ThemeMode, opts?: ThemeTransitionOptions) => controller.setTheme(mode, opts),
+		toggleTheme: (eventOrOptions?: MouseEvent | ThemeTransitionOptions) =>
+			controller.toggleTheme(toOptions(eventOrOptions)),
+		setTheme: (
+			mode: ThemeMode,
+			eventOrOptions?: MouseEvent | ThemeTransitionOptions,
+		) => controller.setTheme(mode, toOptions(eventOrOptions)),
 	};
 };

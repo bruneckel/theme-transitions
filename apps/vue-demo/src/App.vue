@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useThemeTransition } from "@bruneckel/vue-theme-transitions";
-import { originFromEvent } from "@bruneckel/theme-transitions-core";
 
 const { theme, isAnimating, toggleTheme } = useThemeTransition({
   variant: "spread",
@@ -8,10 +7,7 @@ const { theme, isAnimating, toggleTheme } = useThemeTransition({
 </script>
 
 <template>
-  <button
-    :disabled="isAnimating"
-    @click="toggleTheme({ origin: originFromEvent($event) })"
-  >
+  <button :disabled="isAnimating" @click="toggleTheme">
     {{ theme }}
   </button>
 </template>
