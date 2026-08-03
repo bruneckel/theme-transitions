@@ -13,10 +13,10 @@ A framework-agnostic core with a thin adapter per framework. Vue is available to
 
 ## Packages
 
-| Package                                              | Description                                                                                                 |
-| ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| [`@bruneckel/theme-transitions-core`](packages/core) | Framework-agnostic core: theme detection/persistence, View Transition orchestration, effect CSS generation. |
-| [`@bruneckel/vue-theme-transitions`](packages/vue)   | Vue 3 composable and Vite plugin built on the core.                                                         |
+| Package | npm | Description |
+| --- | --- | --- |
+| [`@bruneckel/theme-transitions-core`](packages/core) | [![npm](https://img.shields.io/npm/v/@bruneckel/theme-transitions-core.svg)](https://www.npmjs.com/package/@bruneckel/theme-transitions-core) | Framework-agnostic core: theme detection/persistence, View Transition orchestration, effect CSS generation. |
+| [`@bruneckel/vue-theme-transitions`](packages/vue) | [![npm](https://img.shields.io/npm/v/@bruneckel/vue-theme-transitions.svg)](https://www.npmjs.com/package/@bruneckel/vue-theme-transitions) | Vue 3 composable and Vite plugin built on the core. |
 
 ## Development
 

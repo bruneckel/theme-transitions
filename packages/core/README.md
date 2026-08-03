@@ -1,5 +1,7 @@
 # @bruneckel/theme-transitions-core
 
+[![npm version](https://img.shields.io/npm/v/@bruneckel/theme-transitions-core.svg)](https://www.npmjs.com/package/@bruneckel/theme-transitions-core)
+
 Framework-agnostic core for animated dark/light theme transitions using the View Transitions API.
 
 ## Install

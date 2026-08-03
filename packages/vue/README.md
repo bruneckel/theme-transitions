@@ -1,5 +1,7 @@
 # @bruneckel/vue-theme-transitions
 
+[![npm version](https://img.shields.io/npm/v/@bruneckel/vue-theme-transitions.svg)](https://www.npmjs.com/package/@bruneckel/vue-theme-transitions)
+
 Vue 3 composable and Vite plugin for animated dark/light theme transitions using the View Transitions API.
 
 ## Install
