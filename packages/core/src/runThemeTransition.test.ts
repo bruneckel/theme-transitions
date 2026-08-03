@@ -109,4 +109,75 @@ describe('runThemeTransition', () => {
 		expect(skipTransition).toHaveBeenCalledTimes(1);
 		expect(callback).toHaveBeenCalledTimes(1);
 	});
+
+	it('runs the callback directly when the View Transitions API is unavailable, without reduced motion', async () => {
+		const root = { dataset: {} as { themeEffect?: string }, style: { setProperty: vi.fn(), removeProperty: vi.fn() } };
+		vi.stubGlobal('document', {
+			documentElement: root,
+			startViewTransition: undefined,
+		});
+		vi.stubGlobal('window', {
+			matchMedia: () => ({ matches: false }),
+		});
+
+		const callback = vi.fn();
+		const setAnimating = vi.fn();
+
+		await runThemeTransition(
+			createDefinition(),
+			null,
+			{ duration: '1s', easing: 'linear' } as never,
+			callback,
+			setAnimating,
+		);
+
+		expect(callback).toHaveBeenCalledTimes(1);
+		expect(setAnimating).toHaveBeenNthCalledWith(1, true);
+		expect(setAnimating).toHaveBeenNthCalledWith(2, false);
+	});
+
+	it('clears the pending skip timer once the transition finishes', async () => {
+		vi.useFakeTimers();
+		const clearTimeoutSpy = vi.spyOn(globalThis, 'clearTimeout');
+
+		const root = {
+			dataset: {} as { themeEffect?: string },
+			style: { setProperty: vi.fn(), removeProperty: vi.fn() },
+		};
+
+		let finishedResolve: () => void = () => {};
+		const finished = new Promise<void>((resolve) => {
+			finishedResolve = resolve;
+		});
+		const skipTransition = vi.fn(() => finishedResolve());
+		const startViewTransition = vi.fn((update: () => Promise<void>) => {
+			update();
+			return { ready: Promise.resolve(), finished, skipTransition };
+		});
+
+		vi.stubGlobal('document', {
+			documentElement: root,
+			startViewTransition,
+		});
+		vi.stubGlobal('window', {
+			matchMedia: () => ({ matches: false }),
+		});
+
+		const callback = vi.fn();
+		const setAnimating = vi.fn();
+		const definition = createDefinition(() => 500);
+
+		const promise = runThemeTransition(
+			definition,
+			null,
+			{ duration: '1s', easing: 'linear' } as never,
+			callback,
+			setAnimating,
+		);
+
+		await vi.advanceTimersByTimeAsync(500);
+		await promise;
+
+		expect(clearTimeoutSpy).toHaveBeenCalledWith(expect.anything());
+	});
 });
