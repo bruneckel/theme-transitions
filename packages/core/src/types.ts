@@ -7,12 +7,15 @@ export type ThemeOrigin = {
 
 export type ThemeMode = 'light' | 'dark' | 'system';
 
-export interface TransitionOptions {
-	origin?: ThemeOrigin | null;
+interface EffectOverrides {
 	variant?: ThemeEffect;
 	duration?: string;
 	easing?: string;
 	radius?: string;
+}
+
+export interface TransitionOptions extends EffectOverrides {
+	origin?: ThemeOrigin | null;
 }
 
 export interface SpreadEffectOptions {
@@ -43,9 +46,4 @@ export interface EffectDefinition {
 	getSkipAfterMs: (options: EffectOptions, origin: ThemeOrigin | null) => number;
 }
 
-export type ThemeOptions = {
-	variant?: ThemeEffect;
-	duration?: string;
-	easing?: string;
-	radius?: string;
-};
+export type ThemeOptions = EffectOverrides;
