@@ -21,6 +21,8 @@ export {
 
 export { originFromElement, originFromEvent } from './origin';
 
+export { resolveOptions } from './options';
+
 export { estimateSpreadSkipMs, parseCssDuration } from './time';
 
 export {
