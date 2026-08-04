@@ -17,53 +17,22 @@ const valid = defineModel<boolean>("valid", { required: true });
 
 const isOpen = ref(false);
 
-const easingPresets = [
-  "ease",
-  "ease-in",
-  "ease-out",
-  "ease-in-out",
-  "linear",
-  defaultThemeEffects.spread.easing,
-];
-
-const radiusUnits = ["vmax", "vw", "vh", "px", "%"];
-
-const parseRadius = (value: string) => {
-  const match = value.match(/^(\d+(?:\.\d+)?)(.*)$/);
-  return match
-    ? { value: Number(match[1]), unit: match[2] }
-    : { value: 150, unit: "vmax" };
-};
-
-const defaultRadius = parseRadius(defaultThemeEffects.spread.radius);
+const easingPresets = ["ease", "ease-in", "ease-out", "ease-in-out", "linear"];
 
 const variant = ref<ThemeEffect>(options.value.variant);
 const duration = ref(options.value.duration);
-const easingPreset = ref(defaultThemeEffects.spread.easing);
-const customEasing = ref("");
-const radiusValue = ref(defaultRadius.value);
-const radiusUnit = ref(defaultRadius.unit);
+const easingPreset = ref(defaultThemeEffects.fade.easing);
 
 const easing = computed(() =>
-  easingPreset.value === "custom" ? customEasing.value : easingPreset.value,
+  variant.value === "fade" ? easingPreset.value : defaultThemeEffects.spread.easing,
 );
-const radius = computed(() => `${radiusValue.value}${radiusUnit.value}`);
+const radius = defaultThemeEffects.spread.radius;
 
 const durationError = computed(() => {
   if (variant.value === "none") return "";
   return /^\d+(\.\d+)?(ms|s)$/.test(duration.value)
     ? ""
     : "Use a CSS duration, e.g. 1s or 400ms";
-});
-
-const easingError = computed(() => {
-  if (variant.value === "none" || easingPreset.value !== "custom") return "";
-  return customEasing.value.trim() ? "" : "Easing can't be empty";
-});
-
-const radiusError = computed(() => {
-  if (variant.value !== "spread") return "";
-  return radiusValue.value > 0 ? "" : "Radius must be greater than 0";
 });
 
 const isModified = computed(() => {
@@ -74,17 +43,9 @@ const isModified = computed(() => {
       ? defaultThemeEffects.fade
       : defaultThemeEffects.spread;
 
-  if (
-    duration.value !== defaults.duration ||
-    easing.value !== defaults.easing
-  ) {
-    return true;
-  }
+  if (duration.value !== defaults.duration) return true;
 
-  return (
-    variant.value === "spread" &&
-    radius.value !== defaultThemeEffects.spread.radius
-  );
+  return variant.value === "fade" && easingPreset.value !== defaults.easing;
 });
 
 const resetToDefaults = () => {
@@ -94,33 +55,28 @@ const resetToDefaults = () => {
       : defaultThemeEffects.spread;
 
   duration.value = defaults.duration;
-  easingPreset.value = easingPresets.includes(defaults.easing)
-    ? defaults.easing
-    : "custom";
-  customEasing.value = easingPreset.value === "custom" ? defaults.easing : "";
-  radiusValue.value = defaultRadius.value;
-  radiusUnit.value = defaultRadius.unit;
+  easingPreset.value = defaultThemeEffects.fade.easing;
 };
 
 watch(variant, resetToDefaults);
 
 watch(
-  [variant, duration, easing, radius],
+  [variant, duration, easing],
   () => {
     options.value = {
       variant: variant.value,
       duration: duration.value,
       easing: easing.value,
-      radius: radius.value,
+      radius,
     };
   },
   { immediate: true },
 );
 
 watch(
-  [durationError, easingError, radiusError],
-  ([durationErr, easingErr, radiusErr]) => {
-    valid.value = !durationErr && !easingErr && !radiusErr;
+  durationError,
+  (durationErr) => {
+    valid.value = !durationErr;
   },
   { immediate: true },
 );
@@ -186,7 +142,7 @@ watch(
               }}</span>
             </label>
 
-            <label>
+            <label v-if="variant === 'fade'">
               <span class="label-text">Easing</span>
               <select v-model="easingPreset">
                 <option
@@ -196,34 +152,7 @@ watch(
                 >
                   {{ preset }}
                 </option>
-                <option value="custom">custom</option>
               </select>
-              <input
-                v-if="easingPreset === 'custom'"
-                v-model="customEasing"
-                type="text"
-                placeholder="cubic-bezier(...)"
-                :class="{ invalid: easingError }"
-              />
-              <span v-if="easingError" class="error">{{ easingError }}</span>
-            </label>
-
-            <label v-if="variant === 'spread'">
-              <span class="label-text">Radius</span>
-              <span class="radius-fields">
-                <input
-                  v-model.number="radiusValue"
-                  type="number"
-                  min="0"
-                  :class="{ invalid: radiusError }"
-                />
-                <select v-model="radiusUnit">
-                  <option v-for="unit in radiusUnits" :key="unit" :value="unit">
-                    {{ unit }}
-                  </option>
-                </select>
-              </span>
-              <span v-if="radiusError" class="error">{{ radiusError }}</span>
             </label>
           </template>
         </div>
@@ -324,16 +253,6 @@ select:focus-visible {
 
 input.invalid {
   border-color: var(--danger);
-}
-
-.radius-fields {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.radius-fields input {
-  width: 100%;
-  min-width: 0;
 }
 
 .error {
