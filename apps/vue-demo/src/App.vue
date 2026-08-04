@@ -3,9 +3,8 @@ import { ref } from "vue";
 import { useThemeTransition } from "@bruneckel/vue-theme-transitions";
 import { originFromEvent } from "@bruneckel/theme-transitions-core";
 import type { ThemeMode } from "@bruneckel/theme-transitions-core";
-import EffectSettings from "./components/EffectSettings.vue";
+import EffectSettings, { type EffectOptions } from "./components/EffectSettings.vue";
 import ThemeModeSwitch from "./components/ThemeModeSwitch.vue";
-import type { EffectOptions } from "./components/EffectSettings.vue";
 
 const { theme, mode, isAnimating, setTheme } = useThemeTransition({
   variant: "spread",
