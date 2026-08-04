@@ -1,6 +1,6 @@
 {
 	"name": "@bruneckel/theme-transitions-core",
-	"version": "0.1.2",
+	"version": "0.2.0",
 	"description": "Framework-agnostic core for animated dark/light theme transitions using the View Transitions API",
 	"author": "Bruno Neckel",
 	"license": "MIT",
@@ -12,7 +12,12 @@
 		".": {
 			"types": "./dist/index.d.mts",
 			"import": "./dist/index.mjs"
-		}
+		},
+		"./vite": {
+			"types": "./dist/vite-plugin.d.mts",
+			"import": "./dist/vite-plugin.mjs"
+		},
+		"./style.css": "./dist/style.css"
 	},
 	"files": [
 		"dist"
@@ -25,8 +30,19 @@
 	"publishConfig": {
 		"access": "public"
 	},
+	"peerDependencies": {
+		"vite": "^8.0.0"
+	},
+	"peerDependenciesMeta": {
+		"vite": {
+			"optional": true
+		}
+	},
+	"devDependencies": {
+		"vite": "^8.2.0"
+	},
 	"scripts": {
-		"build": "unbuild",
+		"build": "unbuild && node scripts/build-css.mjs",
 		"prepublishOnly": "npm run build",
 		"typecheck": "tsc --noEmit"
 	},
