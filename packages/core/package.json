@@ -32,8 +32,13 @@
 	},
 	"keywords": [
 		"theme",
+		"theme-toggle",
+		"theme-switcher",
 		"dark-mode",
+		"dark-theme",
+		"framework-agnostic",
 		"view-transitions",
+		"view-transitions-api",
 		"spread",
 		"fade",
 		"transition",
