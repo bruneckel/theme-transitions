@@ -20,14 +20,23 @@ A framework-agnostic core with a thin adapter per framework. Vue is available to
 
 ## Development
 
-| Command                | Description                             |
-| ---------------------- | --------------------------------------- |
-| `npm install`          | Install dependencies                    |
-| `npm test`             | Run the test suite                      |
-| `npm run lint`         | Lint all packages                       |
-| `npm run typecheck`    | Type-check all packages                 |
-| `npm run build`        | Build all packages                      |
-| `npm run dev:vue-demo` | Start the [Vue demo app](apps/vue-demo) |
+Run every command from the repo root, `apps/vue-demo` isn't a standalone project.
+
+Try the demo:
+
+```
+npm install
+npm run dev:vue-demo
+```
+
+Everything else:
+
+| Command | Description |
+| --- | --- |
+| `npm test` | Run the test suite |
+| `npm run lint` | Lint all packages |
+| `npm run typecheck` | Type-check all packages |
+| `npm run build` | Build all packages |
 
 ## License
 
