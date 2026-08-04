@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import "@bruneckel/vue-theme-transitions/style.css";
+import "@bruneckel/theme-transitions-core/style.css";
 
 import "./assets/main.css";
 import App from "./App.vue";

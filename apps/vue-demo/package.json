@@ -8,8 +8,8 @@
 		"build": "vite build"
 	},
 	"dependencies": {
-		"@bruneckel/theme-transitions-core": "^0.1.0",
-		"@bruneckel/vue-theme-transitions": "^0.1.1",
+		"@bruneckel/theme-transitions-core": "^0.2.0",
+		"@bruneckel/vue-theme-transitions": "^0.2.0",
 		"vue": "^3.5.40"
 	},
 	"devDependencies": {
