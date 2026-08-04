@@ -36,9 +36,9 @@ Binding `toggleTheme` directly to `@click` works because it accepts the native `
 | Option | Type | Default | Notes |
 | --- | --- | --- | --- |
 | `variant` | `'spread' \| 'fade'` | `'fade'` | Which effect plays on toggle. |
-| `duration` | `string` | `'400ms'` (fade) or `'1s'` (spread) | CSS animation duration. See the stylesheet limitation below. |
-| `easing` | `string` | `'ease'` (fade) or `'cubic-bezier(0.4, 0, 0.2, 1)'` (spread) | CSS animation easing. Same limitation as `duration`. |
-| `radius` | `string` | `'150vmax'` | Final `clip-path` radius, `spread` only. Same limitation as `duration`. |
+| `duration` | `string` | `'400ms'` (fade) or `'1s'` (spread) | CSS animation duration. |
+| `easing` | `string` | `'ease'` (fade) or `'cubic-bezier(0.4, 0, 0.2, 1)'` (spread) | CSS animation easing. |
+| `radius` | `string` | `'150vmax'` | Final `clip-path` radius, `spread` only. |
 
 `toggleTheme` and `setTheme(mode, ...)` both accept either a `MouseEvent` (as shown above) or an explicit `{ origin, variant }` object, overriding the composable's own options for that one call only. `setTheme('dark', event)` works the same way `toggleTheme(event)` does.
 
