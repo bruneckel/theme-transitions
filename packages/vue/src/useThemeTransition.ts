@@ -5,13 +5,13 @@ import {
 } from '@bruneckel/theme-transitions-core';
 import type {
 	ThemeMode,
-	ThemeTransitionModuleOptions,
-	ThemeTransitionOptions,
+	ThemeOptions,
+	TransitionOptions,
 } from '@bruneckel/theme-transitions-core';
 
 const toOptions = (
-	eventOrOptions?: MouseEvent | ThemeTransitionOptions,
-): ThemeTransitionOptions => {
+	eventOrOptions?: MouseEvent | TransitionOptions,
+): TransitionOptions => {
 	if (eventOrOptions instanceof MouseEvent) {
 		return { origin: originFromEvent(eventOrOptions) };
 	}
@@ -19,7 +19,7 @@ const toOptions = (
 	return eventOrOptions ?? {};
 };
 
-export const useThemeTransition = (options?: ThemeTransitionModuleOptions) => {
+export const useThemeTransition = (options?: ThemeOptions) => {
 	const controller = getController(options);
 	const state = ref(controller.getState());
 
@@ -33,11 +33,11 @@ export const useThemeTransition = (options?: ThemeTransitionModuleOptions) => {
 		theme: computed(() => state.value.theme),
 		mode: computed(() => state.value.mode),
 		isAnimating: computed(() => state.value.isAnimating),
-		toggleTheme: (eventOrOptions?: MouseEvent | ThemeTransitionOptions) =>
+		toggleTheme: (eventOrOptions?: MouseEvent | TransitionOptions) =>
 			controller.toggleTheme(toOptions(eventOrOptions)),
 		setTheme: (
 			mode: ThemeMode,
-			eventOrOptions?: MouseEvent | ThemeTransitionOptions,
+			eventOrOptions?: MouseEvent | TransitionOptions,
 		) => controller.setTheme(mode, toOptions(eventOrOptions)),
 	};
 };

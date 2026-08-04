@@ -1,8 +1,8 @@
 import type {
 	EffectDefinition,
 	ThemeEffect,
-	ThemeTransitionEffects,
-	ThemeTransitionModuleOptions,
+	ThemeEffects,
+	ThemeOptions,
 } from '../types';
 import { defaultFadeOptions, fadeEffect } from './fade';
 import { defaultNoneOptions, noneEffect } from './none';
@@ -14,13 +14,13 @@ export type {
 	NoneEffectOptions,
 	SpreadEffectOptions,
 	ThemeEffect,
-	ThemeTransitionEffects,
-	ThemeTransitionModuleOptions,
+	ThemeEffects,
+	ThemeOptions,
 } from '../types';
 
 export const themeEffects: EffectDefinition[] = [spreadEffect, fadeEffect, noneEffect];
 
-export const defaultThemeTransitionEffects: ThemeTransitionEffects = {
+export const defaultThemeEffects: ThemeEffects = {
 	spread: defaultSpreadOptions,
 	fade: defaultFadeOptions,
 	none: defaultNoneOptions,
@@ -37,7 +37,7 @@ export const getEffectOrThrow = (name: ThemeEffect): EffectDefinition => {
 };
 
 const pickOverrides = (
-	options: ThemeTransitionModuleOptions | undefined,
+	options: ThemeOptions | undefined,
 	keys: ('duration' | 'easing' | 'radius')[],
 ): Record<string, string> => {
 	const overrides: Record<string, string> = {};
@@ -52,9 +52,7 @@ const pickOverrides = (
 	return overrides;
 };
 
-export const resolveThemeTransitionEffects = (
-	options?: ThemeTransitionModuleOptions,
-): ThemeTransitionEffects => {
+export const resolveThemeEffects = (options?: ThemeOptions): ThemeEffects => {
 	const variant = options?.variant ?? 'fade';
 
 	return {
@@ -74,7 +72,7 @@ const vtLayer = (layer: 'old' | 'new') =>
 	`html[data-theme-effect]::view-transition-${layer}(root)`;
 
 export const buildThemeTransitionCss = (
-	effects: ThemeTransitionEffects = defaultThemeTransitionEffects,
+	effects: ThemeEffects = defaultThemeEffects,
 ): string => {
 	const effectCss = themeEffects
 		.map(effect => effect.buildCss(effects[effect.name]))

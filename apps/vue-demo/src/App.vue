@@ -2,7 +2,7 @@
 import { computed, ref, watch } from "vue";
 import { useThemeTransition } from "@bruneckel/vue-theme-transitions";
 import {
-  defaultThemeTransitionEffects,
+  defaultThemeEffects,
   originFromEvent,
 } from "@bruneckel/theme-transitions-core";
 import type { ThemeEffect, ThemeMode } from "@bruneckel/theme-transitions-core";
@@ -23,7 +23,7 @@ const easingPresets = [
   "ease-out",
   "ease-in-out",
   "linear",
-  defaultThemeTransitionEffects.spread.easing,
+  defaultThemeEffects.spread.easing,
 ];
 
 const radiusUnits = ["vmax", "vw", "vh", "px", "%"];
@@ -33,11 +33,11 @@ const parseRadius = (value: string) => {
   return match ? { value: Number(match[1]), unit: match[2] } : { value: 150, unit: "vmax" };
 };
 
-const defaultRadius = parseRadius(defaultThemeTransitionEffects.spread.radius);
+const defaultRadius = parseRadius(defaultThemeEffects.spread.radius);
 
 const variant = ref<ThemeEffect>("spread");
-const duration = ref(defaultThemeTransitionEffects.spread.duration);
-const easingPreset = ref(defaultThemeTransitionEffects.spread.easing);
+const duration = ref(defaultThemeEffects.spread.duration);
+const easingPreset = ref(defaultThemeEffects.spread.easing);
 const customEasing = ref("");
 const radiusValue = ref(defaultRadius.value);
 const radiusUnit = ref(defaultRadius.unit);
@@ -71,8 +71,8 @@ const isValid = computed(
 const resetToDefaults = () => {
   const defaults =
     variant.value === "fade"
-      ? defaultThemeTransitionEffects.fade
-      : defaultThemeTransitionEffects.spread;
+      ? defaultThemeEffects.fade
+      : defaultThemeEffects.spread;
 
   duration.value = defaults.duration;
   easingPreset.value = easingPresets.includes(defaults.easing)

@@ -7,7 +7,7 @@ export type ThemeOrigin = {
 
 export type ThemeMode = 'light' | 'dark' | 'system';
 
-export interface ThemeTransitionOptions {
+export interface TransitionOptions {
 	origin?: ThemeOrigin | null;
 	variant?: ThemeEffect;
 	duration?: string;
@@ -30,7 +30,7 @@ export type NoneEffectOptions = Record<string, never>;
 
 export type EffectOptions = SpreadEffectOptions | FadeEffectOptions | NoneEffectOptions;
 
-export interface ThemeTransitionEffects {
+export interface ThemeEffects {
 	spread: SpreadEffectOptions;
 	fade: FadeEffectOptions;
 	none: NoneEffectOptions;
@@ -43,7 +43,7 @@ export interface EffectDefinition {
 	getSkipAfterMs: (options: EffectOptions, origin: ThemeOrigin | null) => number;
 }
 
-export type ThemeTransitionModuleOptions = {
+export type ThemeOptions = {
 	variant?: ThemeEffect;
 	duration?: string;
 	easing?: string;

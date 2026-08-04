@@ -3,11 +3,11 @@ export type {
 	FadeEffectOptions,
 	SpreadEffectOptions,
 	ThemeEffect,
+	ThemeEffects,
 	ThemeMode,
+	ThemeOptions,
 	ThemeOrigin,
-	ThemeTransitionEffects,
-	ThemeTransitionModuleOptions,
-	ThemeTransitionOptions,
+	TransitionOptions,
 } from './types';
 
 export {
@@ -25,13 +25,13 @@ export { estimateSpreadSkipMs, parseCssDuration } from './time';
 
 export {
 	buildThemeTransitionCss,
-	defaultThemeTransitionEffects,
+	defaultThemeEffects,
 	getEffectOrThrow,
-	resolveThemeTransitionEffects,
+	resolveThemeEffects,
 	themeEffects,
 } from './effects';
 
 export { runThemeTransition } from './runThemeTransition';
 
 export { createController, getController } from './controller';
-export type { ThemeTransitionController, ThemeTransitionState } from './controller';
+export type { ThemeController, ThemeState } from './controller';

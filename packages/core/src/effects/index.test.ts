@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import {
 	buildThemeTransitionCss,
-	defaultThemeTransitionEffects,
+	defaultThemeEffects,
 	getEffectOrThrow,
-	resolveThemeTransitionEffects,
+	resolveThemeEffects,
 } from './index';
 
 describe('getEffectOrThrow', () => {
@@ -18,30 +18,30 @@ describe('getEffectOrThrow', () => {
 	});
 });
 
-describe('resolveThemeTransitionEffects', () => {
+describe('resolveThemeEffects', () => {
 	it('returns the defaults when no options are given', () => {
-		expect(resolveThemeTransitionEffects()).toEqual(defaultThemeTransitionEffects);
+		expect(resolveThemeEffects()).toEqual(defaultThemeEffects);
 	});
 
 	it('merges duration/easing overrides for the selected fade variant', () => {
-		const result = resolveThemeTransitionEffects({ variant: 'fade', duration: '2s', easing: 'linear' });
+		const result = resolveThemeEffects({ variant: 'fade', duration: '2s', easing: 'linear' });
 		expect(result.fade).toEqual({ duration: '2s', easing: 'linear' });
-		expect(result.spread).toEqual(defaultThemeTransitionEffects.spread);
+		expect(result.spread).toEqual(defaultThemeEffects.spread);
 	});
 
 	it('merges duration/easing/radius overrides for the selected spread variant', () => {
-		const result = resolveThemeTransitionEffects({ variant: 'spread', duration: '2s', easing: 'linear', radius: '100vmax' });
+		const result = resolveThemeEffects({ variant: 'spread', duration: '2s', easing: 'linear', radius: '100vmax' });
 		expect(result.spread).toEqual({ duration: '2s', easing: 'linear', radius: '100vmax' });
-		expect(result.fade).toEqual(defaultThemeTransitionEffects.fade);
+		expect(result.fade).toEqual(defaultThemeEffects.fade);
 	});
 
 	it('ignores overrides for the variant that is not selected', () => {
-		const result = resolveThemeTransitionEffects({ variant: 'fade', radius: '999vmax' });
-		expect(result.spread).toEqual(defaultThemeTransitionEffects.spread);
+		const result = resolveThemeEffects({ variant: 'fade', radius: '999vmax' });
+		expect(result.spread).toEqual(defaultThemeEffects.spread);
 	});
 
 	it('returns the none effect options unchanged regardless of the selected variant', () => {
-		expect(resolveThemeTransitionEffects({ variant: 'none' }).none).toEqual(defaultThemeTransitionEffects.none);
+		expect(resolveThemeEffects({ variant: 'none' }).none).toEqual(defaultThemeEffects.none);
 	});
 });
 
