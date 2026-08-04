@@ -4,8 +4,9 @@ import { defineComponent, h } from 'vue';
 
 const controllerMock = vi.hoisted(() => {
 	const listeners = new Set<() => void>();
-	let state: { theme: 'light' | 'dark'; isAnimating: boolean } = {
+	let state: { theme: 'light' | 'dark'; mode: 'light' | 'dark' | 'system'; isAnimating: boolean } = {
 		theme: 'light',
+		mode: 'light',
 		isAnimating: false,
 	};
 
@@ -55,16 +56,17 @@ const withSetup = <T>(setupFn: () => T) => {
 
 beforeEach(() => {
 	controllerMock.clearListeners();
-	controllerMock.setState({ theme: 'light', isAnimating: false });
+	controllerMock.setState({ theme: 'light', mode: 'light', isAnimating: false });
 	vi.clearAllMocks();
 });
 
 describe('useThemeTransition', () => {
 	it('reflects the controller\'s current state on setup', () => {
-		controllerMock.setState({ theme: 'dark', isAnimating: true });
+		controllerMock.setState({ theme: 'dark', mode: 'system', isAnimating: true });
 		const { result } = withSetup(() => useThemeTransition());
 
 		expect(result.theme.value).toBe('dark');
+		expect(result.mode.value).toBe('system');
 		expect(result.isAnimating.value).toBe(true);
 	});
 

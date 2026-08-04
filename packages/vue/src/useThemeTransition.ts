@@ -31,6 +31,7 @@ export const useThemeTransition = (options?: ThemeTransitionModuleOptions) => {
 
 	return {
 		theme: computed(() => state.value.theme),
+		mode: computed(() => state.value.mode),
 		isAnimating: computed(() => state.value.isAnimating),
 		toggleTheme: (eventOrOptions?: MouseEvent | ThemeTransitionOptions) =>
 			controller.toggleTheme(toOptions(eventOrOptions)),
