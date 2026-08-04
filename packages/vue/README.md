@@ -15,7 +15,7 @@ npm install @bruneckel/vue-theme-transitions
 ```vue
 <script setup lang="ts">
 import { useThemeTransition } from '@bruneckel/vue-theme-transitions';
-import '@bruneckel/vue-theme-transitions/style.css';
+import '@bruneckel/theme-transitions-core/style.css';
 
 const { theme, isAnimating, toggleTheme } = useThemeTransition({ variant: 'spread' });
 </script>
