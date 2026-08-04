@@ -37,6 +37,13 @@ vi.mock('@bruneckel/theme-transitions-core', () => ({
 		x: event.clientX,
 		y: event.clientY,
 	}),
+	resolveOptions: (eventOrOpts?: MouseEvent | Record<string, unknown>) => {
+		if (eventOrOpts instanceof MouseEvent) {
+			return { origin: { x: eventOrOpts.clientX, y: eventOrOpts.clientY } };
+		}
+
+		return eventOrOpts ?? {};
+	},
 }));
 
 import { useThemeTransition } from './useThemeTransition';
