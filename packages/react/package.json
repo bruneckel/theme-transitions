@@ -1,0 +1,63 @@
+{
+	"name": "@bruneckel/react-theme-transitions",
+	"version": "0.1.0",
+	"description": "React hook for animated dark/light theme transitions using the View Transitions API",
+	"author": "Bruno Neckel",
+	"license": "MIT",
+	"type": "module",
+	"sideEffects": false,
+	"main": "./dist/index.mjs",
+	"types": "./dist/index.d.mts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.mts",
+			"import": "./dist/index.mjs"
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bruneckel/theme-transitions.git",
+		"directory": "packages/react"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"peerDependencies": {
+		"react": "^18.0.0 || ^19.0.0"
+	},
+	"dependencies": {
+		"@bruneckel/theme-transitions-core": "^0.2.0"
+	},
+	"devDependencies": {
+		"@testing-library/react": "^16.3.2",
+		"@types/react": "^19.2.18",
+		"@types/react-dom": "^19.2.4",
+		"happy-dom": "^20.11.1",
+		"react": "^19.2.8",
+		"react-dom": "^19.2.8"
+	},
+	"scripts": {
+		"build": "unbuild",
+		"prepublishOnly": "npm run build",
+		"typecheck": "tsc --noEmit"
+	},
+	"keywords": [
+		"react",
+		"react-hook",
+		"hooks",
+		"theme",
+		"theme-toggle",
+		"theme-switcher",
+		"dark-mode",
+		"dark-theme",
+		"view-transitions",
+		"view-transitions-api",
+		"spread",
+		"fade",
+		"transition",
+		"animation"
+	]
+}
