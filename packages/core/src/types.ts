@@ -1,4 +1,4 @@
-export type ThemeEffect = 'spread' | 'fade';
+export type ThemeEffect = 'spread' | 'fade' | 'none';
 
 export type ThemeOrigin = {
 	x: number;
@@ -10,6 +10,9 @@ export type ThemeMode = 'light' | 'dark' | 'system';
 export interface ThemeTransitionOptions {
 	origin?: ThemeOrigin | null;
 	variant?: ThemeEffect;
+	duration?: string;
+	easing?: string;
+	radius?: string;
 }
 
 export interface SpreadEffectOptions {
@@ -23,19 +26,21 @@ export interface FadeEffectOptions {
 	easing: string;
 }
 
+export type NoneEffectOptions = Record<string, never>;
+
+export type EffectOptions = SpreadEffectOptions | FadeEffectOptions | NoneEffectOptions;
+
 export interface ThemeTransitionEffects {
 	spread: SpreadEffectOptions;
 	fade: FadeEffectOptions;
+	none: NoneEffectOptions;
 }
 
 export interface EffectDefinition {
 	name: ThemeEffect;
 	requiresOrigin: boolean;
-	buildCss: (options: SpreadEffectOptions | FadeEffectOptions) => string;
-	getSkipAfterMs: (
-		options: SpreadEffectOptions | FadeEffectOptions,
-		origin: ThemeOrigin | null,
-	) => number;
+	buildCss: (options: EffectOptions) => string;
+	getSkipAfterMs: (options: EffectOptions, origin: ThemeOrigin | null) => number;
 }
 
 export type ThemeTransitionModuleOptions = {

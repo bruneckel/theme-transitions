@@ -110,6 +110,79 @@ describe('runThemeTransition', () => {
 		expect(callback).toHaveBeenCalledTimes(1);
 	});
 
+	it('sets and cleans up duration/easing/radius custom properties from the effect options', async () => {
+		vi.useFakeTimers();
+
+		const root = {
+			dataset: {} as { themeEffect?: string },
+			style: { setProperty: vi.fn(), removeProperty: vi.fn() },
+		};
+
+		const finished = Promise.resolve();
+		const startViewTransition = vi.fn((update: () => Promise<void>) => {
+			update();
+			return { ready: Promise.resolve(), finished, skipTransition: vi.fn() };
+		});
+
+		vi.stubGlobal('document', {
+			documentElement: root,
+			startViewTransition,
+		});
+		vi.stubGlobal('window', {
+			matchMedia: () => ({ matches: false }),
+		});
+
+		const callback = vi.fn();
+		const setAnimating = vi.fn();
+		const definition = createDefinition(() => 500);
+
+		const promise = runThemeTransition(
+			definition,
+			null,
+			{ duration: '2s', easing: 'linear', radius: '50vmax' } as never,
+			callback,
+			setAnimating,
+		);
+
+		await vi.advanceTimersByTimeAsync(500);
+		await promise;
+
+		expect(root.style.setProperty).toHaveBeenCalledWith('--theme-duration', '2s');
+		expect(root.style.setProperty).toHaveBeenCalledWith('--theme-easing', 'linear');
+		expect(root.style.setProperty).toHaveBeenCalledWith('--theme-radius', '50vmax');
+		expect(root.style.removeProperty).toHaveBeenCalledWith('--theme-duration');
+		expect(root.style.removeProperty).toHaveBeenCalledWith('--theme-easing');
+		expect(root.style.removeProperty).toHaveBeenCalledWith('--theme-radius');
+	});
+
+	it('runs the callback directly when the effect is none, even with view transitions supported and no reduced motion', async () => {
+		const root = { dataset: {} as { themeEffect?: string }, style: { setProperty: vi.fn(), removeProperty: vi.fn() } };
+		const startViewTransition = vi.fn();
+		vi.stubGlobal('document', {
+			documentElement: root,
+			startViewTransition,
+		});
+		vi.stubGlobal('window', {
+			matchMedia: () => ({ matches: false }),
+		});
+
+		const callback = vi.fn();
+		const setAnimating = vi.fn();
+
+		await runThemeTransition(
+			{ ...createDefinition(), name: 'none' },
+			null,
+			{} as never,
+			callback,
+			setAnimating,
+		);
+
+		expect(startViewTransition).not.toHaveBeenCalled();
+		expect(callback).toHaveBeenCalledTimes(1);
+		expect(setAnimating).toHaveBeenNthCalledWith(1, true);
+		expect(setAnimating).toHaveBeenNthCalledWith(2, false);
+	});
+
 	it('runs the callback directly when the View Transitions API is unavailable, without reduced motion', async () => {
 		const root = { dataset: {} as { themeEffect?: string }, style: { setProperty: vi.fn(), removeProperty: vi.fn() } };
 		vi.stubGlobal('document', {

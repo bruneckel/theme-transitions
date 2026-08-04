@@ -21,8 +21,8 @@ export const spreadEffect: EffectDefinition = {
 
 		return `
       ${vtGroup()} {
-        animation-duration: ${duration};
-        animation-timing-function: ${easing};
+        animation-duration: var(--theme-duration, ${duration});
+        animation-timing-function: var(--theme-easing, ${easing});
       }
 
       ${vtSelector('old')} {
@@ -33,7 +33,7 @@ export const spreadEffect: EffectDefinition = {
       ${vtSelector('new')} {
         z-index: 2;
         animation-name: theme-spread-reveal;
-        animation-duration: ${duration};
+        animation-duration: var(--theme-duration, ${duration});
         animation-timing-function: linear;
         animation-fill-mode: both;
       }
@@ -44,7 +44,7 @@ export const spreadEffect: EffectDefinition = {
         }
 
         to {
-          clip-path: circle(${radius} at var(--theme-origin-x) var(--theme-origin-y));
+          clip-path: circle(var(--theme-radius, ${radius}) at var(--theme-origin-x) var(--theme-origin-y));
         }
       }
     `;

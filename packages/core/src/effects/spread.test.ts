@@ -10,11 +10,11 @@ describe('spreadEffect', () => {
 		expect(spreadEffect.requiresOrigin).toBe(true);
 	});
 
-	it('builds CSS containing the configured duration, easing, and radius', () => {
+	it('builds CSS containing the configured duration, easing, and radius as custom property fallbacks', () => {
 		const css = spreadEffect.buildCss(defaultSpreadOptions);
-		expect(css).toContain(defaultSpreadOptions.duration);
-		expect(css).toContain(defaultSpreadOptions.easing);
-		expect(css).toContain(defaultSpreadOptions.radius);
+		expect(css).toContain(`var(--theme-duration, ${defaultSpreadOptions.duration})`);
+		expect(css).toContain(`var(--theme-easing, ${defaultSpreadOptions.easing})`);
+		expect(css).toContain(`var(--theme-radius, ${defaultSpreadOptions.radius})`);
 		expect(css).toContain('theme-spread-reveal');
 	});
 

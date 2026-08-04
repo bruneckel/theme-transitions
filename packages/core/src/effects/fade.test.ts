@@ -6,10 +6,10 @@ describe('fadeEffect', () => {
 		expect(fadeEffect.requiresOrigin).toBe(false);
 	});
 
-	it('builds CSS containing the configured duration and easing', () => {
+	it('builds CSS containing the configured duration and easing as custom property fallbacks', () => {
 		const css = fadeEffect.buildCss(defaultFadeOptions);
-		expect(css).toContain(defaultFadeOptions.duration);
-		expect(css).toContain(defaultFadeOptions.easing);
+		expect(css).toContain(`var(--theme-duration, ${defaultFadeOptions.duration})`);
+		expect(css).toContain(`var(--theme-easing, ${defaultFadeOptions.easing})`);
 		expect(css).toContain('theme-fade-in');
 		expect(css).toContain('theme-fade-out');
 	});

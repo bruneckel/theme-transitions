@@ -1,4 +1,6 @@
 import type {
+	EffectOptions,
+	ThemeEffect,
 	ThemeMode,
 	ThemeTransitionModuleOptions,
 	ThemeTransitionOptions,
@@ -14,6 +16,7 @@ import { runThemeTransition } from './runThemeTransition';
 
 export interface ThemeTransitionState {
 	theme: 'light' | 'dark';
+	mode: ThemeMode;
 	isAnimating: boolean;
 }
 
@@ -24,14 +27,34 @@ export interface ThemeTransitionController {
 	setTheme: (mode: ThemeMode, options?: ThemeTransitionOptions) => Promise<void>;
 }
 
+const resolveEffectOptions = (
+	variant: ThemeEffect,
+	base: EffectOptions,
+	callOptions: ThemeTransitionOptions,
+): EffectOptions => {
+	if (variant === 'none') {
+		return base;
+	}
+
+	return {
+		...base,
+		...(callOptions.duration ? { duration: callOptions.duration } : {}),
+		...(callOptions.easing ? { easing: callOptions.easing } : {}),
+		...(variant === 'spread' && callOptions.radius ? { radius: callOptions.radius } : {}),
+	} as EffectOptions;
+};
+
 export const createController = (
 	options?: ThemeTransitionModuleOptions,
 ): ThemeTransitionController => {
 	const effects = resolveThemeTransitionEffects(options);
 	const configVariant = options?.variant ?? 'fade';
 
+	const storedPreference = readStoredPreference();
+
 	let state: ThemeTransitionState = {
-		theme: resolveTheme(readStoredPreference()),
+		theme: resolveTheme(storedPreference),
+		mode: storedPreference,
 		isAnimating: false,
 	};
 
@@ -64,6 +87,23 @@ export const createController = (
 		nextMode: ThemeMode,
 		callOptions: ThemeTransitionOptions = {},
 	) => {
+		if (state.isAnimating) {
+			return;
+		}
+
+		const resolved = resolveTheme(nextMode);
+
+		const commit = () => {
+			writeStoredPreference(nextMode);
+			applyThemeClass(resolved);
+			setState({ theme: resolved, mode: nextMode });
+		};
+
+		if (resolved === state.theme) {
+			commit();
+			return;
+		}
+
 		const variant = callOptions.variant ?? configVariant;
 		const definition = getEffectOrThrow(variant);
 		const origin = callOptions.origin ?? null;
@@ -75,22 +115,13 @@ export const createController = (
 		await runThemeTransition(
 			definition,
 			origin,
-			effects[variant],
-			() => {
-				const resolved = resolveTheme(nextMode);
-				writeStoredPreference(nextMode);
-				applyThemeClass(resolved);
-				setState({ theme: resolved });
-			},
+			resolveEffectOptions(variant, effects[variant], callOptions),
+			commit,
 			isAnimating => setState({ isAnimating }),
 		);
 	};
 
 	const toggleTheme = async (callOptions: ThemeTransitionOptions = {}) => {
-		if (state.isAnimating) {
-			return;
-		}
-
 		const nextMode = state.theme === 'dark' ? 'light' : 'dark';
 		await applyTheme(nextMode, callOptions);
 	};
@@ -99,11 +130,7 @@ export const createController = (
 		mode: ThemeMode,
 		callOptions: ThemeTransitionOptions = {},
 	) => {
-		if (state.isAnimating) {
-			return;
-		}
-
-		if (mode !== 'system' && state.theme === mode) {
+		if (state.mode === mode) {
 			return;
 		}
 

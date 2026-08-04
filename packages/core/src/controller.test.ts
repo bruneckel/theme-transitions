@@ -39,6 +39,7 @@ vi.mock('./runThemeTransition', () => ({
 }));
 
 import { createController, getController } from './controller';
+import { runThemeTransition } from './runThemeTransition';
 
 beforeEach(() => {
 	state.stored = 'light';
@@ -51,17 +52,18 @@ afterEach(() => {
 });
 
 describe('createController', () => {
-	it('initializes theme from the stored preference', () => {
+	it('initializes theme and mode from the stored preference', () => {
 		state.stored = 'dark';
 		const controller = createController();
-		expect(controller.getState()).toEqual({ theme: 'dark', isAnimating: false });
+		expect(controller.getState()).toEqual({ theme: 'dark', mode: 'dark', isAnimating: false });
 	});
 
-	it('toggleTheme flips light to dark and persists the resolved value', async () => {
+	it('toggleTheme flips light to dark, persists the resolved value, and updates mode', async () => {
 		const controller = createController();
 		await controller.toggleTheme();
 
 		expect(controller.getState().theme).toBe('dark');
+		expect(controller.getState().mode).toBe('dark');
 		expect(mocks.writeStoredPreference).toHaveBeenCalledWith('dark');
 		expect(mocks.applyThemeClass).toHaveBeenCalledWith('dark');
 	});
@@ -95,18 +97,49 @@ describe('createController', () => {
 		expect(mocks.writeStoredPreference).toHaveBeenCalledWith('dark');
 	});
 
-	it('setTheme short-circuits when already on the requested non-system mode', async () => {
+	it('setTheme short-circuits when already on the requested mode', async () => {
 		const controller = createController();
 		await controller.setTheme('light');
 
 		expect(mocks.writeStoredPreference).not.toHaveBeenCalled();
 	});
 
-	it('setTheme("system") always proceeds even when already resolved to that value', async () => {
+	it('setTheme short-circuits when already on system mode and system is requested again', async () => {
+		state.stored = 'system';
+		const controller = createController();
+		await controller.setTheme('system');
+
+		expect(mocks.writeStoredPreference).not.toHaveBeenCalled();
+	});
+
+	it('setTheme proceeds from an explicit mode to system, without animating, when resolved to the same theme', async () => {
 		const controller = createController();
 		await controller.setTheme('system');
 
 		expect(mocks.writeStoredPreference).toHaveBeenCalledWith('system');
+		expect(controller.getState()).toEqual({ theme: 'light', mode: 'system', isAnimating: false });
+		expect(runThemeTransition).not.toHaveBeenCalled();
+	});
+
+	it('setTheme proceeds from system to an explicit mode, without animating, when it matches the currently resolved theme', async () => {
+		state.stored = 'system';
+		state.system = 'dark';
+		const controller = createController();
+		expect(controller.getState().theme).toBe('dark');
+
+		await controller.setTheme('dark');
+
+		expect(mocks.writeStoredPreference).toHaveBeenCalledWith('dark');
+		expect(controller.getState()).toEqual({ theme: 'dark', mode: 'dark', isAnimating: false });
+		expect(runThemeTransition).not.toHaveBeenCalled();
+	});
+
+	it('does not require an origin when skipping the animation for an unchanged resolved theme', async () => {
+		state.stored = 'system';
+		state.system = 'dark';
+		const controller = createController({ variant: 'spread' });
+
+		await expect(controller.setTheme('dark')).resolves.toBeUndefined();
 	});
 
 	it('isAnimating toggles true then false around a transition', async () => {
@@ -140,6 +173,51 @@ describe('createController', () => {
 	it('throws when a variant requiring an origin is used without one', async () => {
 		const controller = createController({ variant: 'spread' });
 		await expect(controller.toggleTheme()).rejects.toThrow('requires an origin point');
+	});
+
+	it('merges per-call duration/easing/radius overrides onto the resolved effect options', async () => {
+		const controller = createController({ variant: 'spread' });
+		await controller.toggleTheme({
+			origin: { x: 0, y: 0 },
+			duration: '2s',
+			easing: 'linear',
+			radius: '50vmax',
+		});
+
+		expect(runThemeTransition).toHaveBeenCalledWith(
+			expect.anything(),
+			{ x: 0, y: 0 },
+			{ duration: '2s', easing: 'linear', radius: '50vmax' },
+			expect.anything(),
+			expect.anything(),
+		);
+	});
+
+	it('ignores radius overrides for the fade variant', async () => {
+		const controller = createController({ variant: 'fade' });
+		await controller.toggleTheme({ duration: '2s', radius: '50vmax' });
+
+		expect(runThemeTransition).toHaveBeenCalledWith(
+			expect.anything(),
+			null,
+			expect.objectContaining({ duration: '2s' }),
+			expect.anything(),
+			expect.anything(),
+		);
+		expect(vi.mocked(runThemeTransition).mock.calls[0][2]).not.toHaveProperty('radius');
+	});
+
+	it('ignores duration/easing/radius overrides for the none variant', async () => {
+		const controller = createController({ variant: 'none' });
+		await controller.toggleTheme({ duration: '2s', easing: 'linear', radius: '50vmax' });
+
+		expect(runThemeTransition).toHaveBeenCalledWith(
+			expect.anything(),
+			null,
+			{},
+			expect.anything(),
+			expect.anything(),
+		);
 	});
 });
 

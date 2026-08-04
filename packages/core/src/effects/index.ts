@@ -5,22 +5,25 @@ import type {
 	ThemeTransitionModuleOptions,
 } from '../types';
 import { defaultFadeOptions, fadeEffect } from './fade';
+import { defaultNoneOptions, noneEffect } from './none';
 import { defaultSpreadOptions, spreadEffect } from './spread';
 
 export type {
 	EffectDefinition,
 	FadeEffectOptions,
+	NoneEffectOptions,
 	SpreadEffectOptions,
 	ThemeEffect,
 	ThemeTransitionEffects,
 	ThemeTransitionModuleOptions,
 } from '../types';
 
-export const themeEffects: EffectDefinition[] = [spreadEffect, fadeEffect];
+export const themeEffects: EffectDefinition[] = [spreadEffect, fadeEffect, noneEffect];
 
 export const defaultThemeTransitionEffects: ThemeTransitionEffects = {
 	spread: defaultSpreadOptions,
 	fade: defaultFadeOptions,
+	none: defaultNoneOptions,
 };
 
 export const getEffectOrThrow = (name: ThemeEffect): EffectDefinition => {
@@ -33,31 +36,37 @@ export const getEffectOrThrow = (name: ThemeEffect): EffectDefinition => {
 	return effect;
 };
 
+const pickOverrides = (
+	options: ThemeTransitionModuleOptions | undefined,
+	keys: ('duration' | 'easing' | 'radius')[],
+): Record<string, string> => {
+	const overrides: Record<string, string> = {};
+
+	for (const key of keys) {
+		const value = options?.[key];
+		if (value) {
+			overrides[key] = value;
+		}
+	}
+
+	return overrides;
+};
+
 export const resolveThemeTransitionEffects = (
 	options?: ThemeTransitionModuleOptions,
 ): ThemeTransitionEffects => {
 	const variant = options?.variant ?? 'fade';
 
-	const spreadOverrides
-		= variant === 'spread' && options
-			? {
-					...(options.duration ? { duration: options.duration } : {}),
-					...(options.easing ? { easing: options.easing } : {}),
-					...(options.radius ? { radius: options.radius } : {}),
-				}
-			: {};
-
-	const fadeOverrides
-		= variant === 'fade' && options
-			? {
-					...(options.duration ? { duration: options.duration } : {}),
-					...(options.easing ? { easing: options.easing } : {}),
-				}
-			: {};
-
 	return {
-		spread: { ...defaultSpreadOptions, ...spreadOverrides },
-		fade: { ...defaultFadeOptions, ...fadeOverrides },
+		spread: {
+			...defaultSpreadOptions,
+			...(variant === 'spread' ? pickOverrides(options, ['duration', 'easing', 'radius']) : {}),
+		},
+		fade: {
+			...defaultFadeOptions,
+			...(variant === 'fade' ? pickOverrides(options, ['duration', 'easing']) : {}),
+		},
+		none: defaultNoneOptions,
 	};
 };
 

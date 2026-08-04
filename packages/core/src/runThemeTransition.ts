@@ -1,14 +1,9 @@
-import type {
-	EffectDefinition,
-	FadeEffectOptions,
-	SpreadEffectOptions,
-	ThemeOrigin,
-} from './types';
+import type { EffectDefinition, EffectOptions, ThemeOrigin } from './types';
 
 export const runThemeTransition = async (
 	definition: EffectDefinition,
 	origin: ThemeOrigin | null,
-	effectOptions: SpreadEffectOptions | FadeEffectOptions,
+	effectOptions: EffectOptions,
 	callback: () => void | Promise<void>,
 	setAnimating: (value: boolean) => void,
 ) => {
@@ -25,17 +20,32 @@ export const runThemeTransition = async (
 		root.style.setProperty('--theme-origin-y', `${origin.y}px`);
 	}
 
+	if ('duration' in effectOptions) {
+		root.style.setProperty('--theme-duration', effectOptions.duration);
+	}
+
+	if ('easing' in effectOptions) {
+		root.style.setProperty('--theme-easing', effectOptions.easing);
+	}
+
+	if ('radius' in effectOptions) {
+		root.style.setProperty('--theme-radius', effectOptions.radius);
+	}
+
 	const cleanup = () => {
 		delete root.dataset.themeEffect;
 		root.style.removeProperty('--theme-origin-x');
 		root.style.removeProperty('--theme-origin-y');
+		root.style.removeProperty('--theme-duration');
+		root.style.removeProperty('--theme-easing');
+		root.style.removeProperty('--theme-radius');
 	};
 
 	const prefersReducedMotion = window.matchMedia(
 		'(prefers-reduced-motion: reduce)',
 	).matches;
 
-	if (!document.startViewTransition || prefersReducedMotion) {
+	if (definition.name === 'none' || !document.startViewTransition || prefersReducedMotion) {
 		setAnimating(true);
 
 		try {

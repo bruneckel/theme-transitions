@@ -10,6 +10,7 @@ describe('getEffectOrThrow', () => {
 	it('returns the matching effect definition', () => {
 		expect(getEffectOrThrow('fade').name).toBe('fade');
 		expect(getEffectOrThrow('spread').name).toBe('spread');
+		expect(getEffectOrThrow('none').name).toBe('none');
 	});
 
 	it('throws for an unknown variant', () => {
@@ -37,6 +38,10 @@ describe('resolveThemeTransitionEffects', () => {
 	it('ignores overrides for the variant that is not selected', () => {
 		const result = resolveThemeTransitionEffects({ variant: 'fade', radius: '999vmax' });
 		expect(result.spread).toEqual(defaultThemeTransitionEffects.spread);
+	});
+
+	it('returns the none effect options unchanged regardless of the selected variant', () => {
+		expect(resolveThemeTransitionEffects({ variant: 'none' }).none).toEqual(defaultThemeTransitionEffects.none);
 	});
 });
 

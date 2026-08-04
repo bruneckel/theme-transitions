@@ -20,21 +20,21 @@ export const fadeEffect: EffectDefinition = {
 
 		return `
       ${vtGroup()} {
-        animation-duration: ${duration};
-        animation-timing-function: ${easing};
+        animation-duration: var(--theme-duration, ${duration});
+        animation-timing-function: var(--theme-easing, ${easing});
       }
 
       ${vtSelector('old')} {
         animation-name: theme-fade-out;
-        animation-duration: ${duration};
-        animation-timing-function: ${easing};
+        animation-duration: var(--theme-duration, ${duration});
+        animation-timing-function: var(--theme-easing, ${easing});
         animation-fill-mode: both;
       }
 
       ${vtSelector('new')} {
         animation-name: theme-fade-in;
-        animation-duration: ${duration};
-        animation-timing-function: ${easing};
+        animation-duration: var(--theme-duration, ${duration});
+        animation-timing-function: var(--theme-easing, ${easing});
         animation-fill-mode: both;
       }
 
