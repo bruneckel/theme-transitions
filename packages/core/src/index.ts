@@ -19,6 +19,8 @@ export {
 	writeStoredPreference,
 } from './colorMode';
 
+export { buildConfigInitScript } from './configScript';
+
 export { originFromElement, originFromEvent } from './origin';
 
 export { resolveOptions } from './options';

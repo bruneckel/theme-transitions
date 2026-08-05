@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { buildColorModeInitScript } from './colorMode';
+import { buildConfigInitScript } from './configScript';
 import { themeTransitions } from './vite-plugin';
 
 describe('themeTransitions', () => {
@@ -15,6 +16,19 @@ describe('themeTransitions', () => {
 			{
 				tag: 'script',
 				children: buildColorModeInitScript(),
+				injectTo: 'head-prepend',
+			},
+		]);
+	});
+
+	it('prepends the config assignment before the anti-flash script when options are given', () => {
+		const plugin = themeTransitions({ variant: 'spread' });
+		const transform = plugin.transformIndexHtml as () => unknown;
+
+		expect(transform()).toEqual([
+			{
+				tag: 'script',
+				children: `${buildConfigInitScript({ variant: 'spread' })}\n${buildColorModeInitScript()}`,
 				injectTo: 'head-prepend',
 			},
 		]);

@@ -39,6 +39,14 @@ export default defineConfig({
 });
 ```
 
+Optionally, pass default effect options so every `useThemeTransition()` call in the app picks them up without repeating them:
+
+```ts
+plugins: [themeTransitions({ variant: 'spread', duration: '1s' })],
+```
+
+This only sets defaults; an explicit `useThemeTransition(options)` call, or a per-call `toggleTheme(options)`/`setTheme(mode, options)` override, still takes precedence.
+
 ## Stylesheet
 
 Import the static default stylesheet once, wherever your app initializes:

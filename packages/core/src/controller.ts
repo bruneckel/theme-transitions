@@ -14,6 +14,12 @@ import {
 } from './colorMode';
 import { runThemeTransition } from './runThemeTransition';
 
+declare global {
+	interface Window {
+		__themeConfig?: ThemeOptions;
+	}
+}
+
 export interface ThemeState {
 	theme: 'light' | 'dark';
 	mode: ThemeMode;
@@ -26,6 +32,14 @@ export interface ThemeController {
 	toggleTheme: (options?: TransitionOptions) => Promise<void>;
 	setTheme: (mode: ThemeMode, options?: TransitionOptions) => Promise<void>;
 }
+
+const readPluginConfig = (): ThemeOptions => {
+	if (typeof window === 'undefined') {
+		return {};
+	}
+
+	return window.__themeConfig ?? {};
+};
 
 const resolveEffectOptions = (
 	variant: ThemeEffect,
@@ -45,8 +59,9 @@ const resolveEffectOptions = (
 };
 
 export const createController = (options?: ThemeOptions): ThemeController => {
-	const effects = resolveThemeEffects(options);
-	const configVariant = options?.variant ?? 'fade';
+	const mergedOptions: ThemeOptions = { ...readPluginConfig(), ...options };
+	const effects = resolveThemeEffects(mergedOptions);
+	const configVariant = mergedOptions.variant ?? 'fade';
 
 	const storedPreference = readStoredPreference();
 
