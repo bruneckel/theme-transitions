@@ -11,9 +11,13 @@ React hook for animated dark/light theme transitions using the View Transitions 
 npm install @bruneckel/react-theme-transitions @bruneckel/theme-transitions-core
 ```
 
+or
+
 ```
 pnpm add @bruneckel/react-theme-transitions @bruneckel/theme-transitions-core
 ```
+
+or
 
 ```
 yarn add @bruneckel/react-theme-transitions @bruneckel/theme-transitions-core

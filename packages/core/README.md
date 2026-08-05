@@ -11,9 +11,13 @@ Framework-agnostic core for animated dark/light theme transitions using the View
 npm install @bruneckel/theme-transitions-core
 ```
 
+or
+
 ```
 pnpm add @bruneckel/theme-transitions-core
 ```
+
+or
 
 ```
 yarn add @bruneckel/theme-transitions-core

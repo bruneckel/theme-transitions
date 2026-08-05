@@ -11,9 +11,13 @@ Vue 3 composable for animated dark/light theme transitions using the View Transi
 npm install @bruneckel/vue-theme-transitions @bruneckel/theme-transitions-core
 ```
 
+or
+
 ```
 pnpm add @bruneckel/vue-theme-transitions @bruneckel/theme-transitions-core
 ```
+
+or
 
 ```
 yarn add @bruneckel/vue-theme-transitions @bruneckel/theme-transitions-core
