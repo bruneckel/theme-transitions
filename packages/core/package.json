@@ -1,6 +1,6 @@
 {
 	"name": "@bruneckel/theme-transitions-core",
-	"version": "0.2.2",
+	"version": "0.2.3",
 	"description": "Framework-agnostic core for animated dark/light theme transitions using the View Transitions API",
 	"author": "Bruno Neckel",
 	"license": "MIT",
