@@ -7,9 +7,9 @@ body:
     attributes:
       label: Which package?
       options:
-        - "@bruneckel/theme-transitions-core"
-        - "@bruneckel/react-theme-transitions"
-        - "@bruneckel/vue-theme-transitions"
+        - "@brustack/theme-transitions-core"
+        - "@brustack/react-theme-transitions"
+        - "@brustack/vue-theme-transitions"
         - Not sure / new package
     validations:
       required: true
