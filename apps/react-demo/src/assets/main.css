@@ -1,0 +1,35 @@
+html {
+	--bg: #f4f4f5;
+	--surface: #ffffff;
+	--border: #e4e4e7;
+	--text: #18181b;
+	--text-muted: #71717a;
+	--danger: #dc2626;
+
+	background: var(--bg);
+	color: var(--text);
+	color-scheme: light;
+}
+
+html.dark {
+	--bg: #18181b;
+	--surface: #27272a;
+	--border: #3f3f46;
+	--text: #fafafa;
+	--text-muted: #a1a1aa;
+	--danger: #f87171;
+
+	color-scheme: dark;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	min-height: 100vh;
+	display: grid;
+	place-items: center;
+	margin: 0;
+	font-family: "Roboto", sans-serif;
+}
