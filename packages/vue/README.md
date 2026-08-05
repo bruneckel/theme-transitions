@@ -69,6 +69,14 @@ export default defineConfig({
 });
 ```
 
+Optionally, pass the same options from the table above so every `useThemeTransition()` call in the app picks them up without repeating them:
+
+```ts
+plugins: [themeTransitions({ variant: 'spread', duration: '1.5s' })],
+```
+
+This only sets defaults; an explicit `useThemeTransition(options)` call, or a per-call `toggleTheme(options)`/`setTheme(mode, options)` override, still takes precedence.
+
 ## Notes
 
 - This package has no SSR-specific handling. It targets plain client-side Vue 3 apps.

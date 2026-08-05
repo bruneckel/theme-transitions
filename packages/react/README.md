@@ -70,6 +70,14 @@ export default defineConfig({
 });
 ```
 
+Optionally, pass the same options from the table above so every `useThemeTransition()` call in the app picks them up without repeating them:
+
+```ts
+plugins: [react(), themeTransitions({ variant: 'spread', duration: '1.5s' })],
+```
+
+This only sets defaults; an explicit `useThemeTransition(options)` call, or a per-call `toggleTheme(options)`/`setTheme(mode, options)` override, still takes precedence.
+
 ## Notes
 
 - Built on `useSyncExternalStore`, React's built-in primitive for subscribing to state outside its own render tree. Safe under `StrictMode`'s development-mode double-invocation.
