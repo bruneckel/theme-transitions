@@ -1,0 +1,48 @@
+.mode-switch {
+	width: 100%;
+	display: flex;
+	gap: 0.25rem;
+	padding: 0.25rem;
+	background: var(--bg);
+	border: 1px solid var(--border);
+	border-radius: 0.9rem;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.mode-option {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.4rem;
+	font: inherit;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	color: var(--text-muted);
+	background: none;
+	border: none;
+	border-radius: 0.65rem;
+	padding: 0.6rem 0.5rem;
+	cursor: pointer;
+	transition:
+		background-color 0.15s,
+		color 0.15s;
+}
+
+.mode-option:hover:not(:disabled):not(.active) {
+	background: var(--border);
+}
+
+.mode-option.active {
+	color: var(--bg);
+	background: var(--text);
+}
+
+.mode-option:disabled:not(.active) {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.mode-option.active:disabled {
+	cursor: default;
+}
