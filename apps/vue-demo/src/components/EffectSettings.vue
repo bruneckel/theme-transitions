@@ -167,6 +167,7 @@ watch(
 .settings-trigger {
   order: 2;
   position: relative;
+  margin-bottom: 0.4rem;
   width: 1.8rem;
   height: 1.8rem;
   display: flex;

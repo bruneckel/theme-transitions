@@ -55,20 +55,19 @@
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	gap: 0.5rem;
 }
 
 .hint {
 	order: 3;
 	flex-basis: 100%;
-	margin: 0;
-	font-size: 0.75rem;
+	margin: 0 0 0.1rem;
+	font-size: 0.6875rem;
 	color: var(--text-muted);
 }
 
 .hint strong {
 	color: var(--text);
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .hint.invisible {

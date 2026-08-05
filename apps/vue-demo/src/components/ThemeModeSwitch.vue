@@ -42,6 +42,7 @@ const options: { value: ThemeMode; label: string; icon: Component }[] = [
 .mode-switch {
   order: 1;
   flex: 1;
+  margin-bottom: 0.4rem;
   display: flex;
   gap: 1rem;
 }
