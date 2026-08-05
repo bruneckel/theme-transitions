@@ -46,7 +46,7 @@ getController(options?: {
 
 `createController(options)` accepts the same shape. `'none'` skips the animation and ignores `duration`/`easing`. `spread` only accepts `duration`; its easing and clip-path radius are fixed and not configurable.
 
-`toggleTheme(options?)` and `setTheme(mode, options?)` accept a `TransitionOptions` object: the same shape as above, plus `origin` (required for `spread` — derive it with `originFromEvent(event)` or `originFromElement(el)`). This overrides the controller's own options for that one call only.
+`toggleTheme(options?)` and `setTheme(mode, options?)` accept a `TransitionOptions` object: the same shape as above, plus `origin` (required for `spread`, derive it with `originFromEvent(event)` or `originFromElement(el)`). This overrides the controller's own options for that one call only.
 
 `options` passed to `getController` only takes effect on the very first call in a process, since it wraps a shared singleton (see Notes below). Per-call overrides on `toggleTheme`/`setTheme` are not affected by this and always apply.
 
