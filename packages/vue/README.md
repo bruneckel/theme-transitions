@@ -74,6 +74,8 @@ plugins: [themeTransitions({ variant: 'spread', duration: '1.5s' })],
 
 This only sets defaults. An explicit `useThemeTransition(options)` call, or a per-call override on `toggleTheme`/`setTheme`, still takes precedence.
 
+Not using Vite? See [`@bruneckel/theme-transitions-core`](https://www.npmjs.com/package/@bruneckel/theme-transitions-core)'s README for how to wire up the anti-flash script and stylesheet with webpack or another bundler.
+
 ## Notes
 
 - This package has no SSR-specific handling. It targets plain client-side Vue 3 apps.

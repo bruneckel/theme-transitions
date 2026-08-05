@@ -75,6 +75,8 @@ plugins: [react(), themeTransitions({ variant: 'spread', duration: '1.5s' })],
 
 This only sets defaults. An explicit `useThemeTransition(options)` call, or a per-call override on `toggleTheme`/`setTheme`, still takes precedence.
 
+Not using Vite? See [`@bruneckel/theme-transitions-core`](https://www.npmjs.com/package/@bruneckel/theme-transitions-core)'s README for how to wire up the anti-flash script and stylesheet with webpack or another bundler.
+
 ## Notes
 
 - Built on `useSyncExternalStore`, React's built-in primitive for subscribing to state outside its own render tree. Safe under `StrictMode`'s development-mode double-invocation.
