@@ -58,7 +58,7 @@ export const resolveThemeEffects = (options?: ThemeOptions): ThemeEffects => {
 	return {
 		spread: {
 			...defaultSpreadOptions,
-			...(variant === 'spread' ? pickOverrides(options, ['duration', 'easing', 'radius']) : {}),
+			...(variant === 'spread' ? pickOverrides(options, ['duration']) : {}),
 		},
 		fade: {
 			...defaultFadeOptions,

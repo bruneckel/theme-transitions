@@ -29,9 +29,9 @@ describe('resolveThemeEffects', () => {
 		expect(result.spread).toEqual(defaultThemeEffects.spread);
 	});
 
-	it('merges duration/easing/radius overrides for the selected spread variant', () => {
+	it('merges only the duration override for the selected spread variant, ignoring easing and radius', () => {
 		const result = resolveThemeEffects({ variant: 'spread', duration: '2s', easing: 'linear', radius: '100vmax' });
-		expect(result.spread).toEqual({ duration: '2s', easing: 'linear', radius: '100vmax' });
+		expect(result.spread).toEqual({ ...defaultThemeEffects.spread, duration: '2s' });
 		expect(result.fade).toEqual(defaultThemeEffects.fade);
 	});
 
