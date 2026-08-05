@@ -7,7 +7,7 @@ Vue 3 composable and Vite plugin for animated dark/light theme transitions using
 ## Install
 
 ```
-npm install @bruneckel/vue-theme-transitions
+npm install @bruneckel/vue-theme-transitions @bruneckel/theme-transitions-core
 ```
 
 ## Usage

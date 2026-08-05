@@ -21,7 +21,7 @@ export const App = () => {
 	const handleSetMode = (target: ThemeMode, event: React.MouseEvent) => {
 		if (!isValid) return;
 
-		setTheme(target, { origin: originFromEvent(event), ...effectOptions });
+		setTheme(target, { origin: originFromEvent(event.nativeEvent), ...effectOptions });
 	};
 
 	return (

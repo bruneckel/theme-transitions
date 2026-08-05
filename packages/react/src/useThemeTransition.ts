@@ -1,4 +1,5 @@
 import { useCallback, useSyncExternalStore } from 'react';
+import type { MouseEvent as ReactMouseEvent } from 'react';
 import { getController, resolveOptions } from '@bruneckel/theme-transitions-core';
 import type {
 	ThemeMode,
@@ -12,13 +13,13 @@ export const useThemeTransition = (opts?: ThemeOptions) => {
 	const state = useSyncExternalStore(controller.subscribe, controller.getState);
 
 	const toggleTheme = useCallback(
-		(eventOrOpts?: React.MouseEvent | TransitionOptions) =>
+		(eventOrOpts?: ReactMouseEvent | TransitionOptions) =>
 			controller.toggleTheme(resolveOptions(eventOrOpts)),
 		[controller],
 	);
 
 	const setTheme = useCallback(
-		(mode: ThemeMode, eventOrOpts?: React.MouseEvent | TransitionOptions) =>
+		(mode: ThemeMode, eventOrOpts?: ReactMouseEvent | TransitionOptions) =>
 			controller.setTheme(mode, resolveOptions(eventOrOpts)),
 		[controller],
 	);

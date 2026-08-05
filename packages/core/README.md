@@ -26,6 +26,27 @@ const unsubscribe = controller.subscribe(() => {
 });
 ```
 
+## Vite plugin
+
+Register the anti-flash init script in `vite.config.ts`:
+
+```ts
+import { defineConfig } from 'vite';
+import { themeTransitions } from '@bruneckel/theme-transitions-core/vite';
+
+export default defineConfig({
+	plugins: [themeTransitions()],
+});
+```
+
+## Stylesheet
+
+Import the static default stylesheet once, wherever your app initializes:
+
+```ts
+import '@bruneckel/theme-transitions-core/style.css';
+```
+
 ## Notes
 
 - `getController(options)` only applies `options` on the very first call in a process. Subsequent calls with different options are ignored, since it returns the same shared singleton. Call `createController(options)` instead if you need an independently configured instance.
