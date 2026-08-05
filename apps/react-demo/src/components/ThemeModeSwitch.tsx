@@ -1,4 +1,4 @@
-import type { ThemeMode } from '@bruneckel/theme-transitions-core';
+import type { ThemeMode } from '@brustack/theme-transitions-core';
 import { IconMonitor } from './icons/IconMonitor';
 import { IconMoon } from './icons/IconMoon';
 import { IconSun } from './icons/IconSun';

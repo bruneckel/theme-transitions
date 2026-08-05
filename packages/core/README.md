@@ -1,18 +1,18 @@
-# @bruneckel/theme-transitions-core
+# @brustack/theme-transitions-core
 
-[![npm version](https://img.shields.io/npm/v/@bruneckel/theme-transitions-core.svg)](https://www.npmjs.com/package/@bruneckel/theme-transitions-core)
-[![license](https://img.shields.io/npm/l/@bruneckel/theme-transitions-core.svg)](https://github.com/bruneckel/theme-transitions/blob/main/packages/core/LICENSE)
+[![npm version](https://img.shields.io/npm/v/@brustack/theme-transitions-core.svg)](https://www.npmjs.com/package/@brustack/theme-transitions-core)
+[![license](https://img.shields.io/npm/l/@brustack/theme-transitions-core.svg)](https://github.com/brustack/theme-transitions/blob/main/packages/core/LICENSE)
 
 Framework-agnostic core for animated dark/light theme transitions using the View Transitions API.
 
 ## Install
 
 ```sh
-npm install @bruneckel/theme-transitions-core
+npm install @brustack/theme-transitions-core
 # or
-pnpm add @bruneckel/theme-transitions-core
+pnpm add @brustack/theme-transitions-core
 # or
-yarn add @bruneckel/theme-transitions-core
+yarn add @brustack/theme-transitions-core
 ```
 
 > [!IMPORTANT]
@@ -21,7 +21,7 @@ yarn add @bruneckel/theme-transitions-core
 ## Usage
 
 ```ts
-import { getController } from '@bruneckel/theme-transitions-core';
+import { getController } from '@brustack/theme-transitions-core';
 
 const controller = getController();
 
@@ -56,7 +56,7 @@ Register the anti-flash init script in `vite.config.ts`:
 
 ```ts
 import { defineConfig } from 'vite';
-import { themeTransitions } from '@bruneckel/theme-transitions-core/vite';
+import { themeTransitions } from '@brustack/theme-transitions-core/vite';
 
 export default defineConfig({
 	plugins: [themeTransitions()],
@@ -76,7 +76,7 @@ This only sets defaults; an explicit `getController(options)` call, or a per-cal
 Import the static default stylesheet once, wherever your app initializes:
 
 ```ts
-import '@bruneckel/theme-transitions-core/style.css';
+import '@brustack/theme-transitions-core/style.css';
 ```
 
 ## Other bundlers
@@ -86,7 +86,7 @@ Not using Vite? The plugin above is a thin wrapper around two functions this pac
 With webpack and `html-webpack-plugin`:
 
 ```js
-const { buildColorModeInitScript } = require('@bruneckel/theme-transitions-core');
+const { buildColorModeInitScript } = require('@brustack/theme-transitions-core');
 
 new HtmlWebpackPlugin({
 	templateParameters: { themeInitScript: buildColorModeInitScript() },
@@ -105,7 +105,7 @@ Webpack also needs a CSS rule that reaches into `node_modules` for this package'
 ```js
 {
 	test: /\.css$/,
-	include: [path.resolve(__dirname, 'node_modules/@bruneckel/theme-transitions-core')],
+	include: [path.resolve(__dirname, 'node_modules/@brustack/theme-transitions-core')],
 	use: ['style-loader', 'css-loader'],
 }
 ```

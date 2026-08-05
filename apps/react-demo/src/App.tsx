@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useThemeTransition } from '@bruneckel/react-theme-transitions';
-import { originFromEvent } from '@bruneckel/theme-transitions-core';
-import type { ThemeMode } from '@bruneckel/theme-transitions-core';
+import { useThemeTransition } from '@brustack/react-theme-transitions';
+import { originFromEvent } from '@brustack/theme-transitions-core';
+import type { ThemeMode } from '@brustack/theme-transitions-core';
 import { EffectSettings } from './components/EffectSettings';
 import type { EffectOptions } from './components/EffectSettings';
 import { ThemeModeSwitch } from './components/ThemeModeSwitch';

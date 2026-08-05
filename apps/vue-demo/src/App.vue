@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useThemeTransition } from "@bruneckel/vue-theme-transitions";
-import { originFromEvent } from "@bruneckel/theme-transitions-core";
-import type { ThemeMode } from "@bruneckel/theme-transitions-core";
+import { useThemeTransition } from "@brustack/vue-theme-transitions";
+import { originFromEvent } from "@brustack/theme-transitions-core";
+import type { ThemeMode } from "@brustack/theme-transitions-core";
 import EffectSettings, { type EffectOptions } from "./components/EffectSettings.vue";
 import ThemeModeSwitch from "./components/ThemeModeSwitch.vue";
 

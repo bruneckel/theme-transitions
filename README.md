@@ -18,9 +18,9 @@ A framework-agnostic core with a thin adapter per framework. Vue and React are a
 
 | Package | npm | Description |
 | --- | --- | --- |
-| [`@bruneckel/theme-transitions-core`](packages/core) | [![npm](https://img.shields.io/npm/v/@bruneckel/theme-transitions-core.svg)](https://www.npmjs.com/package/@bruneckel/theme-transitions-core) | Framework-agnostic core: theme detection/persistence, View Transition orchestration, effect CSS generation. |
-| [`@bruneckel/vue-theme-transitions`](packages/vue) | [![npm](https://img.shields.io/npm/v/@bruneckel/vue-theme-transitions.svg)](https://www.npmjs.com/package/@bruneckel/vue-theme-transitions) | Vue 3 composable built on the core. |
-| [`@bruneckel/react-theme-transitions`](packages/react) | [![npm](https://img.shields.io/npm/v/@bruneckel/react-theme-transitions.svg)](https://www.npmjs.com/package/@bruneckel/react-theme-transitions) | React hook built on the core. |
+| [`@brustack/theme-transitions-core`](packages/core) | [![npm](https://img.shields.io/npm/v/@brustack/theme-transitions-core.svg)](https://www.npmjs.com/package/@brustack/theme-transitions-core) | Framework-agnostic core: theme detection/persistence, View Transition orchestration, effect CSS generation. |
+| [`@brustack/vue-theme-transitions`](packages/vue) | [![npm](https://img.shields.io/npm/v/@brustack/vue-theme-transitions.svg)](https://www.npmjs.com/package/@brustack/vue-theme-transitions) | Vue 3 composable built on the core. |
+| [`@brustack/react-theme-transitions`](packages/react) | [![npm](https://img.shields.io/npm/v/@brustack/react-theme-transitions.svg)](https://www.npmjs.com/package/@brustack/react-theme-transitions) | React hook built on the core. |
 
 ## Development
 

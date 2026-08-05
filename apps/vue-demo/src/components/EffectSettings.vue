@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
-import { defaultThemeEffects, isValidCssDuration } from "@bruneckel/theme-transitions-core";
-import type { ThemeEffect } from "@bruneckel/theme-transitions-core";
+import { defaultThemeEffects, isValidCssDuration } from "@brustack/theme-transitions-core";
+import type { ThemeEffect } from "@brustack/theme-transitions-core";
 import IconRotateCcw from "./icons/IconRotateCcw.vue";
 import IconSettings from "./icons/IconSettings.vue";
 

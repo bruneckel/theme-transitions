@@ -30,8 +30,8 @@ const controllerMock = vi.hoisted(() => {
 
 const getControllerMock = vi.hoisted(() => vi.fn(() => controllerMock));
 
-vi.mock('@bruneckel/theme-transitions-core', async (importOriginal) => {
-	const actual = await importOriginal<typeof import('@bruneckel/theme-transitions-core')>();
+vi.mock('@brustack/theme-transitions-core', async (importOriginal) => {
+	const actual = await importOriginal<typeof import('@brustack/theme-transitions-core')>();
 
 	return {
 		...actual,

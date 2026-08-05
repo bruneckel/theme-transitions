@@ -8,8 +8,8 @@
 		"build": "vite build"
 	},
 	"dependencies": {
-		"@bruneckel/theme-transitions-core": "^0.2.0",
-		"@bruneckel/react-theme-transitions": "^0.1.0",
+		"@brustack/theme-transitions-core": "^1.0.0",
+		"@brustack/react-theme-transitions": "^1.0.0",
 		"react": "^19.2.8",
 		"react-dom": "^19.2.8"
 	},

@@ -1,10 +1,10 @@
 import { computed, onScopeDispose, ref } from 'vue';
-import { getController, resolveOptions } from '@bruneckel/theme-transitions-core';
+import { getController, resolveOptions } from '@brustack/theme-transitions-core';
 import type {
 	ThemeMode,
 	ThemeOptions,
 	TransitionOptions,
-} from '@bruneckel/theme-transitions-core';
+} from '@brustack/theme-transitions-core';
 
 export const useThemeTransition = (opts?: ThemeOptions) => {
 	const controller = getController(opts);

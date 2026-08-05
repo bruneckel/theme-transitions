@@ -1,18 +1,18 @@
-# @bruneckel/vue-theme-transitions
+# @brustack/vue-theme-transitions
 
-[![npm version](https://img.shields.io/npm/v/@bruneckel/vue-theme-transitions.svg)](https://www.npmjs.com/package/@bruneckel/vue-theme-transitions)
-[![license](https://img.shields.io/npm/l/@bruneckel/vue-theme-transitions.svg)](https://github.com/bruneckel/theme-transitions/blob/main/packages/vue/LICENSE)
+[![npm version](https://img.shields.io/npm/v/@brustack/vue-theme-transitions.svg)](https://www.npmjs.com/package/@brustack/vue-theme-transitions)
+[![license](https://img.shields.io/npm/l/@brustack/vue-theme-transitions.svg)](https://github.com/brustack/theme-transitions/blob/main/packages/vue/LICENSE)
 
 Vue 3 composable for animated dark/light theme transitions using the View Transitions API.
 
 ## Install
 
 ```sh
-npm install @bruneckel/vue-theme-transitions @bruneckel/theme-transitions-core
+npm install @brustack/vue-theme-transitions @brustack/theme-transitions-core
 # or
-pnpm add @bruneckel/vue-theme-transitions @bruneckel/theme-transitions-core
+pnpm add @brustack/vue-theme-transitions @brustack/theme-transitions-core
 # or
-yarn add @bruneckel/vue-theme-transitions @bruneckel/theme-transitions-core
+yarn add @brustack/vue-theme-transitions @brustack/theme-transitions-core
 ```
 
 > [!IMPORTANT]
@@ -22,8 +22,8 @@ yarn add @bruneckel/vue-theme-transitions @bruneckel/theme-transitions-core
 
 ```vue
 <script setup lang="ts">
-import { useThemeTransition } from '@bruneckel/vue-theme-transitions';
-import '@bruneckel/theme-transitions-core/style.css';
+import { useThemeTransition } from '@brustack/vue-theme-transitions';
+import '@brustack/theme-transitions-core/style.css';
 
 const { theme, isAnimating, toggleTheme } = useThemeTransition({ variant: 'spread' });
 </script>
@@ -51,7 +51,7 @@ useThemeTransition(options?: {
 
 `toggleTheme` and `setTheme(mode, ...)` accept a `MouseEvent` (as shown above) or an explicit options object, e.g. `{ origin, variant, duration }`. This overrides the composable's own options for that one call only. `setTheme('dark', event)` works the same way as `toggleTheme(event)`.
 
-`options` passed to `useThemeTransition` only takes effect on the composable's first call in the app, since it wraps a shared singleton. Per-call overrides on `toggleTheme`/`setTheme` are not affected by this and always apply. See [`@bruneckel/theme-transitions-core`](https://www.npmjs.com/package/@bruneckel/theme-transitions-core)'s README for the full singleton contract.
+`options` passed to `useThemeTransition` only takes effect on the composable's first call in the app, since it wraps a shared singleton. Per-call overrides on `toggleTheme`/`setTheme` are not affected by this and always apply. See [`@brustack/theme-transitions-core`](https://www.npmjs.com/package/@brustack/theme-transitions-core)'s README for the full singleton contract.
 
 ## Vite plugin
 
@@ -59,7 +59,7 @@ Register the anti-flash init script in `vite.config.ts`:
 
 ```ts
 import { defineConfig } from 'vite';
-import { themeTransitions } from '@bruneckel/theme-transitions-core/vite';
+import { themeTransitions } from '@brustack/theme-transitions-core/vite';
 
 export default defineConfig({
 	plugins: [themeTransitions()],
@@ -74,7 +74,7 @@ plugins: [themeTransitions({ variant: 'spread', duration: '1.5s' })],
 
 This only sets defaults. An explicit `useThemeTransition(options)` call, or a per-call override on `toggleTheme`/`setTheme`, still takes precedence.
 
-Not using Vite? See [`@bruneckel/theme-transitions-core`](https://www.npmjs.com/package/@bruneckel/theme-transitions-core)'s README for how to wire up the anti-flash script and stylesheet with webpack or another bundler.
+Not using Vite? See [`@brustack/theme-transitions-core`](https://www.npmjs.com/package/@brustack/theme-transitions-core)'s README for how to wire up the anti-flash script and stylesheet with webpack or another bundler.
 
 ## Notes
 
@@ -82,4 +82,4 @@ Not using Vite? See [`@bruneckel/theme-transitions-core`](https://www.npmjs.com/
 
 ## Known issues
 
-- The `spread` effect can render from the wrong position on Chrome 150 after moving the browser window between displays with different DPI. This is a known upstream Chrome bug, already fixed and pending release to the Stable channel. See [`@bruneckel/theme-transitions-core`](https://www.npmjs.com/package/@bruneckel/theme-transitions-core)'s README for details.
+- The `spread` effect can render from the wrong position on Chrome 150 after moving the browser window between displays with different DPI. This is a known upstream Chrome bug, already fixed and pending release to the Stable channel. See [`@brustack/theme-transitions-core`](https://www.npmjs.com/package/@brustack/theme-transitions-core)'s README for details.

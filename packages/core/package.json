@@ -1,6 +1,6 @@
 {
-	"name": "@bruneckel/theme-transitions-core",
-	"version": "0.2.3",
+	"name": "@brustack/theme-transitions-core",
+	"version": "1.0.0",
 	"description": "Framework-agnostic core for animated dark/light theme transitions using the View Transitions API",
 	"author": "Bruno Neckel",
 	"license": "MIT",
@@ -27,7 +27,7 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/bruneckel/theme-transitions.git",
+		"url": "git+https://github.com/brustack/theme-transitions.git",
 		"directory": "packages/core"
 	},
 	"publishConfig": {

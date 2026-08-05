@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { defaultThemeEffects, isValidCssDuration } from '@bruneckel/theme-transitions-core';
-import type { ThemeEffect } from '@bruneckel/theme-transitions-core';
+import { defaultThemeEffects, isValidCssDuration } from '@brustack/theme-transitions-core';
+import type { ThemeEffect } from '@brustack/theme-transitions-core';
 import { IconRotateCcw } from './icons/IconRotateCcw';
 import { IconSettings } from './icons/IconSettings';
 import './EffectSettings.css';

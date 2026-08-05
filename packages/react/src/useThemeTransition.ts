@@ -1,11 +1,11 @@
 import { useCallback, useSyncExternalStore } from 'react';
 import type { MouseEvent as ReactMouseEvent } from 'react';
-import { getController, resolveOptions } from '@bruneckel/theme-transitions-core';
+import { getController, resolveOptions } from '@brustack/theme-transitions-core';
 import type {
 	ThemeMode,
 	ThemeOptions,
 	TransitionOptions,
-} from '@bruneckel/theme-transitions-core';
+} from '@brustack/theme-transitions-core';
 
 export const useThemeTransition = (opts?: ThemeOptions) => {
 	const controller = getController(opts);
