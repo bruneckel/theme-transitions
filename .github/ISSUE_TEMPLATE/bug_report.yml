@@ -1,0 +1,43 @@
+name: Bug report
+description: Something isn't working as documented
+labels: [bug]
+body:
+  - type: dropdown
+    id: package
+    attributes:
+      label: Which package?
+      options:
+        - "@bruneckel/theme-transitions-core"
+        - "@bruneckel/react-theme-transitions"
+        - "@bruneckel/vue-theme-transitions"
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Package version
+      placeholder: e.g. 0.2.2
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear description of the bug, plus what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Code snippet, or a link to a minimal reproduction.
+    validations:
+      required: false
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser, bundler (Vite/webpack/Nuxt/etc.), framework version.
+    validations:
+      required: false

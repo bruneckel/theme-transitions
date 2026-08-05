@@ -1,0 +1,29 @@
+name: Feature request
+description: Suggest an improvement or a new capability
+labels: [enhancement]
+body:
+  - type: dropdown
+    id: package
+    attributes:
+      label: Which package?
+      options:
+        - "@bruneckel/theme-transitions-core"
+        - "@bruneckel/react-theme-transitions"
+        - "@bruneckel/vue-theme-transitions"
+        - Not sure / new package
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's the problem or gap?
+      description: What are you trying to do that isn't well supported today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Optional. What would the API or behavior look like?
+    validations:
+      required: false
