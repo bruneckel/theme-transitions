@@ -125,12 +125,12 @@ const handleSetMode = (target: ThemeMode, event: MouseEvent) => {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  row-gap: 0.1rem;
 }
 
 .hint {
-  order: 3;
   flex-basis: 100%;
-  margin: 0 0 0.1rem;
+  margin: 0.3rem 0 0;
   font-size: 0.6875rem;
   color: var(--text-muted);
 }

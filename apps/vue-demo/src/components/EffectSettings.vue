@@ -86,7 +86,7 @@ watch(
   <div class="effect-settings">
     <button
       type="button"
-      class="settings-trigger"
+      class="icon-btn settings-trigger"
       :aria-expanded="isOpen"
       aria-controls="settings-panel"
       aria-label="Effect settings"
@@ -107,7 +107,7 @@ watch(
           <button
             v-if="isModified"
             type="button"
-            class="reset"
+            class="icon-btn reset"
             aria-label="Reset to defaults"
             title="Reset to defaults"
             @click="resetToDefaults"
@@ -164,20 +164,26 @@ watch(
   display: contents;
 }
 
-.settings-trigger {
-  order: 2;
-  position: relative;
-  margin-bottom: 0.4rem;
-  width: 1.8rem;
-  height: 1.8rem;
+.icon-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-muted);
   background: none;
   border: none;
-  border-radius: 999px;
   cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.icon-btn:hover {
+  background: var(--border);
+}
+
+.settings-trigger {
+  position: relative;
+  width: 1.8rem;
+  height: 1.8rem;
+  color: var(--text-muted);
+  border-radius: 999px;
   transition:
     background-color 0.15s,
     color 0.15s;
@@ -185,7 +191,6 @@ watch(
 
 .settings-trigger:hover,
 .settings-trigger[aria-expanded="true"] {
-  background: var(--border);
   color: var(--text);
 }
 
@@ -200,7 +205,7 @@ watch(
 }
 
 .settings-collapse {
-  order: 4;
+  order: 1;
   flex-basis: 100%;
   display: grid;
   grid-template-rows: 0fr;
@@ -274,19 +279,8 @@ input.invalid {
 }
 
 .reset {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: var(--danger);
-  background: none;
-  border: none;
   border-radius: 0.5rem;
   padding: 0.3rem;
-  cursor: pointer;
-  transition: background-color 0.15s;
-}
-
-.reset:hover {
-  background: var(--border);
 }
 </style>

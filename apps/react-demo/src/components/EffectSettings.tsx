@@ -69,7 +69,7 @@ export const EffectSettings = ({ onChange }: EffectSettingsProps) => {
 		<div className="effect-settings">
 			<button
 				type="button"
-				className="settings-trigger"
+				className="icon-btn settings-trigger"
 				aria-expanded={isOpen}
 				aria-controls="settings-panel"
 				aria-label="Effect settings"
@@ -86,7 +86,7 @@ export const EffectSettings = ({ onChange }: EffectSettingsProps) => {
 						{isModified && (
 							<button
 								type="button"
-								className="reset"
+								className="icon-btn reset"
 								aria-label="Reset to defaults"
 								title="Reset to defaults"
 								onClick={resetToDefaults}

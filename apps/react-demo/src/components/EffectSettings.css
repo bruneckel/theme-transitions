@@ -2,20 +2,26 @@
 	display: contents;
 }
 
-.settings-trigger {
-	order: 2;
-	position: relative;
-	margin-bottom: 0.4rem;
-	width: 1.8rem;
-	height: 1.8rem;
+.icon-btn {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: var(--text-muted);
 	background: none;
 	border: none;
-	border-radius: 999px;
 	cursor: pointer;
+	transition: background-color 0.15s;
+}
+
+.icon-btn:hover {
+	background: var(--border);
+}
+
+.settings-trigger {
+	position: relative;
+	width: 1.8rem;
+	height: 1.8rem;
+	color: var(--text-muted);
+	border-radius: 999px;
 	transition:
 		background-color 0.15s,
 		color 0.15s;
@@ -23,7 +29,6 @@
 
 .settings-trigger:hover,
 .settings-trigger[aria-expanded='true'] {
-	background: var(--border);
 	color: var(--text);
 }
 
@@ -38,7 +43,7 @@
 }
 
 .settings-collapse {
-	order: 4;
+	order: 1;
 	flex-basis: 100%;
 	display: grid;
 	grid-template-rows: 0fr;
@@ -112,18 +117,7 @@ input.invalid {
 }
 
 .reset {
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	color: var(--danger);
-	background: none;
-	border: none;
 	border-radius: 0.5rem;
 	padding: 0.3rem;
-	cursor: pointer;
-	transition: background-color 0.15s;
-}
-
-.reset:hover {
-	background: var(--border);
 }
