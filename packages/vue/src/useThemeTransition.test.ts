@@ -31,20 +31,14 @@ const controllerMock = vi.hoisted(() => {
 
 const getControllerMock = vi.hoisted(() => vi.fn(() => controllerMock));
 
-vi.mock('@bruneckel/theme-transitions-core', () => ({
-	getController: getControllerMock,
-	originFromEvent: (event: MouseEvent) => ({
-		x: event.clientX,
-		y: event.clientY,
-	}),
-	resolveOptions: (eventOrOpts?: MouseEvent | Record<string, unknown>) => {
-		if (eventOrOpts instanceof MouseEvent) {
-			return { origin: { x: eventOrOpts.clientX, y: eventOrOpts.clientY } };
-		}
+vi.mock('@bruneckel/theme-transitions-core', async (importOriginal) => {
+	const actual = await importOriginal<typeof import('@bruneckel/theme-transitions-core')>();
 
-		return eventOrOpts ?? {};
-	},
-}));
+	return {
+		...actual,
+		getController: getControllerMock,
+	};
+});
 
 import { useThemeTransition } from './useThemeTransition';
 

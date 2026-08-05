@@ -1,7 +1,7 @@
-import type { SVGProps } from 'react';
 import { BaseIcon } from './BaseIcon';
+import type { IconProps } from './BaseIcon';
 
-export const IconSun = ({ size, ...props }: { size?: number } & SVGProps<SVGSVGElement>) => (
+export const IconSun = ({ size, ...props }: IconProps) => (
 	<BaseIcon size={size} {...props}>
 		<circle cx="12" cy="12" r="4" />
 		<path d="M12 2v2" />

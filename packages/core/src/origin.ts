@@ -1,6 +1,11 @@
 import type { ThemeOrigin } from './types';
 
-export const originFromEvent = (event: MouseEvent): ThemeOrigin => ({
+export type EventLike = {
+	clientX: number;
+	clientY: number;
+};
+
+export const originFromEvent = (event: EventLike): ThemeOrigin => ({
 	x: event.clientX,
 	y: event.clientY,
 });

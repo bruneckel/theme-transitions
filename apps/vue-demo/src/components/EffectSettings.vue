@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
-import { defaultThemeEffects } from "@bruneckel/theme-transitions-core";
+import { defaultThemeEffects, isValidCssDuration } from "@bruneckel/theme-transitions-core";
 import type { ThemeEffect } from "@bruneckel/theme-transitions-core";
 import IconChevronRight from "./icons/IconChevronRight.vue";
 import IconRotateCcw from "./icons/IconRotateCcw.vue";
@@ -30,7 +30,7 @@ const radius = defaultThemeEffects.spread.radius;
 
 const durationError = computed(() => {
   if (variant.value === "none") return "";
-  return /^\d+(\.\d+)?(ms|s)$/.test(duration.value)
+  return isValidCssDuration(duration.value)
     ? ""
     : "Use a CSS duration, e.g. 1s or 400ms";
 });

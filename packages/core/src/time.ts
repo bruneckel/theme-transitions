@@ -1,5 +1,9 @@
 import type { SpreadEffectOptions, ThemeOrigin } from './types';
 
+const CSS_DURATION_PATTERN = /^\d+(\.\d+)?(ms|s)$/;
+
+export const isValidCssDuration = (duration: string): boolean => CSS_DURATION_PATTERN.test(duration);
+
 export const parseCssDuration = (duration: string): number => {
 	const trimmed = duration.trim();
 

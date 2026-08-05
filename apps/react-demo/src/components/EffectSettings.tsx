@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { defaultThemeEffects } from '@bruneckel/theme-transitions-core';
+import { defaultThemeEffects, isValidCssDuration } from '@bruneckel/theme-transitions-core';
 import type { ThemeEffect } from '@bruneckel/theme-transitions-core';
 import { IconChevronRight } from './icons/IconChevronRight';
 import { IconRotateCcw } from './icons/IconRotateCcw';
@@ -19,25 +19,27 @@ export interface EffectSettingsProps {
 const easingPresets = ['ease', 'ease-in', 'ease-out', 'ease-in-out', 'linear'];
 const radius = defaultThemeEffects.spread.radius;
 
+const defaultsFor = (variant: ThemeEffect) =>
+	variant === 'fade' ? defaultThemeEffects.fade : defaultThemeEffects.spread;
+
 export const EffectSettings = ({ onChange }: EffectSettingsProps) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [variant, setVariant] = useState<ThemeEffect>('spread');
 	const [duration, setDuration] = useState(defaultThemeEffects.spread.duration);
 	const [easingPreset, setEasingPreset] = useState(defaultThemeEffects.fade.easing);
-	const [prevVariant, setPrevVariant] = useState(variant);
 
 	const easing = variant === 'fade' ? easingPreset : defaultThemeEffects.spread.easing;
 
 	const durationError = variant === 'none'
 		? ''
-		: /^\d+(\.\d+)?(ms|s)$/.test(duration)
+		: isValidCssDuration(duration)
 			? ''
 			: 'Use a CSS duration, e.g. 1s or 400ms';
 
 	const isModified = (() => {
 		if (variant === 'none') return false;
 
-		const defaults = variant === 'fade' ? defaultThemeEffects.fade : defaultThemeEffects.spread;
+		const defaults = defaultsFor(variant);
 
 		if (duration !== defaults.duration) return true;
 
@@ -45,18 +47,19 @@ export const EffectSettings = ({ onChange }: EffectSettingsProps) => {
 	})();
 
 	const resetToDefaults = () => {
-		const defaults = variant === 'fade' ? defaultThemeEffects.fade : defaultThemeEffects.spread;
+		const defaults = defaultsFor(variant);
 
 		setDuration(defaults.duration);
 		setEasingPreset(defaultThemeEffects.fade.easing);
 	};
 
-	if (variant !== prevVariant) {
-		setPrevVariant(variant);
-		const defaults = variant === 'fade' ? defaultThemeEffects.fade : defaultThemeEffects.spread;
+	const selectVariant = (next: ThemeEffect) => {
+		const defaults = defaultsFor(next);
+
+		setVariant(next);
 		setDuration(defaults.duration);
 		setEasingPreset(defaultThemeEffects.fade.easing);
-	}
+	};
 
 	useEffect(() => {
 		onChange({ variant, duration, easing, radius }, !durationError);
@@ -94,7 +97,7 @@ export const EffectSettings = ({ onChange }: EffectSettingsProps) => {
 					<div className="controls">
 						<label>
 							<span className="label-text">Variant</span>
-							<select value={variant} onChange={(event) => setVariant(event.target.value as ThemeEffect)}>
+							<select value={variant} onChange={(event) => selectVariant(event.target.value as ThemeEffect)}>
 								<option value="spread">spread</option>
 								<option value="fade">fade</option>
 								<option value="none">none</option>

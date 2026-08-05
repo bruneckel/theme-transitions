@@ -1,7 +1,10 @@
 import type { ReactNode, SVGProps } from 'react';
 
-interface BaseIconProps extends SVGProps<SVGSVGElement> {
+export interface IconProps extends SVGProps<SVGSVGElement> {
 	size?: number;
+}
+
+interface BaseIconProps extends IconProps {
 	children: ReactNode;
 }
 

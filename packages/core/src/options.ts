@@ -1,9 +1,6 @@
+import { originFromEvent } from './origin';
+import type { EventLike } from './origin';
 import type { TransitionOptions } from './types';
-
-type EventLike = {
-	clientX: number;
-	clientY: number;
-};
 
 const isEventLike = (value: unknown): value is EventLike =>
 	typeof value === 'object'
@@ -15,7 +12,7 @@ export const resolveOptions = (
 	eventOrOpts?: EventLike | TransitionOptions,
 ): TransitionOptions => {
 	if (isEventLike(eventOrOpts)) {
-		return { origin: { x: eventOrOpts.clientX, y: eventOrOpts.clientY } };
+		return { origin: originFromEvent(eventOrOpts) };
 	}
 
 	return eventOrOpts ?? {};
