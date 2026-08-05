@@ -40,11 +40,11 @@ Binding `toggleTheme` directly to `onClick` works because it accepts React's `Mo
 useThemeTransition(options?: {
 	variant?: 'spread' | 'fade' | 'none'; // default 'fade'
 	duration?: string;                    // default '400ms' (fade) or '1.5s' (spread)
-	easing?: string;                      // fade only, default 'ease'
+	easing?: string;                      // fade only, any CSS easing function, default 'ease'
 })
 ```
 
-`'none'` skips the animation and ignores `duration`/`easing`. `spread`'s clip-path radius is fixed and not configurable.
+`'none'` skips the animation and ignores `duration`/`easing`. `spread` only accepts `duration`; its easing and clip-path radius are fixed and not configurable.
 
 `toggleTheme` and `setTheme(mode, ...)` accept a `MouseEvent` (as shown above) or an explicit options object, e.g. `{ origin, variant, duration }`. This overrides the hook's own options for that one call only. `setTheme('dark', event)` works the same way as `toggleTheme(event)`.
 
