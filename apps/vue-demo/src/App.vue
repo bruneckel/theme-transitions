@@ -6,7 +6,7 @@ import type { ThemeMode } from "@bruneckel/theme-transitions-core";
 import EffectSettings, { type EffectOptions } from "./components/EffectSettings.vue";
 import ThemeModeSwitch from "./components/ThemeModeSwitch.vue";
 
-const { theme, mode, isAnimating, setTheme } = useThemeTransition({
+const { theme, mode, isAnimating, toggleTheme, setTheme } = useThemeTransition({
   variant: "spread",
 });
 
@@ -46,6 +46,19 @@ const handleSetMode = (target: ThemeMode, event: MouseEvent) => {
     </p>
 
     <EffectSettings v-model="effectOptions" v-model:valid="isValid" />
+
+    <section class="simple-example">
+      <p class="simple-example-caption">
+        Simple toggle, origin detected automatically from the click
+      </p>
+      <button
+        class="simple-toggle"
+        :disabled="isAnimating"
+        @click="toggleTheme"
+      >
+        {{ theme }}
+      </button>
+    </section>
   </div>
 </template>
 
@@ -81,5 +94,44 @@ const handleSetMode = (target: ThemeMode, event: MouseEvent) => {
 
 .hint.invisible {
   visibility: hidden;
+}
+
+.simple-example {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.simple-example-caption {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.simple-toggle {
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.65rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.simple-toggle:hover:not(:disabled) {
+  background: var(--border);
+}
+
+.simple-toggle:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 </style>
