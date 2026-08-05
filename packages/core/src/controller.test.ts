@@ -275,3 +275,40 @@ describe('getController', () => {
 		expect(createController()).not.toBe(getController());
 	});
 });
+
+describe('plugin config (window.__themeConfig)', () => {
+	it('applies a plugin-configured variant and duration when no explicit options are given', async () => {
+		vi.stubGlobal('window', { __themeConfig: { variant: 'spread', duration: '2s' } });
+		const controller = createController();
+
+		await controller.toggleTheme({ origin: { x: 0, y: 0 } });
+
+		expect(runThemeTransition).toHaveBeenCalledWith(
+			expect.objectContaining({ name: 'spread' }),
+			{ x: 0, y: 0 },
+			expect.objectContaining({ duration: '2s' }),
+			expect.anything(),
+			expect.anything(),
+		);
+	});
+
+	it('lets an explicit createController option win over a conflicting plugin config value', async () => {
+		vi.stubGlobal('window', { __themeConfig: { variant: 'fade' } });
+		const controller = createController({ variant: 'spread' });
+
+		await controller.toggleTheme({ origin: { x: 0, y: 0 } });
+
+		expect(runThemeTransition).toHaveBeenCalledWith(
+			expect.objectContaining({ name: 'spread' }),
+			expect.anything(),
+			expect.anything(),
+			expect.anything(),
+			expect.anything(),
+		);
+	});
+
+	it('behaves exactly as before when there is no plugin config', () => {
+		const controller = createController();
+		expect(controller.getState()).toEqual({ theme: 'light', mode: 'light', isAnimating: false });
+	});
+});
