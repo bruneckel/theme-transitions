@@ -52,21 +52,23 @@
 
 .mode-row {
 	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr auto;
-	grid-template-areas:
-		'switch gear'
-		'hint hint'
-		'panel panel';
+	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
 	gap: 0.5rem;
 }
 
 .hint {
-	grid-area: hint;
+	order: 3;
+	flex-basis: 100%;
 	margin: 0;
 	font-size: 0.75rem;
 	color: var(--text-muted);
+}
+
+.hint strong {
+	color: var(--text);
+	font-weight: 700;
 }
 
 .hint.invisible {

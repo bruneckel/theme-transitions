@@ -53,7 +53,7 @@ export const App = () => {
 						}}
 					/>
 					<p className={`hint${mode !== 'system' ? ' invisible' : ''}`}>
-						Following system, currently {theme}.
+						Following system, currently <strong>{theme}</strong>.
 					</p>
 				</div>
 			</section>

@@ -1,5 +1,6 @@
 .mode-switch {
-	grid-area: switch;
+	order: 1;
+	flex: 1;
 	display: flex;
 	gap: 1rem;
 }

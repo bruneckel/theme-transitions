@@ -76,6 +76,7 @@ export const EffectSettings = ({ onChange }: EffectSettingsProps) => {
 				onClick={() => setIsOpen(!isOpen)}
 			>
 				<IconSettings size={16} aria-hidden="true" />
+				{isModified && <span className="modified-dot" aria-hidden="true" />}
 			</button>
 
 			<div id="settings-panel" className={`settings-collapse${isOpen ? ' open' : ''}`}>

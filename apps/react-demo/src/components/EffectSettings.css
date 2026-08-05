@@ -3,7 +3,8 @@
 }
 
 .settings-trigger {
-	grid-area: gear;
+	order: 2;
+	position: relative;
 	width: 1.8rem;
 	height: 1.8rem;
 	display: flex;
@@ -25,8 +26,19 @@
 	color: var(--text);
 }
 
+.modified-dot {
+	position: absolute;
+	top: -0.1rem;
+	right: -0.1rem;
+	width: 0.4rem;
+	height: 0.4rem;
+	border-radius: 999px;
+	background: var(--danger);
+}
+
 .settings-collapse {
-	grid-area: panel;
+	order: 4;
+	flex-basis: 100%;
 	display: grid;
 	grid-template-rows: 0fr;
 	transition: grid-template-rows 0.2s ease;
@@ -86,7 +98,7 @@ select {
 input:focus-visible,
 select:focus-visible {
 	outline: 2px solid var(--text);
-	outline-offset: 1px;
+	outline-offset: -2px;
 }
 
 input.invalid {
