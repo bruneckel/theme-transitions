@@ -8,7 +8,7 @@ import { ThemeModeSwitch } from './components/ThemeModeSwitch';
 import './App.css';
 
 export const App = () => {
-	const { theme, mode, isAnimating, setTheme } = useThemeTransition({ variant: 'spread' });
+	const { theme, mode, isAnimating, toggleTheme, setTheme } = useThemeTransition({ variant: 'spread' });
 
 	const [effectOptions, setEffectOptions] = useState<EffectOptions>({
 		variant: 'spread',
@@ -43,6 +43,13 @@ export const App = () => {
 					setIsValid(valid);
 				}}
 			/>
+
+			<section className="simple-example">
+				<p className="simple-example-caption">Simple toggle, origin detected automatically from the click</p>
+				<button className="simple-toggle" disabled={isAnimating} onClick={toggleTheme}>
+					{theme}
+				</button>
+			</section>
 		</div>
 	);
 };
