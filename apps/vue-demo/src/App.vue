@@ -35,22 +35,9 @@ const handleSetMode = (target: ThemeMode, event: MouseEvent) => {
       <p>A Vue demo of animated theme switching.</p>
     </header>
 
-    <ThemeModeSwitch
-      :mode="mode"
-      :disabled="isAnimating || !isValid"
-      @select="handleSetMode"
-    />
-
-    <p class="hint" :class="{ invisible: mode !== 'system' }">
-      Following system, currently {{ theme }}.
-    </p>
-
-    <EffectSettings v-model="effectOptions" v-model:valid="isValid" />
-
-    <section class="simple-example">
-      <p class="simple-example-caption">
-        Simple toggle, origin detected automatically from the click
-      </p>
+    <section class="pattern">
+      <p class="pattern-title">Simple toggle</p>
+      <p class="pattern-code">toggleTheme(event)</p>
       <button
         class="simple-toggle"
         :disabled="isAnimating"
@@ -58,6 +45,24 @@ const handleSetMode = (target: ThemeMode, event: MouseEvent) => {
       >
         {{ theme }}
       </button>
+    </section>
+
+    <div class="divider" />
+
+    <section class="pattern">
+      <p class="pattern-title">Mode switch</p>
+      <p class="pattern-code">ThemeModeSwitch</p>
+      <div class="mode-row">
+        <ThemeModeSwitch
+          :mode="mode"
+          :disabled="isAnimating || !isValid"
+          @select="handleSetMode"
+        />
+        <EffectSettings v-model="effectOptions" v-model:valid="isValid" />
+        <p class="hint" :class="{ invisible: mode !== 'system' }">
+          Following system, currently <strong>{{ theme }}</strong>.
+        </p>
+      </div>
     </section>
   </div>
 </template>
@@ -68,7 +73,7 @@ const handleSetMode = (target: ThemeMode, event: MouseEvent) => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .page-header {
@@ -86,31 +91,58 @@ const handleSetMode = (target: ThemeMode, event: MouseEvent) => {
   color: var(--text-muted);
 }
 
-.hint {
-  margin: -1rem 0 0;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-.hint.invisible {
-  visibility: hidden;
-}
-
-.simple-example {
+.pattern {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border);
+  gap: 0.6rem;
 }
 
-.simple-example-caption {
+.pattern-title {
+  align-self: flex-start;
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.pattern-code {
+  align-self: flex-start;
+  margin: -0.4rem 0 0;
+  font-size: 0.6875rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--text-muted);
+}
+
+.divider {
+  width: 100%;
+  border-top: 1px dashed var(--border);
+}
+
+.mode-row {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hint {
+  order: 3;
+  flex-basis: 100%;
   margin: 0;
   font-size: 0.75rem;
   color: var(--text-muted);
-  text-align: center;
+}
+
+.hint strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.hint.invisible {
+  visibility: hidden;
 }
 
 .simple-toggle {

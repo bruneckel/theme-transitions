@@ -2,8 +2,8 @@
 import { computed, ref, watch } from "vue";
 import { defaultThemeEffects, isValidCssDuration } from "@bruneckel/theme-transitions-core";
 import type { ThemeEffect } from "@bruneckel/theme-transitions-core";
-import IconChevronRight from "./icons/IconChevronRight.vue";
 import IconRotateCcw from "./icons/IconRotateCcw.vue";
+import IconSettings from "./icons/IconSettings.vue";
 
 export interface EffectOptions {
   variant: ThemeEffect;
@@ -83,34 +83,18 @@ watch(
 </script>
 
 <template>
-  <div class="settings">
-    <div class="settings-header">
-      <button
-        type="button"
-        class="settings-toggle"
-        :aria-expanded="isOpen"
-        aria-controls="settings-panel"
-        @click="isOpen = !isOpen"
-      >
-        <IconChevronRight
-          class="chevron"
-          :class="{ open: isOpen }"
-          :size="14"
-        />
-        Settings
-      </button>
-
-      <button
-        v-if="isModified"
-        type="button"
-        class="reset"
-        aria-label="Reset to defaults"
-        title="Reset to defaults"
-        @click="resetToDefaults"
-      >
-        <IconRotateCcw :size="14" aria-hidden="true" />
-      </button>
-    </div>
+  <div class="effect-settings">
+    <button
+      type="button"
+      class="settings-trigger"
+      :aria-expanded="isOpen"
+      aria-controls="settings-panel"
+      aria-label="Effect settings"
+      @click="isOpen = !isOpen"
+    >
+      <IconSettings :size="16" aria-hidden="true" />
+      <span v-if="isModified" class="modified-dot" aria-hidden="true" />
+    </button>
 
     <div
       id="settings-panel"
@@ -118,6 +102,20 @@ watch(
       :class="{ open: isOpen }"
     >
       <div class="settings-collapse-inner">
+        <div class="panel-header">
+          <span class="panel-title">Settings</span>
+          <button
+            v-if="isModified"
+            type="button"
+            class="reset"
+            aria-label="Reset to defaults"
+            title="Reset to defaults"
+            @click="resetToDefaults"
+          >
+            <IconRotateCcw :size="14" aria-hidden="true" />
+          </button>
+        </div>
+
         <div class="controls">
           <label>
             <span class="label-text">Variant</span>
@@ -162,45 +160,47 @@ watch(
 </template>
 
 <style scoped>
-.settings {
-  width: 100%;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 0.75rem;
+.effect-settings {
+  display: contents;
 }
 
-.settings-header {
+.settings-trigger {
+  order: 2;
+  position: relative;
+  width: 1.8rem;
+  height: 1.8rem;
   display: flex;
   align-items: center;
-  padding-right: 0.5rem;
-}
-
-.settings-toggle {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font: inherit;
-  cursor: pointer;
-  padding: 0.6rem 0.9rem;
-  font-size: 0.8125rem;
-  font-weight: 500;
+  justify-content: center;
   color: var(--text-muted);
   background: none;
   border: none;
-  border-radius: inherit;
-  text-align: left;
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    color 0.15s;
 }
 
-.chevron {
-  transition: transform 0.2s ease;
+.settings-trigger:hover,
+.settings-trigger[aria-expanded="true"] {
+  background: var(--border);
+  color: var(--text);
 }
 
-.chevron.open {
-  transform: rotate(90deg);
+.modified-dot {
+  position: absolute;
+  top: -0.1rem;
+  right: -0.1rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: var(--danger);
 }
 
 .settings-collapse {
+  order: 4;
+  flex-basis: 100%;
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.2s ease;
@@ -208,7 +208,6 @@ watch(
 
 .settings-collapse.open {
   grid-template-rows: 1fr;
-  border-top: 1px solid var(--border);
 }
 
 .settings-collapse-inner {
@@ -216,11 +215,24 @@ watch(
   overflow: hidden;
 }
 
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1.25rem 0 0.6rem;
+}
+
+.panel-title {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
 .controls {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 1rem 0.9rem;
+  gap: 0.75rem;
+  padding-bottom: 0.25rem;
 }
 
 label {
@@ -248,7 +260,7 @@ select {
 input:focus-visible,
 select:focus-visible {
   outline: 2px solid var(--text);
-  outline-offset: 1px;
+  outline-offset: -2px;
 }
 
 input.invalid {
@@ -268,7 +280,7 @@ input.invalid {
   background: none;
   border: none;
   border-radius: 0.5rem;
-  padding: 0.4rem;
+  padding: 0.3rem;
   cursor: pointer;
   transition: background-color 0.15s;
 }

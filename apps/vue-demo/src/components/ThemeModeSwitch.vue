@@ -40,43 +40,37 @@ const options: { value: ThemeMode; label: string; icon: Component }[] = [
 
 <style scoped>
 .mode-switch {
-  width: 100%;
+  order: 1;
+  flex: 1;
   display: flex;
-  gap: 0.25rem;
-  padding: 0.25rem;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 0.9rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  gap: 1rem;
 }
 
 .mode-option {
-  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
   font: inherit;
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--text-muted);
   background: none;
   border: none;
-  border-radius: 0.65rem;
-  padding: 0.6rem 0.5rem;
+  border-bottom: 2px solid transparent;
+  padding: 0 0 0.25rem;
   cursor: pointer;
   transition:
-    background-color 0.15s,
-    color 0.15s;
+    color 0.15s,
+    border-color 0.15s;
 }
 
 .mode-option:hover:not(:disabled):not(.active) {
-  background: var(--border);
+  color: var(--text);
 }
 
 .mode-option.active {
-  color: var(--bg);
-  background: var(--text);
+  color: var(--text);
+  border-bottom-color: var(--text);
 }
 
 .mode-option:disabled:not(.active) {
