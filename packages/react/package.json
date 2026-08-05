@@ -1,6 +1,6 @@
 {
 	"name": "@bruneckel/react-theme-transitions",
-	"version": "0.1.3",
+	"version": "0.1.2",
 	"description": "React hook for animated dark/light theme transitions using the View Transitions API",
 	"author": "Bruno Neckel",
 	"license": "MIT",
