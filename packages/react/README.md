@@ -33,14 +33,30 @@ Binding `toggleTheme` directly to `onClick` works because it accepts React's `Mo
 
 `useThemeTransition(options?)` accepts:
 
-| Option | Type | Default | Notes |
-| --- | --- | --- | --- |
-| `variant` | `'spread' \| 'fade' \| 'none'` | `'fade'` | Which effect plays on toggle. `'none'` skips the animation entirely. |
-| `duration` | `string` | `'400ms'` (fade) or `'1.5s'` (spread) | CSS animation duration. |
-| `easing` | `string` | `'ease'` (fade) or `'cubic-bezier(0.4, 0, 0.2, 1)'` (spread) | CSS animation easing. |
-| `radius` | `string` | `'150vmax'` | Final `clip-path` radius, `spread` only. |
+| Option | Type | Default |
+| --- | --- | --- |
+| `variant` | `'spread' \| 'fade' \| 'none'` | `'fade'` |
 
-`toggleTheme` and `setTheme(mode, ...)` both accept either a `MouseEvent` (as shown above) or an explicit `{ origin, variant, duration, easing, radius }` object, overriding the hook's own options for that one call only. `setTheme('dark', event)` works the same way `toggleTheme(event)` does.
+`variant` picks which effect plays on toggle; `'none'` skips the animation entirely and ignores every option below. The rest of the options depend on which variant is active:
+
+**`fade`**
+
+| Option | Type | Default |
+| --- | --- | --- |
+| `duration` | `string` | `'400ms'` |
+| `easing` | `string` | `'ease'` |
+
+**`spread`**
+
+| Option | Type | Default |
+| --- | --- | --- |
+| `duration` | `string` | `'1.5s'` |
+| `easing` | `string` | `'cubic-bezier(0.4, 0, 0.2, 1)'` |
+| `radius` | `string` | `'150vmax'`, the final `clip-path` radius |
+
+`toggleTheme` and `setTheme(mode, ...)` both accept either a `MouseEvent` (as shown above) or an explicit options object (`{ origin, variant, duration, easing, radius }`), overriding the hook's own options for that one call only. `setTheme('dark', event)` works the same way `toggleTheme(event)` does.
+
+`useThemeTransition(options)` wraps the core's shared `getController` singleton, so `options` only takes effect on the very first call in a process; per-call overrides on `toggleTheme`/`setTheme` always apply regardless. See [`@bruneckel/theme-transitions-core`](https://www.npmjs.com/package/@bruneckel/theme-transitions-core)'s README for the full singleton contract.
 
 Register the anti-flash init script via the Vite plugin, in `vite.config.ts`:
 
@@ -56,7 +72,6 @@ export default defineConfig({
 
 ## Notes
 
-- `useThemeTransition(options)` wraps the core's shared `getController` singleton, so `options` only takes effect on the very first call in a process. See [`@bruneckel/theme-transitions-core`](https://www.npmjs.com/package/@bruneckel/theme-transitions-core)'s README for the full contract.
 - Built on `useSyncExternalStore`, React's built-in primitive for subscribing to state outside its own render tree. Safe under `StrictMode`'s development-mode double-invocation.
 - This package has no SSR-specific handling. It targets plain client-side React apps.
 
