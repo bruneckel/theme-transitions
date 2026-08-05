@@ -190,11 +190,11 @@ watch(
 
 .modified-dot {
   position: absolute;
-  top: -0.1rem;
-  right: -0.1rem;
+  top: 0.05rem;
+  right: 0.05rem;
   width: 0.4rem;
   height: 0.4rem;
-  border-radius: 999px;
+  border-radius: 50%;
   background: var(--danger);
 }
 
