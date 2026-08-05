@@ -7,19 +7,11 @@ React hook for animated dark/light theme transitions using the View Transitions 
 
 ## Install
 
-```
+```sh
 npm install @bruneckel/react-theme-transitions @bruneckel/theme-transitions-core
-```
-
-or
-
-```
+# or
 pnpm add @bruneckel/react-theme-transitions @bruneckel/theme-transitions-core
-```
-
-or
-
-```
+# or
 yarn add @bruneckel/react-theme-transitions @bruneckel/theme-transitions-core
 ```
 
@@ -44,16 +36,15 @@ Binding `toggleTheme` directly to `onClick` works because it accepts React's `Mo
 
 ## Options
 
-`useThemeTransition(options?)` accepts:
+```ts
+useThemeTransition(options?: {
+	variant?: 'spread' | 'fade' | 'none'; // default 'fade'
+	duration?: string;                    // default '400ms' (fade) or '1.5s' (spread)
+	easing?: string;                      // fade only, default 'ease'
+})
+```
 
-| Option | Type | Default |
-| --- | --- | --- |
-| `variant` | `'spread' \| 'fade' \| 'none'` | `'fade'` |
-
-`variant` picks which effect plays on toggle. `'none'` skips the animation and ignores every option below.
-
-- **`fade`** accepts `duration` (`string`, default `'400ms'`) and `easing` (`string`, default `'ease'`).
-- **`spread`** accepts `duration` only (`string`, default `'1.5s'`). Its easing and clip-path radius are fixed.
+`'none'` skips the animation and ignores `duration`/`easing`. `spread`'s clip-path radius is fixed and not configurable.
 
 `toggleTheme` and `setTheme(mode, ...)` accept a `MouseEvent` (as shown above) or an explicit options object, e.g. `{ origin, variant, duration }`. This overrides the hook's own options for that one call only. `setTheme('dark', event)` works the same way as `toggleTheme(event)`.
 
