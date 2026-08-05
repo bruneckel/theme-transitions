@@ -36,7 +36,7 @@ Binding `toggleTheme` directly to `onClick` works because it accepts React's `Mo
 | Option | Type | Default | Notes |
 | --- | --- | --- | --- |
 | `variant` | `'spread' \| 'fade' \| 'none'` | `'fade'` | Which effect plays on toggle. `'none'` skips the animation entirely. |
-| `duration` | `string` | `'400ms'` (fade) or `'1s'` (spread) | CSS animation duration. |
+| `duration` | `string` | `'400ms'` (fade) or `'1.5s'` (spread) | CSS animation duration. |
 | `easing` | `string` | `'ease'` (fade) or `'cubic-bezier(0.4, 0, 0.2, 1)'` (spread) | CSS animation easing. |
 | `radius` | `string` | `'150vmax'` | Final `clip-path` radius, `spread` only. |
 
