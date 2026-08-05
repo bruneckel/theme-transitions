@@ -24,6 +24,7 @@ export const EffectSettings = ({ onChange }: EffectSettingsProps) => {
 	const [variant, setVariant] = useState<ThemeEffect>('spread');
 	const [duration, setDuration] = useState(defaultThemeEffects.spread.duration);
 	const [easingPreset, setEasingPreset] = useState(defaultThemeEffects.fade.easing);
+	const [prevVariant, setPrevVariant] = useState(variant);
 
 	const easing = variant === 'fade' ? easingPreset : defaultThemeEffects.spread.easing;
 
@@ -50,9 +51,12 @@ export const EffectSettings = ({ onChange }: EffectSettingsProps) => {
 		setEasingPreset(defaultThemeEffects.fade.easing);
 	};
 
-	useEffect(() => {
-		resetToDefaults();
-	}, [variant]);
+	if (variant !== prevVariant) {
+		setPrevVariant(variant);
+		const defaults = variant === 'fade' ? defaultThemeEffects.fade : defaultThemeEffects.spread;
+		setDuration(defaults.duration);
+		setEasingPreset(defaultThemeEffects.fade.easing);
+	}
 
 	useEffect(() => {
 		onChange({ variant, duration, easing, radius }, !durationError);
