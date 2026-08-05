@@ -15,9 +15,13 @@
 		"pretypecheck": "npm run build --workspace=packages/core",
 		"typecheck": "npm run typecheck --workspaces --if-present",
 		"dev:vue-demo": "npm run dev --workspace=apps/vue-demo",
-		"dev:react-demo": "npm run dev --workspace=apps/react-demo"
+		"dev:react-demo": "npm run dev --workspace=apps/react-demo",
+		"changeset": "changeset",
+		"version-packages": "changeset version",
+		"release": "npm run build && changeset publish"
 	},
 	"devDependencies": {
+		"@changesets/cli": "^2.31.1",
 		"@stylistic/eslint-plugin": "^5.10.0",
 		"eslint": "^10.8.0",
 		"typescript": "^5.9.3",
