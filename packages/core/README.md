@@ -63,6 +63,37 @@ Import the static default stylesheet once, wherever your app initializes:
 import '@bruneckel/theme-transitions-core/style.css';
 ```
 
+## Other bundlers
+
+Not using Vite? The plugin above is a thin wrapper around two functions this package already exports, so you can get the same anti-flash behavior with any bundler by calling them directly.
+
+With webpack and `html-webpack-plugin`:
+
+```js
+const { buildColorModeInitScript } = require('@bruneckel/theme-transitions-core');
+
+new HtmlWebpackPlugin({
+	templateParameters: { themeInitScript: buildColorModeInitScript() },
+});
+```
+
+```html
+<!-- in the HTML template, inside <head> -->
+<script><%= htmlWebpackPlugin.options.templateParameters.themeInitScript %></script>
+```
+
+The script must run in `<head>`, before the page paints, regardless of where your bundle's own `<script>` tags are injected. To also set app-wide default effect options (the same thing the Vite plugin's argument does), prepend `buildConfigInitScript(options)` (which sets `window.__themeConfig`) to the same string.
+
+Webpack also needs a CSS rule that reaches into `node_modules` for this package's stylesheet. If your existing `.css` rule excludes `node_modules` (common when scoping CSS Modules to your own source), add this package's path to that rule's `include`:
+
+```js
+{
+	test: /\.css$/,
+	include: [path.resolve(__dirname, 'node_modules/@bruneckel/theme-transitions-core')],
+	use: ['style-loader', 'css-loader'],
+}
+```
+
 ## Notes
 
 - `getController(options)` only applies `options` on the very first call in a process. Subsequent calls with different options are ignored, since it returns the same shared singleton. Call `createController(options)` instead if you need an independently configured instance.
