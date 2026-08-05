@@ -13,8 +13,7 @@ export const App = () => {
 	const [effectOptions, setEffectOptions] = useState<EffectOptions>({
 		variant: 'fade',
 		duration: '400ms',
-		easing: '',
-		radius: '',
+		easing: 'ease',
 	});
 	const [isValid, setIsValid] = useState(true);
 

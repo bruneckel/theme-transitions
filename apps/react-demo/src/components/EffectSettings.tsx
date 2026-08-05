@@ -8,8 +8,7 @@ import './EffectSettings.css';
 export interface EffectOptions {
 	variant: ThemeEffect;
 	duration: string;
-	easing: string;
-	radius: string;
+	easing?: string;
 }
 
 export interface EffectSettingsProps {
@@ -17,7 +16,6 @@ export interface EffectSettingsProps {
 }
 
 const easingPresets = ['ease', 'ease-in', 'ease-out', 'ease-in-out', 'linear'];
-const radius = defaultThemeEffects.spread.radius;
 
 const defaultsFor = (variant: ThemeEffect) =>
 	variant === 'fade' ? defaultThemeEffects.fade : defaultThemeEffects.spread;
@@ -27,8 +25,6 @@ export const EffectSettings = ({ onChange }: EffectSettingsProps) => {
 	const [variant, setVariant] = useState<ThemeEffect>('fade');
 	const [duration, setDuration] = useState(defaultThemeEffects.fade.duration);
 	const [easingPreset, setEasingPreset] = useState(defaultThemeEffects.fade.easing);
-
-	const easing = variant === 'fade' ? easingPreset : defaultThemeEffects.spread.easing;
 
 	const durationError = variant === 'none'
 		? ''
@@ -62,8 +58,11 @@ export const EffectSettings = ({ onChange }: EffectSettingsProps) => {
 	};
 
 	useEffect(() => {
-		onChange({ variant, duration, easing, radius }, !durationError);
-	}, [variant, duration, easing, durationError]);
+		onChange(
+			variant === 'fade' ? { variant, duration, easing: easingPreset } : { variant, duration },
+			!durationError,
+		);
+	}, [variant, duration, easingPreset, durationError]);
 
 	return (
 		<div className="effect-settings">

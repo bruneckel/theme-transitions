@@ -13,8 +13,7 @@ const { theme, mode, isAnimating, toggleTheme, setTheme } = useThemeTransition({
 const effectOptions = ref<EffectOptions>({
   variant: "fade",
   duration: "400ms",
-  easing: "",
-  radius: "",
+  easing: "ease",
 });
 const isValid = ref(true);
 

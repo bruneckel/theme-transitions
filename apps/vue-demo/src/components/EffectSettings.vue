@@ -8,8 +8,7 @@ import IconSettings from "./icons/IconSettings.vue";
 export interface EffectOptions {
   variant: ThemeEffect;
   duration: string;
-  easing: string;
-  radius: string;
+  easing?: string;
 }
 
 const options = defineModel<EffectOptions>({ required: true });
@@ -22,11 +21,6 @@ const easingPresets = ["ease", "ease-in", "ease-out", "ease-in-out", "linear"];
 const variant = ref<ThemeEffect>(options.value.variant);
 const duration = ref(options.value.duration);
 const easingPreset = ref(defaultThemeEffects.fade.easing);
-
-const easing = computed(() =>
-  variant.value === "fade" ? easingPreset.value : defaultThemeEffects.spread.easing,
-);
-const radius = defaultThemeEffects.spread.radius;
 
 const durationError = computed(() => {
   if (variant.value === "none") return "";
@@ -61,14 +55,12 @@ const resetToDefaults = () => {
 watch(variant, resetToDefaults);
 
 watch(
-  [variant, duration, easing],
+  [variant, duration, easingPreset],
   () => {
-    options.value = {
-      variant: variant.value,
-      duration: duration.value,
-      easing: easing.value,
-      radius,
-    };
+    options.value =
+      variant.value === "fade"
+        ? { variant: variant.value, duration: duration.value, easing: easingPreset.value }
+        : { variant: variant.value, duration: duration.value };
   },
   { immediate: true },
 );
