@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { defaultThemeEffects, isValidCssDuration } from '@bruneckel/theme-transitions-core';
 import type { ThemeEffect } from '@bruneckel/theme-transitions-core';
-import { IconChevronRight } from './icons/IconChevronRight';
 import { IconRotateCcw } from './icons/IconRotateCcw';
+import { IconSettings } from './icons/IconSettings';
 import './EffectSettings.css';
 
 export interface EffectOptions {
@@ -66,34 +66,35 @@ export const EffectSettings = ({ onChange }: EffectSettingsProps) => {
 	}, [variant, duration, easing, durationError]);
 
 	return (
-		<div className="settings">
-			<div className="settings-header">
-				<button
-					type="button"
-					className="settings-toggle"
-					aria-expanded={isOpen}
-					aria-controls="settings-panel"
-					onClick={() => setIsOpen(!isOpen)}
-				>
-					<IconChevronRight size={14} className={`chevron${isOpen ? ' open' : ''}`} />
-					Settings
-				</button>
-
-				{isModified && (
-					<button
-						type="button"
-						className="reset"
-						aria-label="Reset to defaults"
-						title="Reset to defaults"
-						onClick={resetToDefaults}
-					>
-						<IconRotateCcw size={14} aria-hidden="true" />
-					</button>
-				)}
-			</div>
+		<div className="effect-settings">
+			<button
+				type="button"
+				className="settings-trigger"
+				aria-expanded={isOpen}
+				aria-controls="settings-panel"
+				aria-label="Effect settings"
+				onClick={() => setIsOpen(!isOpen)}
+			>
+				<IconSettings size={16} aria-hidden="true" />
+			</button>
 
 			<div id="settings-panel" className={`settings-collapse${isOpen ? ' open' : ''}`}>
 				<div className="settings-collapse-inner">
+					<div className="panel-header">
+						<span className="panel-title">Settings</span>
+						{isModified && (
+							<button
+								type="button"
+								className="reset"
+								aria-label="Reset to defaults"
+								title="Reset to defaults"
+								onClick={resetToDefaults}
+							>
+								<IconRotateCcw size={14} aria-hidden="true" />
+							</button>
+						)}
+					</div>
+
 					<div className="controls">
 						<label>
 							<span className="label-text">Variant</span>

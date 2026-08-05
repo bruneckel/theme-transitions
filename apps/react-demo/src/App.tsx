@@ -31,24 +31,31 @@ export const App = () => {
 				<p>A React demo of animated theme switching.</p>
 			</header>
 
-			<ThemeModeSwitch mode={mode} disabled={isAnimating || !isValid} onSelect={handleSetMode} />
-
-			<p className={`hint${mode !== 'system' ? ' invisible' : ''}`}>
-				Following system, currently {theme}.
-			</p>
-
-			<EffectSettings
-				onChange={(options, valid) => {
-					setEffectOptions(options);
-					setIsValid(valid);
-				}}
-			/>
-
-			<section className="simple-example">
-				<p className="simple-example-caption">Simple toggle, origin detected automatically from the click</p>
+			<section className="pattern">
+				<p className="pattern-title">Simple toggle</p>
+				<p className="pattern-code">toggleTheme(event)</p>
 				<button className="simple-toggle" disabled={isAnimating} onClick={toggleTheme}>
 					{theme}
 				</button>
+			</section>
+
+			<div className="divider" />
+
+			<section className="pattern">
+				<p className="pattern-title">Mode switch</p>
+				<p className="pattern-code">ThemeModeSwitch</p>
+				<div className="mode-row">
+					<ThemeModeSwitch mode={mode} disabled={isAnimating || !isValid} onSelect={handleSetMode} />
+					<EffectSettings
+						onChange={(options, valid) => {
+							setEffectOptions(options);
+							setIsValid(valid);
+						}}
+					/>
+					<p className={`hint${mode !== 'system' ? ' invisible' : ''}`}>
+						Following system, currently {theme}.
+					</p>
+				</div>
 			</section>
 		</div>
 	);
