@@ -8,11 +8,11 @@ import { ThemeModeSwitch } from './components/ThemeModeSwitch';
 import './App.css';
 
 export const App = () => {
-	const { theme, mode, isAnimating, toggleTheme, setTheme } = useThemeTransition({ variant: 'spread' });
+	const { theme, mode, isAnimating, toggleTheme, setTheme } = useThemeTransition({ variant: 'fade' });
 
 	const [effectOptions, setEffectOptions] = useState<EffectOptions>({
-		variant: 'spread',
-		duration: '1s',
+		variant: 'fade',
+		duration: '400ms',
 		easing: '',
 		radius: '',
 	});

@@ -24,8 +24,8 @@ const defaultsFor = (variant: ThemeEffect) =>
 
 export const EffectSettings = ({ onChange }: EffectSettingsProps) => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [variant, setVariant] = useState<ThemeEffect>('spread');
-	const [duration, setDuration] = useState(defaultThemeEffects.spread.duration);
+	const [variant, setVariant] = useState<ThemeEffect>('fade');
+	const [duration, setDuration] = useState(defaultThemeEffects.fade.duration);
 	const [easingPreset, setEasingPreset] = useState(defaultThemeEffects.fade.easing);
 
 	const easing = variant === 'fade' ? easingPreset : defaultThemeEffects.spread.easing;

@@ -7,12 +7,12 @@ import EffectSettings, { type EffectOptions } from "./components/EffectSettings.
 import ThemeModeSwitch from "./components/ThemeModeSwitch.vue";
 
 const { theme, mode, isAnimating, toggleTheme, setTheme } = useThemeTransition({
-  variant: "spread",
+  variant: "fade",
 });
 
 const effectOptions = ref<EffectOptions>({
-  variant: "spread",
-  duration: "1s",
+  variant: "fade",
+  duration: "400ms",
   easing: "",
   radius: "",
 });
