@@ -19,6 +19,14 @@ export default defineConfig({
 					environment: 'happy-dom',
 				},
 			},
+			{
+				extends: true,
+				test: {
+					name: 'react',
+					include: ['packages/react/src/**/*.test.ts'],
+					environment: 'happy-dom',
+				},
+			},
 		],
 	},
 });
