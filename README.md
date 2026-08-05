@@ -4,6 +4,9 @@ Animated dark/light theme transitions for the web, powered by the [View Transiti
 
 A framework-agnostic core with a thin adapter per framework. Vue and React are available today; Next.js is next.
 
+> [!NOTE]
+> This is the **source monorepo**, for contributing to the packages themselves. If you just want to *use* one of them in your own project, jump straight to its README via the table below and `npm install` it normally. Don't clone this repo or copy a demo app out of it.
+
 ## Features
 
 - Spread and fade transition effects, triggered from any click origin
@@ -21,7 +24,7 @@ A framework-agnostic core with a thin adapter per framework. Vue and React are a
 
 ## Development
 
-Run every command from the repo root, the demo apps aren't standalone projects.
+This section is for working on the packages themselves, not for using them. Run every command from the repo root. The demo apps (`apps/react-demo`, `apps/vue-demo`) are npm workspaces symlinked to the local, in-progress source, not the published npm packages, so they only run correctly from inside this repo. They aren't standalone starter templates you can copy elsewhere.
 
 Try a demo:
 
