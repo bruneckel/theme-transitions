@@ -50,11 +50,17 @@ const resolveEffectOptions = (
 		return base;
 	}
 
+	if (variant === 'spread') {
+		return {
+			...base,
+			...(callOptions.duration ? { duration: callOptions.duration } : {}),
+		} as EffectOptions;
+	}
+
 	return {
 		...base,
 		...(callOptions.duration ? { duration: callOptions.duration } : {}),
 		...(callOptions.easing ? { easing: callOptions.easing } : {}),
-		...(variant === 'spread' && callOptions.radius ? { radius: callOptions.radius } : {}),
 	} as EffectOptions;
 };
 

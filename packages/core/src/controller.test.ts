@@ -39,6 +39,7 @@ vi.mock('./runThemeTransition', () => ({
 }));
 
 import { createController, getController } from './controller';
+import { defaultSpreadOptions } from './effects/spread';
 import { runThemeTransition } from './runThemeTransition';
 
 beforeEach(() => {
@@ -175,7 +176,20 @@ describe('createController', () => {
 		await expect(controller.toggleTheme()).rejects.toThrow('requires an origin point');
 	});
 
-	it('merges per-call duration/easing/radius overrides onto the resolved effect options', async () => {
+	it('merges per-call duration and easing overrides onto the resolved effect options for fade', async () => {
+		const controller = createController({ variant: 'fade' });
+		await controller.toggleTheme({ duration: '2s', easing: 'linear' });
+
+		expect(runThemeTransition).toHaveBeenCalledWith(
+			expect.anything(),
+			null,
+			{ duration: '2s', easing: 'linear' },
+			expect.anything(),
+			expect.anything(),
+		);
+	});
+
+	it('merges only the duration override for spread, ignoring easing and radius', async () => {
 		const controller = createController({ variant: 'spread' });
 		await controller.toggleTheme({
 			origin: { x: 0, y: 0 },
@@ -187,7 +201,7 @@ describe('createController', () => {
 		expect(runThemeTransition).toHaveBeenCalledWith(
 			expect.anything(),
 			{ x: 0, y: 0 },
-			{ duration: '2s', easing: 'linear', radius: '50vmax' },
+			{ duration: '2s', easing: defaultSpreadOptions.easing, radius: defaultSpreadOptions.radius },
 			expect.anything(),
 			expect.anything(),
 		);

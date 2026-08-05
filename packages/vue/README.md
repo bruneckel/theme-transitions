@@ -39,13 +39,10 @@ Binding `toggleTheme` directly to `@click` works because it accepts the native `
 
 `variant` picks which effect plays on toggle; `'none'` skips the animation entirely and ignores every option below. The rest of the options depend on which variant is active:
 
-| Option | Type | `fade` default | `spread` default |
-| --- | --- | --- | --- |
-| `duration` | `string` | `'400ms'` | `'1.5s'` |
-| `easing` | `string` | `'ease'` | `'cubic-bezier(0.4, 0, 0.2, 1)'` |
-| `radius` | `string` | — | `'150vmax'` (final `clip-path` radius) |
+- **`fade`** accepts `duration` (`string`, default `'400ms'`) and `easing` (`string`, default `'ease'`).
+- **`spread`** accepts `duration` only (`string`, default `'1.5s'`); its easing and clip-path radius are fixed and not configurable.
 
-`toggleTheme` and `setTheme(mode, ...)` both accept either a `MouseEvent` (as shown above) or an explicit options object (`{ origin, variant, duration, easing, radius }`), overriding the composable's own options for that one call only. `setTheme('dark', event)` works the same way `toggleTheme(event)` does.
+`toggleTheme` and `setTheme(mode, ...)` both accept either a `MouseEvent` (as shown above) or an explicit options object (`{ origin, variant, duration, easing }`), overriding the composable's own options for that one call only. `setTheme('dark', event)` works the same way `toggleTheme(event)` does.
 
 `useThemeTransition(options)` wraps the core's shared `getController` singleton, so `options` only takes effect on the very first call in a process; per-call overrides on `toggleTheme`/`setTheme` always apply regardless. See [`@bruneckel/theme-transitions-core`](https://www.npmjs.com/package/@bruneckel/theme-transitions-core)'s README for the full singleton contract.
 
