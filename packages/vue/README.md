@@ -49,7 +49,7 @@ useThemeTransition(options?: {
 
 `'none'` skips the animation and ignores `duration`/`easing`. `spread` only accepts `duration`; its easing and clip-path radius are fixed and not configurable.
 
-`toggleTheme` and `setTheme(mode, ...)` accept a `MouseEvent` (as shown above) or an explicit options object, e.g. `{ origin, variant, duration }`. This overrides the composable's own options for that one call only. `setTheme('dark', event)` works the same way as `toggleTheme(event)`.
+`toggleTheme` and `setTheme(mode, ...)` accept a `MouseEvent` (as shown above) or an explicit options object, e.g. `{ origin, variant, duration }`. This overrides the composable's own options for that one call only. `setTheme('dark', event)` works the same way as `toggleTheme(event)`. Build `origin` with `originFromElement(el)` (also exported from this package) to always animate from an element's center regardless of click position.
 
 `options` passed to `useThemeTransition` only takes effect on the composable's first call in the app, since it wraps a shared singleton. Per-call overrides on `toggleTheme`/`setTheme` are not affected by this and always apply. See [`@bruneckel/theme-transitions-core`](https://www.npmjs.com/package/@bruneckel/theme-transitions-core)'s README for the full singleton contract.
 

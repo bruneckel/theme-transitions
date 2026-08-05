@@ -1,6 +1,6 @@
 {
 	"name": "@bruneckel/vue-theme-transitions",
-	"version": "0.2.2",
+	"version": "0.2.3",
 	"description": "Vue 3 composable for animated dark/light theme transitions using the View Transitions API",
 	"author": "Bruno Neckel",
 	"license": "MIT",
