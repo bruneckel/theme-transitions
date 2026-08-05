@@ -1,6 +1,7 @@
 # @bruneckel/vue-theme-transitions
 
 [![npm version](https://img.shields.io/npm/v/@bruneckel/vue-theme-transitions.svg)](https://www.npmjs.com/package/@bruneckel/vue-theme-transitions)
+[![license](https://img.shields.io/npm/l/@bruneckel/vue-theme-transitions.svg)](https://github.com/bruneckel/theme-transitions/blob/main/packages/vue/LICENSE)
 
 Vue 3 composable for animated dark/light theme transitions using the View Transitions API.
 
@@ -8,6 +9,14 @@ Vue 3 composable for animated dark/light theme transitions using the View Transi
 
 ```
 npm install @bruneckel/vue-theme-transitions @bruneckel/theme-transitions-core
+```
+
+```
+pnpm add @bruneckel/vue-theme-transitions @bruneckel/theme-transitions-core
+```
+
+```
+yarn add @bruneckel/vue-theme-transitions @bruneckel/theme-transitions-core
 ```
 
 ## Usage

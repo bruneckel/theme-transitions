@@ -1,6 +1,7 @@
 # @bruneckel/react-theme-transitions
 
 [![npm version](https://img.shields.io/npm/v/@bruneckel/react-theme-transitions.svg)](https://www.npmjs.com/package/@bruneckel/react-theme-transitions)
+[![license](https://img.shields.io/npm/l/@bruneckel/react-theme-transitions.svg)](https://github.com/bruneckel/theme-transitions/blob/main/packages/react/LICENSE)
 
 React hook for animated dark/light theme transitions using the View Transitions API.
 
@@ -8,6 +9,14 @@ React hook for animated dark/light theme transitions using the View Transitions 
 
 ```
 npm install @bruneckel/react-theme-transitions @bruneckel/theme-transitions-core
+```
+
+```
+pnpm add @bruneckel/react-theme-transitions @bruneckel/theme-transitions-core
+```
+
+```
+yarn add @bruneckel/react-theme-transitions @bruneckel/theme-transitions-core
 ```
 
 ## Usage
