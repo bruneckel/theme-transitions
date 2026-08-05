@@ -45,13 +45,13 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin: 0.75rem 0 0.6rem;
+	margin: 1.25rem 0 0.6rem;
 }
 
 .panel-title {
-	font-size: 0.75rem;
-	font-weight: 600;
-	color: var(--text-muted);
+	font-size: 0.8125rem;
+	font-weight: 700;
+	color: var(--text);
 }
 
 .controls {
