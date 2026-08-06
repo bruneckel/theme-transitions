@@ -10,13 +10,13 @@ import {
 	buildColorModeInitScript,
 	buildThemeTransitionCss,
 	resolveThemeEffects,
-} from '@bruneckel/theme-transitions-core';
-import type { ThemeOptions } from '@bruneckel/theme-transitions-core';
+} from '@brustack/theme-transitions-core';
+import type { ThemeOptions } from '@brustack/theme-transitions-core';
 
 export type {
 	ThemeEffect,
 	ThemeOptions as ModuleOptions,
-} from '@bruneckel/theme-transitions-core';
+} from '@brustack/theme-transitions-core';
 
 export default defineNuxtModule<ThemeOptions>({
 	meta: {
@@ -51,8 +51,8 @@ export default defineNuxtModule<ThemeOptions>({
 		addImportsDir(resolver.resolve('./runtime/composables'));
 
 		addImports([
-			{ name: 'originFromEvent', from: '@bruneckel/theme-transitions-core' },
-			{ name: 'originFromElement', from: '@bruneckel/theme-transitions-core' },
+			{ name: 'originFromEvent', from: '@brustack/theme-transitions-core' },
+			{ name: 'originFromElement', from: '@brustack/theme-transitions-core' },
 		]);
 
 		nuxt.hook('prepare:types', ({ references }) => {

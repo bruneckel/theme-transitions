@@ -1,72 +1,68 @@
 {
-  "name": "@bruneckel/nuxt-theme-transitions",
-  "version": "0.3.0",
-  "description": "Animated dark/light theme transitions for Nuxt using the View Transitions API",
-  "author": "Bruno Neckel",
-  "license": "MIT",
-  "type": "module",
-  "main": "./dist/module.mjs",
-  "types": "./dist/types.d.mts",
-  "exports": {
-    ".": {
-      "types": "./dist/types.d.mts",
-      "import": "./dist/module.mjs"
-    }
-  },
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bruneckel/nuxt-theme-transitions.git"
-  },
-  "bugs": {
-    "url": "https://github.com/bruneckel/nuxt-theme-transitions/issues"
-  },
-  "homepage": "https://github.com/bruneckel/nuxt-theme-transitions#readme",
-  "peerDependencies": {
-    "nuxt": ">=4.0.0"
-  },
-  "dependencies": {
-    "@bruneckel/theme-transitions-core": "^0.2.0",
-    "@nuxt/kit": "^4.0.0"
-  },
-  "devDependencies": {
-    "@nuxt/cli": "^3.37.0",
-    "@nuxt/module-builder": "^1.0.3",
-    "@stylistic/eslint-plugin": "^5.10.0",
-    "eslint": "^10.8.0",
-    "nuxt": "^4.0.0",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.65.0",
-    "vue": "^3.5.40"
-  },
-  "scripts": {
-    "build": "nuxt-module-build build",
-    "prepack": "nuxt-module-build build",
-    "lint": "eslint ."
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "keywords": [
-    "nuxt",
-    "nuxt-module",
-    "nuxt3",
-    "nuxt4",
-    "theme",
-    "theme-toggle",
-    "theme-switcher",
-    "dark-mode",
-    "dark-theme",
-    "color-mode",
-    "view-transitions",
-    "view-transitions-api",
-    "spread",
-    "fade",
-    "transition",
-    "animation"
-  ]
+	"name": "@brustack/nuxt-theme-transitions",
+	"version": "1.0.0",
+	"description": "Animated dark/light theme transitions for Nuxt using the View Transitions API",
+	"author": "Bruno Neckel",
+	"license": "MIT",
+	"type": "module",
+	"main": "./dist/module.mjs",
+	"types": "./dist/types.d.mts",
+	"exports": {
+		".": {
+			"types": "./dist/types.d.mts",
+			"import": "./dist/module.mjs"
+		}
+	},
+	"files": [
+		"dist",
+		"README.md",
+		"LICENSE"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/brustack/theme-transitions.git",
+		"directory": "packages/nuxt"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"peerDependencies": {
+		"nuxt": ">=4.0.0"
+	},
+	"dependencies": {
+		"@brustack/theme-transitions-core": "^1.0.0",
+		"@nuxt/kit": "^4.0.0"
+	},
+	"devDependencies": {
+		"@nuxt/cli": "^3.37.0",
+		"@nuxt/module-builder": "^1.0.3",
+		"@vue/test-utils": "^2.4.11",
+		"happy-dom": "^20.11.1",
+		"nuxt": "^4.0.0",
+		"typescript": "^5.9.3",
+		"vue": "^3.5.40"
+	},
+	"scripts": {
+		"build": "nuxt-module-build build",
+		"prepack": "nuxt-module-build build",
+		"typecheck": "tsc --noEmit"
+	},
+	"keywords": [
+		"nuxt",
+		"nuxt-module",
+		"nuxt3",
+		"nuxt4",
+		"theme",
+		"theme-toggle",
+		"theme-switcher",
+		"dark-mode",
+		"dark-theme",
+		"color-mode",
+		"view-transitions",
+		"view-transitions-api",
+		"spread",
+		"fade",
+		"transition",
+		"animation"
+	]
 }

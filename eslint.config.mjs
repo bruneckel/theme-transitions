@@ -13,4 +13,10 @@ export default defineConfig(
 		quotes: 'single',
 		semi: true,
 	}),
+	{
+		files: ['packages/nuxt/src/shims-nuxt.d.ts'],
+		rules: {
+			'@typescript-eslint/no-empty-object-type': 'off',
+		},
+	},
 );

@@ -1,4 +1,4 @@
-import type { ThemeOptions } from '@bruneckel/theme-transitions-core';
+import type { ThemeOptions } from '@brustack/theme-transitions-core';
 
 export type ThemeTransitionModuleOptions = ThemeOptions;
 

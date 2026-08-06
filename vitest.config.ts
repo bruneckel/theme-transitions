@@ -27,6 +27,19 @@ export default defineConfig({
 					environment: 'happy-dom',
 				},
 			},
+			{
+				extends: true,
+				resolve: {
+					alias: {
+						'#imports': new URL('./packages/nuxt/src/test/imports-stub.ts', import.meta.url).pathname,
+					},
+				},
+				test: {
+					name: 'nuxt',
+					include: ['packages/nuxt/src/**/*.test.ts'],
+					environment: 'happy-dom',
+				},
+			},
 		],
 	},
 });
