@@ -9,3 +9,9 @@ docs
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
+.DS_Store
+*.log
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
