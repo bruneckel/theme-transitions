@@ -66,7 +66,7 @@
   color: var(--text);
 }
 
-@media (max-width: 30rem) {
+@media (max-width: 68.75rem) {
   .footer-facts {
     grid-template-columns: 1fr;
     justify-items: center;

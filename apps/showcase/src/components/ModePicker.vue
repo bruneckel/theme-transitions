@@ -98,7 +98,7 @@ const options: ThemeMode[] = ["system", "light", "dark"];
   padding-right: 0.35rem;
 }
 
-@media (max-width: 30rem) {
+@media (max-width: 68.75rem) {
   .control-label {
     display: none;
   }

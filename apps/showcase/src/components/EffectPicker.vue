@@ -348,7 +348,7 @@ watch(
   display: none;
 }
 
-@media (max-width: 30rem) {
+@media (max-width: 68.75rem) {
   .control-label,
   .desktop-only-variant {
     display: none;

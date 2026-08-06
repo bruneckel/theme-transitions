@@ -46,7 +46,7 @@ defineEmits<{
 
 .controls {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: 0.75rem 1rem;
@@ -54,7 +54,7 @@ defineEmits<{
   z-index: 2;
 }
 
-@media (max-width: 30rem) {
+@media (max-width: 68.75rem) {
   .topbar {
     justify-content: center;
     text-align: center;
