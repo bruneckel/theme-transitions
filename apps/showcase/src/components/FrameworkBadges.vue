@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IconJs from "./icons/IconJs.vue";
 import IconNuxt from "./icons/IconNuxt.vue";
 import IconReact from "./icons/IconReact.vue";
 import IconVue from "./icons/IconVue.vue";
@@ -22,16 +23,22 @@ import IconVue from "./icons/IconVue.vue";
       <IconReact />
       React
     </a>
-    <span title="Coming soon">
+    <a
+      href="https://www.npmjs.com/package/@brustack/nuxt-theme-transitions"
+      target="_blank"
+      rel="noopener"
+    >
       <IconNuxt />
-      Nuxt &middot; soon
-    </span>
+      Nuxt
+    </a>
     <a
       href="https://www.npmjs.com/package/@brustack/theme-transitions-core"
       target="_blank"
       rel="noopener"
-      >Vanilla</a
     >
+      <IconJs />
+      Vanilla
+    </a>
   </div>
 </template>
 
@@ -46,8 +53,7 @@ import IconVue from "./icons/IconVue.vue";
   z-index: 2;
 }
 
-.frameworks a,
-.frameworks span {
+.frameworks a {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -69,10 +75,5 @@ import IconVue from "./icons/IconVue.vue";
 .frameworks a:focus-visible {
   outline: 2px solid var(--accent-incoming);
   outline-offset: 2px;
-}
-
-.frameworks span {
-  opacity: 0.55;
-  cursor: default;
 }
 </style>

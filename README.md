@@ -2,12 +2,17 @@
 
 # theme-transitions
 
-[![CI](https://github.com/brustack/theme-transitions/actions/workflows/ci.yml/badge.svg)](https://github.com/brustack/theme-transitions/actions/workflows/ci.yml)
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![license](https://img.shields.io/badge/license-MIT-3178C6?style=flat-square)](LICENSE)
+![View Transitions API](https://img.shields.io/badge/View%20Transitions%20API-111111?style=flat-square)
+![Vue](https://img.shields.io/badge/Vue-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+![Nuxt](https://img.shields.io/badge/Nuxt-00DC82?style=flat-square&logo=nuxt&logoColor=white)
 
 🌗 Animated dark/light theme transitions for the web, powered by the [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API).
 
 [Live demo](https://theme-transitions.brustack.dev) &middot; [Report a bug](https://github.com/brustack/theme-transitions/issues)
+
+![Demo: clicking anywhere on the page triggers an animated theme transition originating from the cursor](.github/assets/demo.gif)
 
 A framework-agnostic core with a thin adapter per framework. Vue, React, and Nuxt are available today.
 
@@ -54,4 +59,6 @@ Everything else:
 
 ## License
 
-MIT
+[MIT License](LICENSE)
+
+Copyright (c) 2026 Bruno Neckel
