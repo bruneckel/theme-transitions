@@ -1,24 +1,28 @@
-# nuxt-theme-transitions
+# @brustack/nuxt-theme-transitions
 
-[![npm version](https://img.shields.io/npm/v/@bruneckel/nuxt-theme-transitions.svg)](https://www.npmjs.com/package/@bruneckel/nuxt-theme-transitions)
-[![license](https://img.shields.io/npm/l/@bruneckel/nuxt-theme-transitions.svg)](https://github.com/bruneckel/nuxt-theme-transitions/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/@brustack/nuxt-theme-transitions.svg)](https://www.npmjs.com/package/@brustack/nuxt-theme-transitions)
+[![license](https://img.shields.io/npm/l/@brustack/nuxt-theme-transitions.svg)](https://github.com/brustack/theme-transitions/blob/main/packages/nuxt/LICENSE)
 
-Animated dark/light theme toggle for Nuxt.
+Nuxt module for animated dark/light theme transitions using the View Transitions API.
+
+[Live demo](https://theme-transitions.brustack.dev)
+
+![Demo: clicking anywhere on the page triggers an animated theme transition originating from the cursor](../../.github/assets/demo.gif)
 
 ## Install
 
 ```sh
-npm install @bruneckel/nuxt-theme-transitions
+npm install @brustack/nuxt-theme-transitions
 # or
-pnpm add @bruneckel/nuxt-theme-transitions
+pnpm add @brustack/nuxt-theme-transitions
 # or
-yarn add @bruneckel/nuxt-theme-transitions
+yarn add @brustack/nuxt-theme-transitions
 ```
 
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@bruneckel/nuxt-theme-transitions'],
+  modules: ['@brustack/nuxt-theme-transitions'],
 })
 ```
 
@@ -35,16 +39,13 @@ const { theme, isAnimating, toggleTheme } = useThemeTransition()
 </script>
 
 <template>
-  <button
-    :disabled="isAnimating"
-    @click="toggleTheme({ origin: originFromEvent($event) })"
-  >
-    Toggle theme
+  <button :disabled="isAnimating" @click="toggleTheme">
+    {{ theme }}
   </button>
 </template>
 ```
 
-Use `originFromElement(buttonRef)` to animate from the center of an element instead of the click position.
+Binding `toggleTheme` directly to `@click` works because it accepts the native `MouseEvent` and derives the spread effect's origin from the click position automatically. Use `originFromElement(elementRef)` instead if you want to animate from the center of an element rather than the click position.
 
 Disable the button with `:disabled="isAnimating"` to avoid double-clicks while the animation runs.
 
@@ -67,10 +68,10 @@ Restart the dev server after changing `themeTransition`.
 
 ## Variants
 
-**spread**: circle expands from the click. Pass an origin:
+**spread**: circle expands from the click. `toggleTheme`/`setTheme` accept a `MouseEvent` (as shown above) or an explicit options object, e.g. `{ origin, variant, duration }`:
 
 ```ts
-toggleTheme({ origin: originFromEvent($event) })
+toggleTheme(event)
 toggleTheme({ origin: originFromElement(buttonRef.value) })
 ```
 
@@ -87,9 +88,10 @@ setTheme('dark', { variant: 'fade' })
 
 | | |
 |---|---|
-| `toggleTheme(options?)` | Switch between light and dark |
-| `setTheme(mode, options?)` | Set `light`, `dark`, or `system` |
+| `toggleTheme(eventOrOptions?)` | Switch between light and dark |
+| `setTheme(mode, eventOrOptions?)` | Set `light`, `dark`, or `system` |
 | `theme` | Current resolved theme: `'light'` or `'dark'` |
+| `mode` | Current preference: `'light'`, `'dark'`, or `'system'` |
 | `isAnimating` | `true` while a transition is running |
 | `originFromEvent(event)` | Click position for spread |
 | `originFromElement(el)` | Element center for spread |

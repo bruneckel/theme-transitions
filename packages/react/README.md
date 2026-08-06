@@ -5,6 +5,10 @@
 
 React hook for animated dark/light theme transitions using the View Transitions API.
 
+[Live demo](https://theme-transitions.brustack.dev)
+
+![Demo: clicking anywhere on the page triggers an animated theme transition originating from the cursor](../../.github/assets/demo.gif)
+
 ## Install
 
 ```sh
