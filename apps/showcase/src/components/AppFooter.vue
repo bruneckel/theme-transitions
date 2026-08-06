@@ -26,16 +26,13 @@
 
 <style scoped>
 .footer-facts {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
   border-top: 1px solid var(--border);
   padding: 1rem 1.75rem;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 0.5rem 1rem;
+  position: relative;
   z-index: 2;
 }
 
@@ -67,5 +64,22 @@
 
 .credit-row a:hover {
   color: var(--text);
+}
+
+@media (max-width: 30rem) {
+  .footer-facts {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .facts-row,
+  .credit-row {
+    grid-column: 1;
+    justify-self: center;
+    justify-content: center;
+    white-space: normal;
+  }
 }
 </style>

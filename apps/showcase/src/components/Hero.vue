@@ -4,9 +4,7 @@ import FrameworkBadges from "./FrameworkBadges.vue";
 
 <template>
   <main>
-    <p class="eyebrow">
-      View Transitions API &middot; Spread &amp; Fade Effects
-    </p>
+    <p class="eyebrow">View Transitions API &middot; Configurable Effects</p>
     <h1>Click <em>anywhere</em>.</h1>
     <p class="sub">
       The transition follows your cursor, powered by the View Transitions API.

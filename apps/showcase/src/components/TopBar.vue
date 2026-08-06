@@ -47,8 +47,22 @@ defineEmits<{
 .controls {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem 1rem;
   position: relative;
   z-index: 2;
+}
+
+@media (max-width: 30rem) {
+  .topbar {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .controls {
+    justify-content: center;
+    width: 100%;
+  }
 }
 </style>

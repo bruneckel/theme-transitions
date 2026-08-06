@@ -32,19 +32,14 @@ const durationError = computed(() => {
 });
 
 const isModified = computed(() => {
-  if (variant.value === "none") return false;
+  if (variant.value !== "spread") return true;
 
-  const defaults =
-    variant.value === "fade"
-      ? defaultThemeEffects.fade
-      : defaultThemeEffects.spread;
+  const defaults = defaultThemeEffects.spread;
 
-  if (duration.value !== defaults.duration) return true;
-
-  return variant.value === "fade" && easingPreset.value !== defaults.easing;
+  return duration.value !== defaults.duration;
 });
 
-const resetToDefaults = () => {
+const applyVariantDefaults = () => {
   const defaults =
     variant.value === "fade"
       ? defaultThemeEffects.fade
@@ -53,7 +48,12 @@ const resetToDefaults = () => {
   easingPreset.value = defaultThemeEffects.fade.easing;
 };
 
-watch(variant, resetToDefaults);
+const resetToDefaults = () => {
+  variant.value = "spread";
+  applyVariantDefaults();
+};
+
+watch(variant, applyVariantDefaults);
 
 watch(
   [variant, duration, easingPreset],
@@ -75,7 +75,11 @@ watch(
   <div class="control-group">
     <span class="control-label">Effect</span>
     <div class="effect-row">
-      <div class="pill-group" role="group" aria-label="Transition variant">
+      <div
+        class="pill-group desktop-only-variant"
+        role="group"
+        aria-label="Transition variant"
+      >
         <button
           v-for="option in variants"
           :key="option"
@@ -101,6 +105,20 @@ watch(
 
     <div id="settings-panel" class="settings-panel" :class="{ open: isOpen }">
       <div class="settings-inner">
+        <div class="field-block mobile-only-variant">
+          <span class="field-label">Effect</span>
+          <div class="pill-group" role="group" aria-label="Transition variant">
+            <button
+              v-for="option in variants"
+              :key="option"
+              type="button"
+              :aria-pressed="variant === option"
+              @click="variant = option"
+            >
+              {{ option }}
+            </button>
+          </div>
+        </div>
         <template v-if="variant !== 'none'">
           <label>
             <span>Duration</span>
@@ -126,18 +144,18 @@ watch(
               </option>
             </select>
           </label>
-
-          <button
-            v-if="isModified"
-            type="button"
-            class="reset-btn"
-            @click="resetToDefaults"
-          >
-            <IconRotateCcw :size="12" aria-hidden="true" />
-            Reset to defaults
-          </button>
         </template>
         <p v-else class="none-note">No animation, theme switches instantly.</p>
+
+        <button
+          v-if="isModified"
+          type="button"
+          class="reset-btn"
+          @click="resetToDefaults"
+        >
+          <IconRotateCcw :size="12" aria-hidden="true" />
+          Reset to defaults
+        </button>
       </div>
     </div>
   </div>
@@ -224,12 +242,13 @@ watch(
 
 .modified-dot {
   position: absolute;
-  top: -0.1rem;
-  right: -0.1rem;
-  width: 0.45rem;
-  height: 0.45rem;
+  top: -0.15rem;
+  right: -0.15rem;
+  width: 0.5rem;
+  height: 0.5rem;
   border-radius: 50%;
   background: var(--accent-incoming);
+  border: 2px solid var(--bg);
 }
 
 .settings-panel {
@@ -311,5 +330,32 @@ watch(
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 0.75rem;
   color: var(--text-muted);
+}
+
+.field-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.field-label {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.mobile-only-variant {
+  display: none;
+}
+
+@media (max-width: 30rem) {
+  .control-label,
+  .desktop-only-variant {
+    display: none;
+  }
+
+  .mobile-only-variant {
+    display: flex;
+  }
 }
 </style>

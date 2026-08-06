@@ -34,9 +34,9 @@ const options: ThemeMode[] = ["system", "light", "dark"];
         {{ option }}
       </button>
     </div>
-    <span class="status-line">{{
-      mode === "system" ? `detected: ${theme}` : ""
-    }}</span>
+    <span v-if="mode === 'system'" class="status-line"
+      >detected: {{ theme }}</span
+    >
   </div>
 </template>
 
@@ -96,6 +96,11 @@ const options: ThemeMode[] = ["system", "light", "dark"];
   color: var(--text-muted);
   opacity: 0.75;
   padding-right: 0.35rem;
-  min-height: 1em;
+}
+
+@media (max-width: 30rem) {
+  .control-label {
+    display: none;
+  }
 }
 </style>
