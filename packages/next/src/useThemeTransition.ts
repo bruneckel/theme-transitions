@@ -9,10 +9,22 @@ import type {
 	TransitionOptions,
 } from '@brustack/theme-transitions-core';
 
+// Must be a constant, not derived from readStoredPreference()/resolveTheme(): those
+// are deliberately environment-aware (they read the real localStorage value when
+// called client-side). useSyncExternalStore calls this same function on the client
+// during hydration specifically to reproduce what the server rendered, so if it
+// read the real client state here, the client's "server-matching" pass and the
+// server's actual output would diverge whenever a visitor has a stored preference,
+// causing a hydration mismatch. The server can never know a given visitor's stored
+// preference, so 'system' resolving to 'light' (matchMedia is unavailable
+// server-side) is the only value both sides can agree on.
+const SERVER_SNAPSHOT = { theme: 'light' as const, mode: 'system' as const, isAnimating: false };
+const getServerSnapshot = () => SERVER_SNAPSHOT;
+
 export const useThemeTransition = (opts?: ThemeOptions) => {
 	const controller = getController(opts);
 
-	const state = useSyncExternalStore(controller.subscribe, controller.getState);
+	const state = useSyncExternalStore(controller.subscribe, controller.getState, getServerSnapshot);
 
 	const toggleTheme = useCallback(
 		(eventOrOpts?: ReactMouseEvent | TransitionOptions) =>
