@@ -40,6 +40,14 @@ export default defineConfig({
 					environment: 'happy-dom',
 				},
 			},
+			{
+				extends: true,
+				test: {
+					name: 'next',
+					include: ['packages/next/src/**/*.test.{ts,tsx}'],
+					environment: 'happy-dom',
+				},
+			},
 		],
 	},
 });
