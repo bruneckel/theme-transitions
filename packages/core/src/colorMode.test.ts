@@ -151,10 +151,6 @@ describe('buildColorModeInitScript', () => {
 
 	it('does not reference any identifier from outside the generated script (would break under a minifier that renames module-level bindings)', () => {
 		const script = buildColorModeInitScript();
-		// Every var/const the script declares must be one it also declares itself.
-		// A leftover free reference to something like STORAGE_KEY (declared in this
-		// module but not inside the generated script) is exactly the class of bug
-		// this test exists to catch. See the bug writeup in the task brief.
 		expect(script).not.toMatch(/\bSTORAGE_KEY\b/);
 	});
 });
