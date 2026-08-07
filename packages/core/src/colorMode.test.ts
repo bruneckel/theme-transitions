@@ -73,7 +73,7 @@ describe('readStoredPreference', () => {
 	it('returns the stored value when it is a valid ThemeMode', () => {
 		vi.stubGlobal('window', {});
 		vi.stubGlobal('localStorage', createLocalStorageMock());
-		localStorage.setItem('theme', 'dark');
+		localStorage.setItem('tt:theme', 'dark');
 		expect(readStoredPreference()).toBe('dark');
 	});
 
@@ -82,7 +82,7 @@ describe('readStoredPreference', () => {
 		vi.stubGlobal('localStorage', createLocalStorageMock());
 		expect(readStoredPreference()).toBe('system');
 
-		localStorage.setItem('theme', 'not-a-real-mode');
+		localStorage.setItem('tt:theme', 'not-a-real-mode');
 		expect(readStoredPreference()).toBe('system');
 	});
 });
@@ -93,12 +93,12 @@ describe('writeStoredPreference', () => {
 		expect(() => writeStoredPreference('dark')).not.toThrow();
 	});
 
-	it('persists the preference under the "theme" key', () => {
+	it('persists the preference under the "tt:theme" key', () => {
 		vi.stubGlobal('window', {});
 		const localStorageMock = createLocalStorageMock();
 		vi.stubGlobal('localStorage', localStorageMock);
 		writeStoredPreference('light');
-		expect(localStorageMock.getItem('theme')).toBe('light');
+		expect(localStorageMock.getItem('tt:theme')).toBe('light');
 	});
 });
 
@@ -128,7 +128,7 @@ describe('buildColorModeInitScript', () => {
 
 	it('embeds the storage key and all four helper functions', () => {
 		const script = buildColorModeInitScript();
-		expect(script).toContain('"theme"');
+		expect(script).toContain('"tt:theme"');
 		expect(script).toContain('getSystemTheme');
 		expect(script).toContain('resolveTheme');
 		expect(script).toContain('readStoredPreference');

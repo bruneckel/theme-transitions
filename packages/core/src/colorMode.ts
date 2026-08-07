@@ -1,6 +1,6 @@
 import type { ThemeMode } from './types';
 
-const STORAGE_KEY = 'theme';
+const STORAGE_KEY = 'tt:theme';
 
 export const getSystemTheme = (): 'light' | 'dark' => {
 	if (typeof matchMedia === 'undefined') {
@@ -74,7 +74,7 @@ const initColorMode = (): void => {
 			return 'system';
 		}
 
-		const stored = localStorage.getItem('theme');
+		const stored = localStorage.getItem('tt:theme');
 		return stored === 'light' || stored === 'dark' || stored === 'system' ? stored : 'system';
 	};
 
