@@ -35,7 +35,7 @@ import '@brustack/theme-transitions-core/style.css';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning>
 			<head>
 				<ThemeScript variant="spread" duration="1.5s" />
 			</head>
@@ -88,6 +88,7 @@ Both `ThemeScript` and `useThemeTransition` accept the same shape. Pass matching
 
 - This package has no Context/Provider. `useThemeTransition` reads from `getController()`'s external singleton directly (via `useSyncExternalStore`), the same way every other adapter in this project does, so there's nothing to wrap your app in beyond `ThemeScript` in `<head>`.
 - App Router only. Next.js doesn't expose a way for a third-party package to inject into your root layout automatically the way a Vite plugin or a Nuxt module can, so `ThemeScript` has to be added explicitly, it can't be zero-config.
+- `suppressHydrationWarning` on `<html>` is required because `ThemeScript`'s injected script sets a class on `<html>` before React hydrates. That's what prevents the flash, but it also means React sees an attribute it didn't render, so `suppressHydrationWarning` avoids a harmless but noisy console warning about that one attribute. This is the same tradeoff every anti-flash-script-based theme library makes, e.g. `next-themes`.
 
 ## Known issues
 
