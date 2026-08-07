@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import IconJs from "./icons/IconJs.vue";
+import IconNext from "./icons/IconNext.vue";
 import IconNuxt from "./icons/IconNuxt.vue";
 import IconReact from "./icons/IconReact.vue";
 import IconVue from "./icons/IconVue.vue";
@@ -30,6 +31,14 @@ import IconVue from "./icons/IconVue.vue";
     >
       <IconNuxt />
       Nuxt
+    </a>
+    <a
+      href="https://www.npmjs.com/package/@brustack/next-theme-transitions"
+      target="_blank"
+      rel="noopener"
+    >
+      <IconNext />
+      Next
     </a>
     <a
       href="https://www.npmjs.com/package/@brustack/theme-transitions-core"

@@ -1,7 +1,7 @@
 <template>
   <div class="footer-facts">
     <p class="facts-row">
-      3 packages &middot; Zero dependencies &middot; TypeScript
+      5 packages &middot; Zero dependencies
     </p>
     <p class="credit-row">
       Live demo of
