@@ -142,7 +142,7 @@ describe('buildColorModeInitScript', () => {
 		const documentMock = createDocumentMock();
 		vi.stubGlobal('document', documentMock);
 
-		localStorage.setItem('theme', 'dark');
+		writeStoredPreference('dark');
 		new Function(buildColorModeInitScript())();
 
 		expect(documentMock.classes.has('dark')).toBe(true);
