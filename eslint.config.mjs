@@ -5,7 +5,7 @@ import tseslint from 'typescript-eslint';
 
 export default defineConfig(
 	{
-		ignores: ['**/dist/**', '**/node_modules/**', '.claude/**', 'apps/vue-demo/**', 'apps/react-demo/**'],
+		ignores: ['**/dist/**', '**/node_modules/**', '.claude/**', 'apps/vue-demo/**', 'apps/react-demo/**', 'apps/next-demo/**'],
 	},
 	tseslint.configs.recommended,
 	stylistic.configs.customize({

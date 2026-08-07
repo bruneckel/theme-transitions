@@ -16,6 +16,7 @@
 		"typecheck": "npm run typecheck --workspaces --if-present",
 		"dev:vue-demo": "npm run dev --workspace=apps/vue-demo",
 		"dev:react-demo": "npm run dev --workspace=apps/react-demo",
+		"dev:next-demo": "npm run dev --workspace=apps/next-demo",
 		"dev:showcase": "npm run dev --workspace=apps/showcase",
 		"changeset": "changeset",
 		"version-packages": "changeset version",
