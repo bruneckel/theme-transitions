@@ -1,26 +1,35 @@
-# @brustack/vue-theme-transitions
+# vue-theme-transitions
 
-[![npm version](https://img.shields.io/npm/v/@brustack/vue-theme-transitions.svg)](https://www.npmjs.com/package/@brustack/vue-theme-transitions)
-[![license](https://img.shields.io/npm/l/@brustack/vue-theme-transitions.svg)](https://github.com/brustack/theme-transitions/blob/main/packages/vue/LICENSE)
+[![made by brustack](https://img.shields.io/badge/MADE%20BY%20brustack-000000.svg?style=for-the-badge&labelColor=000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMjYuNzcgMjI2Ljc3Ij48cG9seWdvbiBmaWxsPSIjRjRGMkVEIiBwb2ludHM9IjE1My43MyA4My4zOSAxNTMuNzMgMTUzLjczIDgzLjM5IDE1My43MyA4My4zOSAyMTMuNzMgMjEzLjczIDIxMy43MyAyMTMuNzMgODMuMzkgMTUzLjczIDgzLjM5Ii8%2BPHJlY3QgZmlsbD0iI0Y0RjJFRCIgeD0iODMuMzkiIHk9IjEzLjA0IiB3aWR0aD0iNjAiIGhlaWdodD0iNjAiLz48cmVjdCBmaWxsPSIjRjRGMkVEIiB4PSIxMy4wNCIgeT0iODMuMzkiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIvPjxyZWN0IGZpbGw9IiNGNEYyRUQiIHg9IjgzLjM5IiB5PSI4My4zOSIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIi8%2BPC9zdmc%2BCg%3D%3D)](https://github.com/brustack)
+[![npm version](https://img.shields.io/npm/v/@brustack/vue-theme-transitions.svg?style=for-the-badge&labelColor=000000)](https://www.npmjs.com/package/@brustack/vue-theme-transitions)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/@brustack/vue-theme-transitions?style=for-the-badge&labelColor=000000)](https://bundlephobia.com/package/@brustack/vue-theme-transitions)
+[![license](https://img.shields.io/npm/l/@brustack/vue-theme-transitions.svg?style=for-the-badge&labelColor=000000)](https://github.com/brustack/theme-transitions/blob/main/packages/vue/LICENSE)
 
-Vue 3 composable for animated dark/light theme transitions using the View Transitions API.
+Vue composable for animated dark/light theme transitions using the View Transitions API.
 
-[Live demo](https://theme-transitions.brustack.dev)
+- ✅ Multiple effects to choose from
+- ✅ Zero flash of the wrong theme on load
+- ✅ Syncs automatically with OS `prefers-color-scheme`
+- ✅ Origin auto-derived from the click event, bind `toggleTheme` straight to `@click`
+- ✅ No Context, no Provider, just a composable
 
-![Demo: clicking anywhere on the page triggers an animated theme transition originating from the cursor](../../.github/assets/demo.gif)
+<br>
+
+<p align="center">
+  <img src="../../.github/assets/demo.gif" alt="Demo: clicking anywhere on the page triggers an animated theme transition originating from the cursor" />
+</p>
+
+<p align="center">Check out the <a href="https://theme-transitions.brustack.dev">Live Example</a> to try it for yourself.</p>
 
 ## Install
 
 ```sh
-npm install @brustack/vue-theme-transitions @brustack/theme-transitions-core
+npm install @brustack/vue-theme-transitions
 # or
-pnpm add @brustack/vue-theme-transitions @brustack/theme-transitions-core
+pnpm add @brustack/vue-theme-transitions
 # or
-yarn add @brustack/vue-theme-transitions @brustack/theme-transitions-core
+yarn add @brustack/vue-theme-transitions
 ```
-
-> [!IMPORTANT]
-> Using Tailwind? Set `darkMode: 'class'` in your Tailwind config. Tailwind's default (`'media'`) ignores the `dark`/`light` class this package applies to `<html>`, so the toggle will silently have no visual effect without it.
 
 ## Usage
 
@@ -29,7 +38,7 @@ yarn add @brustack/vue-theme-transitions @brustack/theme-transitions-core
 import { useThemeTransition } from '@brustack/vue-theme-transitions';
 import '@brustack/theme-transitions-core/style.css';
 
-const { theme, isAnimating, toggleTheme } = useThemeTransition({ variant: 'spread' });
+const { theme, isAnimating, toggleTheme } = useThemeTransition();
 </script>
 
 <template>
@@ -41,21 +50,71 @@ const { theme, isAnimating, toggleTheme } = useThemeTransition({ variant: 'sprea
 
 Binding `toggleTheme` directly to `@click` works because it accepts the native `MouseEvent` and derives the spread effect's origin from the click position automatically. No import from the core package needed.
 
-## Options
+## Styling
 
-```ts
-useThemeTransition(options?: {
-	variant?: 'spread' | 'fade' | 'none'; // default 'fade'
-	duration?: string;                    // default '400ms' (fade) or '1.5s' (spread)
-	easing?: string;                      // fade only, any CSS easing function, default 'ease'
-})
+`useThemeTransition` toggles a `dark`/`light` class on `<html>`. Style your palette off that class with any approach.
+
+### CSS variables
+
+```css
+:root {
+	--bg: #ffffff;
+	--text: #111111;
+}
+
+html.dark {
+	--bg: #0b0b10;
+	--text: #f4f2ed;
+}
+
+body {
+	background: var(--bg);
+	color: var(--text);
+}
 ```
 
-`'none'` skips the animation and ignores `duration`/`easing`. `spread` only accepts `duration`; its easing and clip-path radius are fixed and not configurable.
+### Tailwind
 
-`toggleTheme` and `setTheme(mode, ...)` accept a `MouseEvent` (as shown above) or an explicit options object, e.g. `{ origin, variant, duration }`. This overrides the composable's own options for that one call only. `setTheme('dark', event)` works the same way as `toggleTheme(event)`.
+Set `darkMode: 'class'` in your Tailwind config (see Install above), then map your color tokens to the CSS variables above:
 
-`options` passed to `useThemeTransition` only takes effect on the composable's first call in the app, since it wraps a shared singleton. Per-call overrides on `toggleTheme`/`setTheme` are not affected by this and always apply. See [`@brustack/theme-transitions-core`](https://www.npmjs.com/package/@brustack/theme-transitions-core)'s README for the full singleton contract.
+```js
+// tailwind.config.js
+module.exports = {
+	darkMode: 'class',
+	theme: {
+		extend: {
+			colors: {
+				bg: 'var(--bg)',
+				text: 'var(--text)',
+			},
+		},
+	},
+};
+```
+
+## Configuration (optional)
+
+| Variant | `duration` | `easing` |
+|---|:---:|:---:|
+| `spread` | `'1.5s'` | ❌ |
+| `fade` (default) | `'400ms'` | `'ease'` |
+| `none` | ❌ | ❌ |
+
+```ts
+useThemeTransition({ variant: 'spread', duration: '1.5s' })
+```
+
+The first call in the app sets the shared default. Pass a `MouseEvent` (as shown in Usage) or an options object to `toggleTheme`/`setTheme` to override just that one call.
+
+## API
+
+| | |
+|---|---|
+| `theme` | Current resolved theme: `'light'` or `'dark'` |
+| `mode` | Current preference: `'light'`, `'dark'`, or `'system'` |
+| `isAnimating` | `true` while a transition is running |
+| `toggleTheme(eventOrOptions?)` | Switch between light and dark |
+| `setTheme(mode, eventOrOptions?)` | Set `light`, `dark`, or `system` |
 
 ## Vite plugin
 
@@ -76,9 +135,36 @@ Optionally, pass the same options as above so every `useThemeTransition()` call 
 plugins: [themeTransitions({ variant: 'spread', duration: '1.5s' })],
 ```
 
-This only sets defaults. An explicit `useThemeTransition(options)` call, or a per-call override on `toggleTheme`/`setTheme`, still takes precedence.
+## Other bundlers
 
-Not using Vite? See [`@brustack/theme-transitions-core`](https://www.npmjs.com/package/@brustack/theme-transitions-core)'s README for how to wire up the anti-flash script and stylesheet with webpack or another bundler.
+Not using Vite? `themeTransitions()` is a thin wrapper around two functions the core package exports, so you can get the same anti-flash behavior with any bundler by calling them directly.
+
+With webpack and `html-webpack-plugin`:
+
+```js
+const { buildColorModeInitScript } = require('@brustack/theme-transitions-core');
+
+new HtmlWebpackPlugin({
+	templateParameters: { themeInitScript: buildColorModeInitScript() },
+});
+```
+
+```html
+<!-- in the HTML template, inside <head> -->
+<script><%= htmlWebpackPlugin.options.templateParameters.themeInitScript %></script>
+```
+
+The script must run in `<head>`, before the page paints, regardless of where your bundle's own `<script>` tags are injected. To also set app-wide default effect options (the same thing the Vite plugin's argument does), prepend `buildConfigInitScript(options)` (which sets `window.__themeConfig`) to the same string.
+
+Webpack also needs a CSS rule that reaches into `node_modules` for the core package's stylesheet. If your existing `.css` rule excludes `node_modules` (common when scoping CSS Modules to your own source), add its path to that rule's `include`:
+
+```js
+{
+	test: /\.css$/,
+	include: [path.resolve(__dirname, 'node_modules/@brustack/theme-transitions-core')],
+	use: ['style-loader', 'css-loader'],
+}
+```
 
 ## Notes
 
@@ -86,4 +172,4 @@ Not using Vite? See [`@brustack/theme-transitions-core`](https://www.npmjs.com/p
 
 ## Known issues
 
-- The `spread` effect can render from the wrong position on Chrome 150 after moving the browser window between displays with different DPI. This is a known upstream Chrome bug, already fixed and pending release to the Stable channel. See [`@brustack/theme-transitions-core`](https://www.npmjs.com/package/@brustack/theme-transitions-core)'s README for details.
+- Chrome 150 has a regression where the `spread` effect's clip-path animation can render from the wrong position after the browser window moves between displays with different DPI/scaling. This is a Chrome bug, not something this package can work around. It's already fixed upstream and verified in Chrome Canary; the fix should reach the Stable channel in a future release. See [Chromium issue #535696703](https://issues.chromium.org/issues/535696703).

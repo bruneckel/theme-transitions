@@ -1,13 +1,25 @@
 # @brustack/theme-transitions-core
 
-[![npm version](https://img.shields.io/npm/v/@brustack/theme-transitions-core.svg)](https://www.npmjs.com/package/@brustack/theme-transitions-core)
-[![license](https://img.shields.io/npm/l/@brustack/theme-transitions-core.svg)](https://github.com/brustack/theme-transitions/blob/main/packages/core/LICENSE)
+[![made by brustack](https://img.shields.io/badge/MADE%20BY%20brustack-000000.svg?style=for-the-badge&labelColor=000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMjYuNzcgMjI2Ljc3Ij48cG9seWdvbiBmaWxsPSIjRjRGMkVEIiBwb2ludHM9IjE1My43MyA4My4zOSAxNTMuNzMgMTUzLjczIDgzLjM5IDE1My43MyA4My4zOSAyMTMuNzMgMjEzLjczIDIxMy43MyAyMTMuNzMgODMuMzkgMTUzLjczIDgzLjM5Ii8%2BPHJlY3QgZmlsbD0iI0Y0RjJFRCIgeD0iODMuMzkiIHk9IjEzLjA0IiB3aWR0aD0iNjAiIGhlaWdodD0iNjAiLz48cmVjdCBmaWxsPSIjRjRGMkVEIiB4PSIxMy4wNCIgeT0iODMuMzkiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIvPjxyZWN0IGZpbGw9IiNGNEYyRUQiIHg9IjgzLjM5IiB5PSI4My4zOSIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIi8%2BPC9zdmc%2BCg%3D%3D)](https://github.com/brustack)
+[![npm version](https://img.shields.io/npm/v/@brustack/theme-transitions-core.svg?style=for-the-badge&labelColor=000000)](https://www.npmjs.com/package/@brustack/theme-transitions-core)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/@brustack/theme-transitions-core?style=for-the-badge&labelColor=000000)](https://bundlephobia.com/package/@brustack/theme-transitions-core)
+[![license](https://img.shields.io/npm/l/@brustack/theme-transitions-core.svg?style=for-the-badge&labelColor=000000)](https://github.com/brustack/theme-transitions/blob/main/packages/core/LICENSE)
 
 Framework-agnostic core for animated dark/light theme transitions using the View Transitions API.
 
-[Live demo](https://theme-transitions.brustack.dev)
+- ✅ Multiple effects to choose from
+- ✅ Zero flash of the wrong theme on load
+- ✅ Syncs automatically with OS `prefers-color-scheme`
+- ✅ Vite plugin included, any other bundler supported via two exported functions
+- ✅ Framework-agnostic, thin adapters for Vue, React, Nuxt, and Next.js
 
-![Demo: clicking anywhere on the page triggers an animated theme transition originating from the cursor](../../.github/assets/demo.gif)
+<br>
+
+<p align="center">
+  <img src="../../.github/assets/demo.gif" alt="Demo: clicking anywhere on the page triggers an animated theme transition originating from the cursor" />
+</p>
+
+<p align="center">Check out the <a href="https://theme-transitions.brustack.dev">Live Example</a> to try it for yourself.</p>
 
 ## Install
 
@@ -19,40 +31,97 @@ pnpm add @brustack/theme-transitions-core
 yarn add @brustack/theme-transitions-core
 ```
 
-> [!IMPORTANT]
-> Using Tailwind? Set `darkMode: 'class'` in your Tailwind config. Tailwind's default (`'media'`) ignores the `dark`/`light` class this package applies to `<html>`, so the toggle will silently have no visual effect without it.
-
 ## Usage
 
 ```ts
+// main.ts (wherever your app initializes)
+import '@brustack/theme-transitions-core/style.css';
 import { getController } from '@brustack/theme-transitions-core';
 
 const controller = getController();
+const button = document.querySelector<HTMLButtonElement>('#theme-toggle')!;
 
-await controller.toggleTheme();
+button.addEventListener('click', () => {
+	controller.toggleTheme();
+});
 
-const { theme, isAnimating } = controller.getState();
-
-const unsubscribe = controller.subscribe(() => {
-	console.log(controller.getState());
+controller.subscribe(() => {
+	const { theme, isAnimating } = controller.getState();
+	button.textContent = theme;
+	button.disabled = isAnimating;
 });
 ```
 
-## Options
+This wires up the interactive toggle. It doesn't yet prevent a flash of the wrong theme on load, that's what the Vite plugin (or Other bundlers) section below sets up.
 
-```ts
-getController(options?: {
-	variant?: 'spread' | 'fade' | 'none'; // default 'fade'
-	duration?: string;                    // default '400ms' (fade) or '1.5s' (spread)
-	easing?: string;                      // fade only, any CSS easing function, default 'ease'
-})
+## Styling
+
+The controller toggles a `dark`/`light` class on `<html>`. Style your palette off that class with any approach.
+
+### CSS variables
+
+```css
+:root {
+	--bg: #ffffff;
+	--text: #111111;
+}
+
+html.dark {
+	--bg: #0b0b10;
+	--text: #f4f2ed;
+}
+
+body {
+	background: var(--bg);
+	color: var(--text);
+}
 ```
 
-`createController(options)` accepts the same shape. `'none'` skips the animation and ignores `duration`/`easing`. `spread` only accepts `duration`; its easing and clip-path radius are fixed and not configurable.
+### Tailwind
 
-`toggleTheme(options?)` and `setTheme(mode, options?)` accept a `TransitionOptions` object: the same shape as above, plus `origin` (required for `spread`, derive it with `originFromEvent(event)` or `originFromElement(el)`). This overrides the controller's own options for that one call only.
+Set `darkMode: 'class'` in your Tailwind config (see Install above), then map your color tokens to the CSS variables above:
 
-`options` passed to `getController` only takes effect on the very first call in a process, since it wraps a shared singleton (see Notes below). Per-call overrides on `toggleTheme`/`setTheme` are not affected by this and always apply.
+```js
+// tailwind.config.js
+module.exports = {
+	darkMode: 'class',
+	theme: {
+		extend: {
+			colors: {
+				bg: 'var(--bg)',
+				text: 'var(--text)',
+			},
+		},
+	},
+};
+```
+
+## Configuration (optional)
+
+| Variant | `duration` | `easing` |
+|---|:---:|:---:|
+| `spread` | `'1.5s'` | ❌ |
+| `fade` (default) | `'400ms'` | `'ease'` |
+| `none` | ❌ | ❌ |
+
+```ts
+getController({ variant: 'spread', duration: '1.5s' })
+```
+
+The first call in a process sets the shared default; `createController(options)` creates an independent instance instead. `toggleTheme`/`setTheme` accept a `TransitionOptions` object (same shape, plus `origin`, required for `spread`, derive it with `originFromEvent(event)` or `originFromElement(el)`) to override just that one call.
+
+## API
+
+| | |
+|---|---|
+| `getController(options?)` | Returns the shared controller singleton |
+| `createController(options?)` | Returns an independent, non-singleton controller |
+| `controller.toggleTheme(options?)` | Switch between light and dark |
+| `controller.setTheme(mode, options?)` | Set `light`, `dark`, or `system` |
+| `controller.getState()` | Returns `{ theme, mode, isAnimating }` |
+| `controller.subscribe(listener)` | Runs `listener` on every state change, returns an unsubscribe function |
+| `originFromEvent(event)` | Click position for spread |
+| `originFromElement(el)` | Element center for spread |
 
 ## Vite plugin
 
@@ -71,16 +140,6 @@ Optionally, pass default effect options so every `getController()` call in the a
 
 ```ts
 plugins: [themeTransitions({ variant: 'spread', duration: '1.5s' })],
-```
-
-This only sets defaults; an explicit `getController(options)` call, or a per-call `toggleTheme(options)`/`setTheme(mode, options)` override, still takes precedence.
-
-## Stylesheet
-
-Import the static default stylesheet once, wherever your app initializes:
-
-```ts
-import '@brustack/theme-transitions-core/style.css';
 ```
 
 ## Other bundlers
@@ -116,9 +175,6 @@ Webpack also needs a CSS rule that reaches into `node_modules` for this package'
 
 ## Notes
 
-- `getController(options)` only applies `options` on the very first call in a process. Subsequent calls with different options are ignored, since it returns the same shared singleton. Call `createController(options)` instead if you need an independently configured instance.
-- This package exposes no framework bindings (no Vue/React). Pair it with a framework adapter package.
-- Theme automatically stays in sync with OS-level `prefers-color-scheme` changes while the active preference is `'system'`. No extra code is needed.
 - Server-side code (SSR) must use `createController()` for a request-scoped instance. `getController()`'s shared singleton is safe only for client-side usage, where one browser tab is already its own isolated process. A Node server handles many requests in the same process, so sharing the singleton there risks one user's theme leaking into another's response.
 
 ## Known issues

@@ -1,28 +1,38 @@
-# @brustack/next-theme-transitions
+# next-theme-transitions
 
-[![npm version](https://img.shields.io/npm/v/@brustack/next-theme-transitions.svg)](https://www.npmjs.com/package/@brustack/next-theme-transitions)
-[![license](https://img.shields.io/npm/l/@brustack/next-theme-transitions.svg)](https://github.com/brustack/theme-transitions/blob/main/packages/next/LICENSE)
+[![made by brustack](https://img.shields.io/badge/MADE%20BY%20brustack-000000.svg?style=for-the-badge&labelColor=000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMjYuNzcgMjI2Ljc3Ij48cG9seWdvbiBmaWxsPSIjRjRGMkVEIiBwb2ludHM9IjE1My43MyA4My4zOSAxNTMuNzMgMTUzLjczIDgzLjM5IDE1My43MyA4My4zOSAyMTMuNzMgMjEzLjczIDIxMy43MyAyMTMuNzMgODMuMzkgMTUzLjczIDgzLjM5Ii8%2BPHJlY3QgZmlsbD0iI0Y0RjJFRCIgeD0iODMuMzkiIHk9IjEzLjA0IiB3aWR0aD0iNjAiIGhlaWdodD0iNjAiLz48cmVjdCBmaWxsPSIjRjRGMkVEIiB4PSIxMy4wNCIgeT0iODMuMzkiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIvPjxyZWN0IGZpbGw9IiNGNEYyRUQiIHg9IjgzLjM5IiB5PSI4My4zOSIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIi8%2BPC9zdmc%2BCg%3D%3D)](https://github.com/brustack)
+[![npm version](https://img.shields.io/npm/v/@brustack/next-theme-transitions.svg?style=for-the-badge&labelColor=000000)](https://www.npmjs.com/package/@brustack/next-theme-transitions)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/@brustack/next-theme-transitions?style=for-the-badge&labelColor=000000)](https://bundlephobia.com/package/@brustack/next-theme-transitions)
+[![license](https://img.shields.io/npm/l/@brustack/next-theme-transitions.svg?style=for-the-badge&labelColor=000000)](https://github.com/brustack/theme-transitions/blob/main/packages/next/LICENSE)
 
 Next.js App Router hook and anti-flash script component for animated dark/light theme transitions using the View Transitions API.
 
-[Live demo](https://theme-transitions.brustack.dev)
+- ✅ Multiple effects to choose from
+- ✅ Zero flash of the wrong theme on load via a Server Component script
+- ✅ Syncs automatically with OS `prefers-color-scheme`
+- ✅ Origin auto-derived from the click event, bind `toggleTheme` straight to `onClick`
+- ✅ App Router only, no Context, no Provider
+- ✅ No dependency on the React adapter
 
-![Demo: clicking anywhere on the page triggers an animated theme transition originating from the cursor](../../.github/assets/demo.gif)
+<br>
+
+<p align="center">
+  <img src="../../.github/assets/demo.gif" alt="Demo: clicking anywhere on the page triggers an animated theme transition originating from the cursor" />
+</p>
+
+<p align="center">Check out the <a href="https://theme-transitions.brustack.dev">Live Example</a> to try it for yourself.</p>
 
 ## Install
 
 ```sh
-npm install @brustack/next-theme-transitions @brustack/theme-transitions-core
+npm install @brustack/next-theme-transitions
 # or
-pnpm add @brustack/next-theme-transitions @brustack/theme-transitions-core
+pnpm add @brustack/next-theme-transitions
 # or
-yarn add @brustack/next-theme-transitions @brustack/theme-transitions-core
+yarn add @brustack/next-theme-transitions
 ```
 
 App Router only. Pages Router (`_app.tsx`/`_document.tsx`) isn't supported.
-
-> [!IMPORTANT]
-> Using Tailwind? Set `darkMode: 'class'` in your Tailwind config. Tailwind's default (`'media'`) ignores the `dark`/`light` class this package applies to `<html>`, so the toggle will silently have no visual effect without it.
 
 ## Usage
 
@@ -37,7 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<head>
-				<ThemeScript variant="spread" duration="1.5s" />
+				<ThemeScript />
 			</head>
 			<body>{children}</body>
 		</html>
@@ -54,7 +64,7 @@ Then use `useThemeTransition` from any Client Component:
 import { useThemeTransition } from '@brustack/next-theme-transitions';
 
 export const ThemeToggle = () => {
-	const { theme, isAnimating, toggleTheme } = useThemeTransition({ variant: 'spread' });
+	const { theme, isAnimating, toggleTheme } = useThemeTransition();
 
 	return (
 		<button disabled={isAnimating} onClick={toggleTheme}>
@@ -66,23 +76,121 @@ export const ThemeToggle = () => {
 
 Binding `toggleTheme` directly to `onClick` works because it accepts React's `MouseEvent` and derives the spread effect's origin from the click position automatically. The component calling the hook needs its own `'use client'` directive, same as any other interactive component in the App Router; `useThemeTransition` itself already has one, but that only makes the hook's *own* module client-safe, it doesn't make the component that calls it a Client Component.
 
-## Options
+## Styling
 
-Both `ThemeScript` and `useThemeTransition` accept the same shape. Pass matching options to both if you want the pre-hydration anti-flash script and the interactive hook to agree on defaults:
+`ThemeScript`/`useThemeTransition` toggle a `dark`/`light` class on `<html>`. Style your palette off that class with any approach.
 
-```ts
-{
-	variant?: 'spread' | 'fade' | 'none'; // default 'fade'
-	duration?: string;                    // default '400ms' (fade) or '1.5s' (spread)
-	easing?: string;                      // fade only, any CSS easing function, default 'ease'
+### CSS variables
+
+```css
+:root {
+	--bg: #ffffff;
+	--text: #111111;
+}
+
+html.dark {
+	--bg: #0b0b10;
+	--text: #f4f2ed;
+}
+
+body {
+	background: var(--bg);
+	color: var(--text);
 }
 ```
 
-`'none'` skips the animation and ignores `duration`/`easing`. `spread` only accepts `duration`; its easing and clip-path radius are fixed and not configurable.
+### Tailwind
 
-`toggleTheme` and `setTheme(mode, ...)` accept a `MouseEvent` (as shown above) or an explicit options object, e.g. `{ origin, variant, duration }`. This overrides the hook's own options for that one call only. `setTheme('dark', event)` works the same way as `toggleTheme(event)`.
+Set `darkMode: 'class'` in your Tailwind config (see Install above), then map your color tokens to the CSS variables above:
 
-`options` passed to `useThemeTransition` only takes effect on the hook's first call in the app, since it wraps a shared singleton. Per-call overrides on `toggleTheme`/`setTheme` are not affected by this and always apply. See [`@brustack/theme-transitions-core`](https://www.npmjs.com/package/@brustack/theme-transitions-core)'s README for the full singleton contract.
+```js
+// tailwind.config.js
+module.exports = {
+	darkMode: 'class',
+	theme: {
+		extend: {
+			colors: {
+				bg: 'var(--bg)',
+				text: 'var(--text)',
+			},
+		},
+	},
+};
+```
+
+### Styled-components (or any CSS-in-JS)
+
+```tsx
+// app/global-style.tsx
+'use client';
+
+import { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+	:root {
+		--bg: #ffffff;
+		--text: #111111;
+	}
+
+	html.dark {
+		--bg: #0b0b10;
+		--text: #f4f2ed;
+	}
+`;
+```
+
+```tsx
+// app/layout.tsx
+import { GlobalStyle } from './global-style';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+	return (
+		<html lang="en" suppressHydrationWarning>
+			<head>
+				<ThemeScript />
+			</head>
+			<body>
+				<GlobalStyle />
+				{children}
+			</body>
+		</html>
+	);
+}
+```
+
+`GlobalStyle` needs its own `'use client'` boundary, same as `ThemeToggle`. This mounts it, it doesn't set up styled-components' own SSR style injection for the App Router, see [styled-components' Next.js registry guide](https://styled-components.com/docs/advanced#nextjs) for that.
+
+## Configuration (optional)
+
+| Variant | `duration` | `easing` |
+|---|:---:|:---:|
+| `spread` | `'1.5s'` | ❌ |
+| `fade` (default) | `'400ms'` | `'ease'` |
+| `none` | ❌ | ❌ |
+
+`ThemeScript` and `useThemeTransition` accept the same shape. Pass matching options to both to set the app-wide default (the pre-hydration script and the interactive hook must agree):
+
+```tsx
+// app/layout.tsx
+<ThemeScript variant="spread" duration="1.5s" />
+```
+
+```tsx
+// app/components/theme-toggle.tsx
+useThemeTransition({ variant: 'spread', duration: '1.5s' })
+```
+
+Pass a `MouseEvent` (as shown in Usage) or an options object to `toggleTheme`/`setTheme` to override just that one call.
+
+## API
+
+| | |
+|---|---|
+| `theme` | Current resolved theme: `'light'` or `'dark'` |
+| `mode` | Current preference: `'light'`, `'dark'`, or `'system'` |
+| `isAnimating` | `true` while a transition is running |
+| `toggleTheme(eventOrOptions?)` | Switch between light and dark |
+| `setTheme(mode, eventOrOptions?)` | Set `light`, `dark`, or `system` |
 
 ## Notes
 
@@ -93,7 +201,3 @@ Both `ThemeScript` and `useThemeTransition` accept the same shape. Pass matching
 ## Known issues
 
 - Chrome 150 has a regression where the `spread` effect's clip-path animation can render from the wrong position after the browser window moves between displays with different DPI/scaling. This is a Chrome bug, not something this package can work around. It's already fixed upstream and verified in Chrome Canary; the fix should reach the Stable channel in a future release. See [Chromium issue #535696703](https://issues.chromium.org/issues/535696703).
-
-## License
-
-[MIT](LICENSE) © Bruno Neckel

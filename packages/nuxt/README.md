@@ -1,13 +1,25 @@
-# @brustack/nuxt-theme-transitions
+# nuxt-theme-transitions
 
-[![npm version](https://img.shields.io/npm/v/@brustack/nuxt-theme-transitions.svg)](https://www.npmjs.com/package/@brustack/nuxt-theme-transitions)
-[![license](https://img.shields.io/npm/l/@brustack/nuxt-theme-transitions.svg)](https://github.com/brustack/theme-transitions/blob/main/packages/nuxt/LICENSE)
+[![made by brustack](https://img.shields.io/badge/MADE%20BY%20brustack-000000.svg?style=for-the-badge&labelColor=000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMjYuNzcgMjI2Ljc3Ij48cG9seWdvbiBmaWxsPSIjRjRGMkVEIiBwb2ludHM9IjE1My43MyA4My4zOSAxNTMuNzMgMTUzLjczIDgzLjM5IDE1My43MyA4My4zOSAyMTMuNzMgMjEzLjczIDIxMy43MyAyMTMuNzMgODMuMzkgMTUzLjczIDgzLjM5Ii8%2BPHJlY3QgZmlsbD0iI0Y0RjJFRCIgeD0iODMuMzkiIHk9IjEzLjA0IiB3aWR0aD0iNjAiIGhlaWdodD0iNjAiLz48cmVjdCBmaWxsPSIjRjRGMkVEIiB4PSIxMy4wNCIgeT0iODMuMzkiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIvPjxyZWN0IGZpbGw9IiNGNEYyRUQiIHg9IjgzLjM5IiB5PSI4My4zOSIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIi8%2BPC9zdmc%2BCg%3D%3D)](https://github.com/brustack)
+[![npm version](https://img.shields.io/npm/v/@brustack/nuxt-theme-transitions.svg?style=for-the-badge&labelColor=000000)](https://www.npmjs.com/package/@brustack/nuxt-theme-transitions)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/@brustack/nuxt-theme-transitions?style=for-the-badge&labelColor=000000)](https://bundlephobia.com/package/@brustack/nuxt-theme-transitions)
+[![license](https://img.shields.io/npm/l/@brustack/nuxt-theme-transitions.svg?style=for-the-badge&labelColor=000000)](https://github.com/brustack/theme-transitions/blob/main/packages/nuxt/LICENSE)
 
 Nuxt module for animated dark/light theme transitions using the View Transitions API.
 
-[Live demo](https://theme-transitions.brustack.dev)
+- ✅ Multiple effects to choose from
+- ✅ Zero flash of the wrong theme on load
+- ✅ Syncs automatically with OS `prefers-color-scheme`
+- ✅ Auto-imported `useThemeTransition`, zero-config Nuxt module
+- ✅ Works with Nuxt 3 and Nuxt 4
 
-![Demo: clicking anywhere on the page triggers an animated theme transition originating from the cursor](../../.github/assets/demo.gif)
+<br>
+
+<p align="center">
+  <img src="../../.github/assets/demo.gif" alt="Demo: clicking anywhere on the page triggers an animated theme transition originating from the cursor" />
+</p>
+
+<p align="center">Check out the <a href="https://theme-transitions.brustack.dev">Live Example</a> to try it for yourself.</p>
 
 ## Install
 
@@ -26,11 +38,6 @@ export default defineNuxtConfig({
 })
 ```
 
-If you're migrating from `@nuxtjs/color-mode`, remove it from the `modules` array (and uninstall it).
-
-> [!IMPORTANT]
-> Using Tailwind? Set `darkMode: 'class'` in your Tailwind config. Tailwind's default (`'media'`) ignores the `dark`/`light` class this package applies to `<html>`, so the toggle will silently have no visual effect without it.
-
 ## Usage
 
 ```vue
@@ -45,44 +52,72 @@ const { theme, isAnimating, toggleTheme } = useThemeTransition()
 </template>
 ```
 
-Binding `toggleTheme` directly to `@click` works because it accepts the native `MouseEvent` and derives the spread effect's origin from the click position automatically. Use `originFromElement(elementRef)` instead if you want to animate from the center of an element rather than the click position.
+Binding `toggleTheme` directly to `@click` works because it accepts the native `MouseEvent` and derives the spread effect's origin from the click position automatically. `originFromElement(elementRef)` is auto-imported too, use it instead if you want to animate from an element's center rather than the click position.
 
-Disable the button with `:disabled="isAnimating"` to avoid double-clicks while the animation runs.
+## Styling
+
+`useThemeTransition` toggles a `dark`/`light` class on `<html>`. Style your palette off that class with any approach.
+
+### CSS variables
+
+```css
+:root {
+	--bg: #ffffff;
+	--text: #111111;
+}
+
+html.dark {
+	--bg: #0b0b10;
+	--text: #f4f2ed;
+}
+
+body {
+	background: var(--bg);
+	color: var(--text);
+}
+```
+
+### Tailwind
+
+Set `darkMode: 'class'` in your Tailwind config (see Install above), then map your color tokens to the CSS variables above:
+
+```js
+// tailwind.config.js
+module.exports = {
+	darkMode: 'class',
+	theme: {
+		extend: {
+			colors: {
+				bg: 'var(--bg)',
+				text: 'var(--text)',
+			},
+		},
+	},
+};
+```
 
 ## Configuration (optional)
 
-| Option | Default | Description |
-|--------|---------|-------------|
-| `variant` | `'fade'` | `'spread'` (circle from click) or `'fade'` (crossfade) |
-| `duration` | `'1.5s'` (spread) / `'400ms'` (fade) | How long the animation lasts (e.g. `'2s'`) |
-| `easing` | `'ease'` | Fade only, any CSS easing function. `spread`'s easing and clip-path radius are fixed and not configurable |
+| Variant | `duration` | `easing` |
+|---|:---:|:---:|
+| `spread` | `'1.5s'` | ❌ |
+| `fade` (default) | `'400ms'` | `'ease'` |
+| `none` | ❌ | ❌ |
 
 ```ts
-themeTransition: {
-  variant: 'spread',
-  duration: '1.5s',
-}
+// nuxt.config.ts
+export default defineNuxtConfig({
+  modules: ['@brustack/nuxt-theme-transitions'],
+  themeTransition: {
+    variant: 'spread',
+    duration: '1.5s',
+  },
+})
 ```
 
 Restart the dev server after changing `themeTransition`.
 
-## Variants
-
-**spread**: circle expands from the click. `toggleTheme`/`setTheme` accept a `MouseEvent` (as shown above) or an explicit options object, e.g. `{ origin, variant, duration }`:
-
-```ts
-toggleTheme(event)
-toggleTheme({ origin: originFromElement(buttonRef.value) })
-```
-
-**fade**: smooth crossfade, no origin needed:
-
-```ts
-toggleTheme({ variant: 'fade' })
-setTheme('dark', { variant: 'fade' })
-```
-
-`toggleTheme`/`setTheme` also accept a `duration` (and, for `fade`, an `easing`) override, e.g. `toggleTheme({ duration: '2s' })`. This overrides the module's configured value for that one call only.
+`toggleTheme`/`setTheme` also accept a `MouseEvent` (as shown in Usage) or an explicit options object, e.g. `{ origin, variant, duration }`, to override the configured value for just that one call. `origin` is required for `spread`, derive it with `originFromEvent(event)` or `originFromElement(el)`.
 
 ## API
 
@@ -96,18 +131,10 @@ setTheme('dark', { variant: 'fade' })
 | `originFromEvent(event)` | Click position for spread |
 | `originFromElement(el)` | Element center for spread |
 
-## Browser support
+## Notes
 
-| Browser | Animation |
-|---------|-----------|
-| Chrome, Edge, Safari 18+ | Yes |
-| Firefox | Instant switch |
-| Reduced motion | Instant switch |
+- `useThemeTransition` only creates the underlying controller after the component mounts, `theme`/`mode`/`isAnimating` start as safe defaults (`'light'`/`'system'`/`false`) via Nuxt's `useState`. This means it's safe to use in SSR/universal rendering by default, no hydration mismatch, since nothing controller-dependent renders until the client takes over.
 
 ## Known issues
 
 - Chrome 150 has a regression where the `spread` effect's clip-path animation can render from the wrong position after the browser window moves between displays with different DPI/scaling. This is a Chrome bug, not something this package can work around. It's already fixed upstream and verified in Chrome Canary; the fix should reach the Stable channel in a future release. See [Chromium issue #535696703](https://issues.chromium.org/issues/535696703).
-
-## License
-
-[MIT](LICENSE) © Bruno Neckel

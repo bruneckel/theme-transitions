@@ -32,7 +32,7 @@ A framework-agnostic core with a thin adapter per framework. Vue, React, Nuxt, a
 | Package | npm | Description |
 | --- | --- | --- |
 | [`@brustack/theme-transitions-core`](packages/core) | [![npm](https://img.shields.io/npm/v/@brustack/theme-transitions-core.svg)](https://www.npmjs.com/package/@brustack/theme-transitions-core) | Framework-agnostic core: theme detection/persistence, View Transition orchestration, effect CSS generation. |
-| [`@brustack/vue-theme-transitions`](packages/vue) | [![npm](https://img.shields.io/npm/v/@brustack/vue-theme-transitions.svg)](https://www.npmjs.com/package/@brustack/vue-theme-transitions) | Vue 3 composable built on the core. |
+| [`@brustack/vue-theme-transitions`](packages/vue) | [![npm](https://img.shields.io/npm/v/@brustack/vue-theme-transitions.svg)](https://www.npmjs.com/package/@brustack/vue-theme-transitions) | Vue composable built on the core. |
 | [`@brustack/react-theme-transitions`](packages/react) | [![npm](https://img.shields.io/npm/v/@brustack/react-theme-transitions.svg)](https://www.npmjs.com/package/@brustack/react-theme-transitions) | React hook built on the core. |
 | [`@brustack/nuxt-theme-transitions`](packages/nuxt) | [![npm](https://img.shields.io/npm/v/@brustack/nuxt-theme-transitions.svg)](https://www.npmjs.com/package/@brustack/nuxt-theme-transitions) | Nuxt module built on the core. |
 | [`@brustack/next-theme-transitions`](packages/next) | [![npm](https://img.shields.io/npm/v/@brustack/next-theme-transitions.svg)](https://www.npmjs.com/package/@brustack/next-theme-transitions) | Next.js App Router hook and anti-flash script component built on the core. |
