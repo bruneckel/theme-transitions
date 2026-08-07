@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { buildColorModeInitScript, buildConfigInitScript } from '@brustack/theme-transitions-core';
 import type { ThemeOptions } from '@brustack/theme-transitions-core';
 
