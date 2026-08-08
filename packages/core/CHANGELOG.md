@@ -1,0 +1,17 @@
+# @brustack/theme-transitions-core
+
+## 2.0.0
+
+### Major Changes
+
+- 1431ded: Namespace the localStorage key from `theme` to `tt:theme`, to avoid colliding with other libraries or app code using the same generic key. Anyone upgrading loses their previously saved preference once (falls back to `system`); this also lays the groundwork for supporting themes beyond light/dark.
+
+### Minor Changes
+
+- e1bffc2: Add support for custom theme names beyond light/dark/system: pass `themes: string[]` to register additional names (e.g. `getController({ themes: ['pink'] })`, then `setTheme('pink')`), and read the full list back from `themes` in state to build a theme switcher.
+
+  Breaking change for the adapters: each hook's returned `.theme`/`.mode` fields and `setTheme`'s parameter widened from a narrow union type to `ThemeName`, so consumers with strict typing on those values may need to update their own type annotations. This follows from a corresponding widening in `@brustack/theme-transitions-core` (covered by the separate major changeset in `namespace-storage-key.md`), where `resolveTheme`'s return type also widened from `'light' | 'dark'` to `string`.
+
+### Patch Changes
+
+- 848c70d: Fix buildColorModeInitScript() breaking under a consumer's production minifier
