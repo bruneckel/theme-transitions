@@ -1,0 +1,13 @@
+{
+	"name": "alpine-demo",
+	"private": true,
+	"version": "0.0.1",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "echo 'apps/alpine-demo has no build step, it only serves static files locally' && exit 0"
+	},
+	"devDependencies": {
+		"vite": "^8.2.0"
+	}
+}

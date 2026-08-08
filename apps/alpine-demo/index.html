@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Alpine Theme Transitions Demo</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<script src="../../packages/core/dist/theme-init.js"></script>
+		<link rel="stylesheet" href="../../packages/core/style.css" />
+		<style>
+			html {
+				--bg: #f4f4f5;
+				--surface: #ffffff;
+				--border: #e4e4e7;
+				--text: #18181b;
+				--text-muted: #71717a;
+				color-scheme: light;
+			}
+			html.dark {
+				--bg: #18181b;
+				--surface: #27272a;
+				--border: #3f3f46;
+				--text: #fafafa;
+				--text-muted: #a1a1aa;
+				color-scheme: dark;
+			}
+			html.sepia {
+				--bg: #f4ecd8;
+				--surface: #efe4c8;
+				--border: #dfcfa6;
+				--text: #4b3621;
+				--text-muted: #8a6f4d;
+				color-scheme: light;
+			}
+			* { box-sizing: border-box; }
+			body {
+				min-height: 100vh;
+				display: grid;
+				place-items: center;
+				margin: 0;
+				background: var(--bg);
+				color: var(--text);
+				font-family: 'Roboto', sans-serif;
+			}
+			.page { width: 20rem; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
+			.page-header { text-align: center; }
+			.page-header h1 { margin: 0 0 0.25rem; font-size: 1.125rem; }
+			.page-header p { margin: 0; font-size: 0.8125rem; color: var(--text-muted); }
+			.simple-toggle {
+				font: inherit; font-size: 0.8125rem; font-weight: 600; color: var(--text);
+				background: var(--surface); border: 1px solid var(--border); border-radius: 0.65rem;
+				padding: 0.5rem 1rem; cursor: pointer;
+			}
+			.mode-switch { display: flex; gap: 1rem; }
+			.mode-switch button {
+				font: inherit; font-size: 0.8125rem; font-weight: 600; color: var(--text-muted);
+				background: none; border: none; border-bottom: 2px solid transparent; padding: 0 0 0.25rem; cursor: pointer;
+			}
+			.mode-switch button[disabled] { color: var(--text); border-bottom-color: var(--text); cursor: default; }
+		</style>
+	</head>
+	<body>
+		<div class="page" x-data="themeTransition({ themes: ['sepia'] })">
+			<header class="page-header">
+				<h1>Theme Transitions</h1>
+				<p>An Alpine.js demo of animated theme switching.</p>
+			</header>
+
+			<button class="simple-toggle" :disabled="isAnimating" @click="toggleTheme" x-text="theme"></button>
+
+			<div class="mode-switch">
+				<template x-for="option in ['system', 'light', 'dark', 'sepia']" :key="option">
+					<button :disabled="isAnimating || mode === option" @click="setTheme(option, $event)" x-text="option"></button>
+				</template>
+			</div>
+		</div>
+
+		<script src="../../packages/alpine/dist/alpine-theme-transitions.iife.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js" defer></script>
+	</body>
+</html>

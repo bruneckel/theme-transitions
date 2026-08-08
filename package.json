@@ -29,6 +29,9 @@
 		"install:showcase": "npm install --workspace=apps/showcase --include-workspace-root",
 		"predev:showcase": "npm run build --workspace=packages/core --workspace=packages/vue",
 		"dev:showcase": "npm run dev --workspace=apps/showcase",
+		"install:alpine-demo": "npm install --workspace=apps/alpine-demo --include-workspace-root",
+		"predev:alpine-demo": "npm run build --workspace=packages/core --workspace=packages/alpine",
+		"dev:alpine-demo": "npm run dev --workspace=apps/alpine-demo",
 		"changeset": "changeset",
 		"version-packages": "changeset version",
 		"release": "npm run build && changeset publish"
