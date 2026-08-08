@@ -69,6 +69,11 @@ html.dark {
 	--text: #f4f2ed;
 }
 
+html.sepia {
+	--bg: #f4ecd8;
+	--text: #4b3621;
+}
+
 body {
 	background: var(--bg);
 	color: var(--text);
@@ -110,6 +115,11 @@ const GlobalStyle = createGlobalStyle`
 	html.dark {
 		--bg: #0b0b10;
 		--text: #f4f2ed;
+	}
+
+	html.sepia {
+		--bg: #f4ecd8;
+		--text: #4b3621;
 	}
 `;
 
