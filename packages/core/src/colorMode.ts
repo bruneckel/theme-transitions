@@ -20,7 +20,7 @@ export const readStoredPreference = (): ThemeName => {
 	}
 
 	const stored = localStorage.getItem(STORAGE_KEY);
-	return stored || 'system';
+	return stored && !/\s/.test(stored) ? stored : 'system';
 };
 
 export const writeStoredPreference = (preference: ThemeName): void => {
@@ -79,7 +79,7 @@ const initColorMode = (): void => {
 		}
 
 		const stored = localStorage.getItem('tt:theme');
-		return stored || 'system';
+		return stored && !/\s/.test(stored) ? stored : 'system';
 	};
 
 	const applyThemeClass = (value: string): void => {

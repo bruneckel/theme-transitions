@@ -82,6 +82,13 @@ describe('readStoredPreference', () => {
 		localStorage.setItem('tt:theme', 'pink');
 		expect(readStoredPreference()).toBe('pink');
 	});
+
+	it('falls back to "system" when the stored value contains whitespace', () => {
+		vi.stubGlobal('window', {});
+		vi.stubGlobal('localStorage', createLocalStorageMock());
+		localStorage.setItem('tt:theme', 'not a valid token');
+		expect(readStoredPreference()).toBe('system');
+	});
 });
 
 describe('writeStoredPreference', () => {
@@ -172,6 +179,19 @@ describe('buildColorModeInitScript', () => {
 		new Function(buildColorModeInitScript())();
 
 		expect(documentMock.classes.has('sunset')).toBe(true);
+	});
+
+	it('falls back to the system theme when the stored value contains whitespace, instead of throwing', () => {
+		vi.stubGlobal('matchMedia', (query: string) => ({ matches: false, media: query }));
+		vi.stubGlobal('window', {});
+		vi.stubGlobal('localStorage', createLocalStorageMock());
+		const documentMock = createDocumentMock();
+		vi.stubGlobal('document', documentMock);
+
+		writeStoredPreference('not a valid token');
+		expect(() => new Function(buildColorModeInitScript())()).not.toThrow();
+
+		expect(documentMock.classes.has('light')).toBe(true);
 	});
 
 	it('does not reference any identifier from outside the generated script (would break under a minifier that renames module-level bindings)', () => {
