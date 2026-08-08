@@ -6,7 +6,7 @@ import type {
 	TransitionOptions,
 } from '@brustack/theme-transitions-core';
 
-export type { ThemeOrigin, TransitionOptions } from '@brustack/theme-transitions-core';
+export type { ThemeName, ThemeOrigin, TransitionOptions } from '@brustack/theme-transitions-core';
 
 export const useThemeTransition = () => {
 	const moduleOptions = useRuntimeConfig().public.themeTransition;

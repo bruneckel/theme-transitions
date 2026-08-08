@@ -44,7 +44,7 @@ import { useThemeTransition } from './useThemeTransition';
 
 beforeEach(() => {
 	controllerMock.clearListeners();
-	controllerMock.setState({ theme: 'light', mode: 'light', isAnimating: false });
+	controllerMock.setState({ theme: 'light', mode: 'light', isAnimating: false, themes: ['light', 'dark', 'system'] });
 	vi.clearAllMocks();
 });
 
