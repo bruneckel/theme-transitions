@@ -1,13 +1,15 @@
+'use client';
+
 import { useState } from 'react';
-import { useThemeTransition } from '@brustack/react-theme-transitions';
+import { useThemeTransition } from '@brustack/next-theme-transitions';
 import { originFromEvent } from '@brustack/theme-transitions-core';
 import type { ThemeName } from '@brustack/theme-transitions-core';
 import { EffectSettings } from './components/EffectSettings';
 import type { EffectOptions } from './components/EffectSettings';
 import { ThemeModeSwitch } from './components/ThemeModeSwitch';
-import './App.css';
+import './demo.css';
 
-export const App = () => {
+export const Demo = () => {
 	const { theme, mode, isAnimating, toggleTheme, setTheme } = useThemeTransition({
 		variant: 'fade',
 		themes: ['sepia'],
@@ -30,7 +32,7 @@ export const App = () => {
 		<div className="page">
 			<header className="page-header">
 				<h1>Theme Transitions</h1>
-				<p>A React demo of animated theme switching.</p>
+				<p>A Next.js demo of animated theme switching.</p>
 			</header>
 
 			<section className="pattern">

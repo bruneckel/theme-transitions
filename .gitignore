@@ -2,6 +2,8 @@ node_modules
 dist
 .next
 next-env.d.ts
+.nuxt
+.output
 packages/core/style.css
 docs
 .worktrees

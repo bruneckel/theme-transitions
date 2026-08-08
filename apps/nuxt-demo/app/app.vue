@@ -1,15 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useThemeTransition } from "@brustack/vue-theme-transitions";
 import { originFromEvent } from "@brustack/theme-transitions-core";
 import type { ThemeName } from "@brustack/theme-transitions-core";
 import EffectSettings, { type EffectOptions } from "./components/EffectSettings.vue";
 import ThemeModeSwitch from "./components/ThemeModeSwitch.vue";
 
-const { theme, mode, isAnimating, toggleTheme, setTheme } = useThemeTransition({
-  variant: "fade",
-  themes: ["sepia"],
-});
+const { theme, mode, isAnimating, toggleTheme, setTheme } = useThemeTransition();
 
 const effectOptions = ref<EffectOptions>({
   variant: "fade",
@@ -32,7 +28,7 @@ const handleSetMode = (target: ThemeName, event: MouseEvent) => {
   <div class="page">
     <header class="page-header">
       <h1>Theme Transitions</h1>
-      <p>A Vue demo of animated theme switching.</p>
+      <p>A Nuxt demo of animated theme switching.</p>
     </header>
 
     <section class="pattern">

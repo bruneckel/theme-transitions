@@ -1,5 +1,5 @@
-import { ThemeToggle } from './theme-toggle';
+import { Demo } from './demo';
 
 export default function Page() {
-	return <ThemeToggle />;
+	return <Demo />;
 }

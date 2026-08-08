@@ -22,6 +22,17 @@ html.dark {
 	color-scheme: dark;
 }
 
+html.sepia {
+	--bg: #f4ecd8;
+	--surface: #efe4c8;
+	--border: #dfcfa6;
+	--text: #4b3621;
+	--text-muted: #8a6f4d;
+	--danger: #b3261e;
+
+	color-scheme: light;
+}
+
 * {
 	box-sizing: border-box;
 }
