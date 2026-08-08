@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import IconAlpine from "./icons/IconAlpine.vue";
 import IconJs from "./icons/IconJs.vue";
 import IconNext from "./icons/IconNext.vue";
 import IconNuxt from "./icons/IconNuxt.vue";
@@ -39,6 +40,14 @@ import IconVue from "./icons/IconVue.vue";
     >
       <IconNext />
       Next
+    </a>
+    <a
+      href="https://www.npmjs.com/package/@brustack/alpine-theme-transitions"
+      target="_blank"
+      rel="noopener"
+    >
+      <IconAlpine />
+      Alpine
     </a>
     <a
       href="https://www.npmjs.com/package/@brustack/theme-transitions-core"
