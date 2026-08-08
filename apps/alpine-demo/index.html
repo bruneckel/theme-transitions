@@ -19,6 +19,7 @@
 				--border: #e4e4e7;
 				--text: #18181b;
 				--text-muted: #71717a;
+				--danger: #dc2626;
 				color-scheme: light;
 			}
 			html.dark {
@@ -27,6 +28,7 @@
 				--border: #3f3f46;
 				--text: #fafafa;
 				--text-muted: #a1a1aa;
+				--danger: #f87171;
 				color-scheme: dark;
 			}
 			html.sepia {
@@ -35,6 +37,7 @@
 				--border: #dfcfa6;
 				--text: #4b3621;
 				--text-muted: #8a6f4d;
+				--danger: #b3261e;
 				color-scheme: light;
 			}
 			* { box-sizing: border-box; }
@@ -51,17 +54,74 @@
 			.page-header { text-align: center; }
 			.page-header h1 { margin: 0 0 0.25rem; font-size: 1.125rem; }
 			.page-header p { margin: 0; font-size: 0.8125rem; color: var(--text-muted); }
+
+			.pattern { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+			.pattern-title { align-self: flex-start; margin: 0; font-size: 0.75rem; font-weight: 600; color: var(--text); }
+			.pattern-code {
+				align-self: flex-start; margin: -0.4rem 0 0; font-size: 0.6875rem;
+				font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--text-muted);
+			}
+			.divider { width: 100%; border-top: 1px dashed var(--border); }
+
 			.simple-toggle {
 				font: inherit; font-size: 0.8125rem; font-weight: 600; color: var(--text);
 				background: var(--surface); border: 1px solid var(--border); border-radius: 0.65rem;
-				padding: 0.5rem 1rem; cursor: pointer;
+				padding: 0.5rem 1rem; cursor: pointer; transition: background-color 0.15s;
 			}
-			.mode-switch { display: flex; gap: 1rem; }
-			.mode-switch button {
-				font: inherit; font-size: 0.8125rem; font-weight: 600; color: var(--text-muted);
-				background: none; border: none; border-bottom: 2px solid transparent; padding: 0 0 0.25rem; cursor: pointer;
+			.simple-toggle:hover:not(:disabled) { background: var(--border); }
+			.simple-toggle:disabled { opacity: 0.6; cursor: not-allowed; }
+
+			.mode-row { width: 100%; display: flex; flex-wrap: wrap; align-items: center; row-gap: 0.1rem; }
+
+			.mode-switch { flex: 1; display: flex; gap: 1rem; }
+			.mode-option {
+				display: flex; align-items: center; gap: 0.35rem; font: inherit; font-size: 0.8125rem; font-weight: 600;
+				color: var(--text-muted); background: none; border: none; border-bottom: 2px solid transparent;
+				padding: 0 0 0.25rem; cursor: pointer; transition: color 0.15s, border-color 0.15s;
 			}
-			.mode-switch button[disabled] { color: var(--text); border-bottom-color: var(--text); cursor: default; }
+			.mode-option svg { width: 16px; height: 16px; }
+			.mode-option:hover:not(:disabled):not(.active) { color: var(--text); }
+			.mode-option.active { color: var(--text); border-bottom-color: var(--text); }
+			.mode-option:disabled:not(.active) { opacity: 0.6; cursor: not-allowed; }
+			.mode-option.active:disabled { cursor: default; }
+
+			.hint { flex-basis: 100%; margin: 0.3rem 0 0; font-size: 0.6875rem; color: var(--text-muted); }
+			.hint strong { color: var(--text); font-weight: 600; }
+			.hint.invisible { visibility: hidden; }
+
+			.icon-btn {
+				display: flex; align-items: center; justify-content: center; background: none; border: none;
+				cursor: pointer; transition: background-color 0.15s;
+			}
+			.icon-btn:hover { background: var(--border); }
+			.icon-btn svg { width: 16px; height: 16px; }
+			.settings-trigger {
+				position: relative; width: 1.8rem; height: 1.8rem; color: var(--text-muted); border-radius: 999px;
+				transition: background-color 0.15s, color 0.15s;
+			}
+			.settings-trigger:hover, .settings-trigger[aria-expanded='true'] { color: var(--text); }
+			.modified-dot {
+				position: absolute; top: 0.05rem; right: 0.05rem; width: 0.4rem; height: 0.4rem;
+				border-radius: 50%; background: var(--danger);
+			}
+			.settings-collapse {
+				order: 1; flex-basis: 100%; display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.2s ease;
+			}
+			.settings-collapse.open { grid-template-rows: 1fr; }
+			.settings-collapse-inner { min-height: 0; overflow: hidden; }
+			.panel-header { display: flex; align-items: center; justify-content: space-between; margin: 1.25rem 0 0.6rem; }
+			.panel-title { font-size: 0.8125rem; font-weight: 700; color: var(--text); }
+			.controls { display: flex; flex-direction: column; gap: 0.75rem; padding-bottom: 0.25rem; }
+			.controls label { display: flex; flex-direction: column; gap: 0.375rem; font-size: 0.8125rem; }
+			.label-text { color: var(--text-muted); font-weight: 500; }
+			.controls input, .controls select {
+				font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--border);
+				border-radius: 0.5rem; padding: 0.4rem 0.6rem;
+			}
+			.controls input:focus-visible, .controls select:focus-visible { outline: 2px solid var(--text); outline-offset: -2px; }
+			.controls input.invalid { border-color: var(--danger); }
+			.error { color: var(--danger); font-size: 0.75rem; }
+			.reset { color: var(--danger); border-radius: 0.5rem; padding: 0.3rem; width: 1.8rem; height: 1.8rem; }
 		</style>
 	</head>
 	<body>
@@ -71,13 +131,149 @@
 				<p>An Alpine.js demo of animated theme switching.</p>
 			</header>
 
-			<button class="simple-toggle" :disabled="isAnimating" @click="toggleTheme" x-text="theme"></button>
+			<section class="pattern">
+				<p class="pattern-title">Simple toggle</p>
+				<p class="pattern-code">toggleTheme(event)</p>
+				<button class="simple-toggle" :disabled="isAnimating" @click="toggleTheme" x-text="theme"></button>
+			</section>
 
-			<div class="mode-switch">
-				<template x-for="option in ['system', 'light', 'dark', 'sepia']" :key="option">
-					<button :disabled="isAnimating || mode === option" @click="setTheme(option, $event)" x-text="option"></button>
-				</template>
-			</div>
+			<div class="divider"></div>
+
+			<section
+				class="pattern"
+				x-data="{
+					settingsOpen: false,
+					variant: 'fade',
+					duration: '400ms',
+					easing: 'ease',
+					easingPresets: ['ease', 'ease-in', 'ease-out', 'ease-in-out', 'linear'],
+					get durationError() {
+						if (this.variant === 'none') return '';
+						return /^[0-9.]+(ms|s)$/.test(this.duration) ? '' : 'Use a CSS duration, e.g. 1s or 400ms';
+					},
+					get isModified() {
+						if (this.variant === 'none') return false;
+						const defaults = this.variant === 'fade' ? { duration: '400ms', easing: 'ease' } : { duration: '1.5s' };
+						if (this.duration !== defaults.duration) return true;
+						return this.variant === 'fade' && this.easing !== defaults.easing;
+					},
+					resetToDefaults() {
+						const defaults = this.variant === 'fade' ? { duration: '400ms' } : { duration: '1.5s' };
+						this.duration = defaults.duration;
+						this.easing = 'ease';
+					},
+					selectVariant(next) {
+						this.variant = next;
+						this.resetToDefaults();
+					},
+					optionsFor(event) {
+						const opts = { origin: { x: event.clientX, y: event.clientY }, variant: this.variant };
+						if (this.variant !== 'none') opts.duration = this.duration;
+						if (this.variant === 'fade') opts.easing = this.easing;
+						return opts;
+					},
+				}"
+			>
+				<p class="pattern-title">Mode switch</p>
+				<p class="pattern-code">setTheme(mode, event)</p>
+				<div class="mode-row">
+					<div class="mode-switch" role="group" aria-label="Theme mode">
+						<template x-for="option in ['system', 'light', 'dark', 'sepia']" :key="option">
+							<button
+								class="mode-option"
+								:class="{ active: mode === option }"
+								:disabled="isAnimating || mode === option"
+								@click="setTheme(option, optionsFor($event))"
+							>
+								<svg x-show="option === 'system'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<rect width="20" height="14" x="2" y="3" rx="2" /><line x1="8" x2="16" y1="21" y2="21" /><line x1="12" x2="12" y1="17" y2="21" />
+								</svg>
+								<svg x-show="option === 'light'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<circle cx="12" cy="12" r="4" /><path d="M12 2v2" /><path d="M12 20v2" /><path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" /><path d="M2 12h2" /><path d="M20 12h2" /><path d="m6.34 17.66-1.41 1.41" /><path d="m19.07 4.93-1.41 1.41" />
+								</svg>
+								<svg x-show="option === 'dark'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+								</svg>
+								<svg x-show="option === 'sepia'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M12 2.69 17.66 8.5a8 8 0 1 1-11.31 0z" />
+								</svg>
+								<span x-text="option.charAt(0).toUpperCase() + option.slice(1)"></span>
+							</button>
+						</template>
+					</div>
+
+					<div class="effect-settings" style="display: contents">
+						<button
+							type="button"
+							class="icon-btn settings-trigger"
+							:aria-expanded="settingsOpen"
+							aria-controls="settings-panel"
+							aria-label="Effect settings"
+							@click="settingsOpen = !settingsOpen"
+						>
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.08a2 2 0 0 1 1 1.74v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+								<circle cx="12" cy="12" r="3" />
+							</svg>
+							<span x-show="isModified" class="modified-dot" aria-hidden="true"></span>
+						</button>
+
+						<div id="settings-panel" class="settings-collapse" :class="{ open: settingsOpen }">
+							<div class="settings-collapse-inner">
+								<div class="panel-header">
+									<span class="panel-title">Settings</span>
+									<button
+										x-show="isModified"
+										type="button"
+										class="icon-btn reset"
+										aria-label="Reset to defaults"
+										title="Reset to defaults"
+										@click="resetToDefaults()"
+									>
+										<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+											<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" />
+										</svg>
+									</button>
+								</div>
+
+								<div class="controls">
+									<label>
+										<span class="label-text">Variant</span>
+										<select x-model="variant" @change="selectVariant($event.target.value)">
+											<option value="spread">spread</option>
+											<option value="fade">fade</option>
+											<option value="none">none</option>
+										</select>
+									</label>
+
+									<template x-if="variant !== 'none'">
+										<label>
+											<span class="label-text">Duration</span>
+											<input x-model="duration" type="text" placeholder="1s" :class="{ invalid: durationError }" />
+											<span x-show="durationError" class="error" x-text="durationError"></span>
+										</label>
+									</template>
+
+									<template x-if="variant === 'fade'">
+										<label>
+											<span class="label-text">Easing</span>
+											<select x-model="easing">
+												<template x-for="preset in easingPresets" :key="preset">
+													<option :value="preset" x-text="preset"></option>
+												</template>
+											</select>
+										</label>
+									</template>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<p class="hint" :class="{ invisible: mode !== 'system' }">
+						Following system, currently <strong x-text="theme"></strong>.
+					</p>
+				</div>
+			</section>
 		</div>
 
 		<script src="../../packages/alpine/dist/alpine-theme-transitions.iife.js" defer></script>

@@ -1,8 +1,18 @@
-import { getController, resolveOptions } from '@brustack/theme-transitions-core';
-import type { ThemeName, ThemeOptions, TransitionOptions } from '@brustack/theme-transitions-core';
+import {
+	getController,
+	resolveOptions,
+} from '@brustack/theme-transitions-core';
+import type {
+	ThemeName,
+	ThemeOptions,
+	TransitionOptions,
+} from '@brustack/theme-transitions-core';
 
 interface AlpineLike {
-	data: <T extends object>(name: string, factory: (options?: ThemeOptions) => T) => void;
+	data: <T extends object>(
+		name: string,
+		factory: (options?: ThemeOptions) => T,
+	) => void;
 }
 
 export default function themeTransition(Alpine: AlpineLike) {
