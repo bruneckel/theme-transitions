@@ -4,10 +4,11 @@ import { defineComponent, h } from 'vue';
 
 const controllerMock = vi.hoisted(() => {
 	const listeners = new Set<() => void>();
-	let state: { theme: 'light' | 'dark'; mode: 'light' | 'dark' | 'system'; isAnimating: boolean } = {
+	let state: { theme: string; mode: string; isAnimating: boolean; themes: string[] } = {
 		theme: 'light',
 		mode: 'light',
 		isAnimating: false,
+		themes: ['light', 'dark', 'system'],
 	};
 
 	return {
@@ -57,7 +58,7 @@ const withSetup = <T>(setupFn: () => T) => {
 
 beforeEach(() => {
 	controllerMock.clearListeners();
-	controllerMock.setState({ theme: 'light', mode: 'light', isAnimating: false });
+	controllerMock.setState({ theme: 'light', mode: 'light', isAnimating: false, themes: ['light', 'dark', 'system'] });
 	vi.clearAllMocks();
 });
 
@@ -133,5 +134,21 @@ describe('useThemeTransition', () => {
 		withSetup(() => useThemeTransition(options));
 
 		expect(getControllerMock).toHaveBeenCalledWith(options);
+	});
+
+	it('exposes the themes list from the controller', () => {
+		controllerMock.setState({ themes: ['light', 'dark', 'system', 'pink'] });
+		const { result } = withSetup(() => useThemeTransition());
+
+		expect(result.themes.value).toEqual(['light', 'dark', 'system', 'pink']);
+	});
+
+	it('accepts a custom theme name in setTheme', async () => {
+		const { result } = withSetup(() => useThemeTransition());
+		const options = { variant: 'fade' as const };
+
+		await result.setTheme('pink', options);
+
+		expect(controllerMock.setTheme).toHaveBeenCalledWith('pink', options);
 	});
 });

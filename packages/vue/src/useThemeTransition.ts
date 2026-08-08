@@ -1,7 +1,7 @@
 import { computed, onScopeDispose, ref } from 'vue';
 import { getController, resolveOptions } from '@brustack/theme-transitions-core';
 import type {
-	ThemeMode,
+	ThemeName,
 	ThemeOptions,
 	TransitionOptions,
 } from '@brustack/theme-transitions-core';
@@ -20,10 +20,11 @@ export const useThemeTransition = (opts?: ThemeOptions) => {
 		theme: computed(() => state.value.theme),
 		mode: computed(() => state.value.mode),
 		isAnimating: computed(() => state.value.isAnimating),
+		themes: computed(() => state.value.themes),
 		toggleTheme: (eventOrOpts?: MouseEvent | TransitionOptions) =>
 			controller.toggleTheme(resolveOptions(eventOrOpts)),
 		setTheme: (
-			mode: ThemeMode,
+			mode: ThemeName,
 			eventOrOpts?: MouseEvent | TransitionOptions,
 		) => controller.setTheme(mode, resolveOptions(eventOrOpts)),
 	};
