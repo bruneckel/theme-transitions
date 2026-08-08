@@ -40,7 +40,7 @@ Animated theme transitions for the web, powered by the [View Transitions API](ht
 
 ## Development
 
-This section is for working on the packages themselves, not for using them. Run every command from the repo root. The demo apps (`apps/react-demo`, `apps/vue-demo`, `apps/showcase`) are npm workspaces symlinked to the local, in-progress source, not the published npm packages, so they only run correctly from inside this repo. They aren't standalone starter templates you can copy elsewhere.
+This section is for working on the packages themselves, not for using them. Run every command from the repo root. The demo apps (`apps/react-demo`, `apps/vue-demo`, `apps/next-demo`, `apps/nuxt-demo`, `apps/showcase`) are npm workspaces symlinked to the local, in-progress source, not the published npm packages, so they only run correctly from inside this repo. They aren't standalone starter templates you can copy elsewhere.
 
 Try a demo:
 
@@ -48,8 +48,12 @@ Try a demo:
 npm install
 npm run dev:vue-demo
 npm run dev:react-demo
+npm run dev:next-demo
+npm run dev:nuxt-demo
 npm run dev:showcase
 ```
+
+Only want one demo? `npm run install:<name>` (e.g. `npm run install:react-demo`) installs just that demo's dependencies instead of the whole monorepo.
 
 Everything else:
 
