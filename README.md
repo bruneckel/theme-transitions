@@ -2,31 +2,32 @@
 
 # theme-transitions
 
-[![license](https://img.shields.io/badge/license-MIT-3178C6?style=flat-square)](LICENSE)
-![View Transitions API](https://img.shields.io/badge/View%20Transitions%20API-111111?style=flat-square)
-![Vue](https://img.shields.io/badge/Vue-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white)
-![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
-![Nuxt](https://img.shields.io/badge/Nuxt-00DC82?style=flat-square&logo=nuxt&logoColor=white)
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white)
+[![made by brustack](https://img.shields.io/badge/MADE%20BY%20brustack-000000.svg?style=for-the-badge&labelColor=000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMjYuNzcgMjI2Ljc3Ij48cG9seWdvbiBmaWxsPSIjRjRGMkVEIiBwb2ludHM9IjE1My43MyA4My4zOSAxNTMuNzMgMTUzLjczIDgzLjM5IDE1My43MyA4My4zOSAyMTMuNzMgMjEzLjczIDIxMy43MyAyMTMuNzMgODMuMzkgMTUzLjczIDgzLjM5Ii8%2BPHJlY3QgZmlsbD0iI0Y0RjJFRCIgeD0iODMuMzkiIHk9IjEzLjA0IiB3aWR0aD0iNjAiIGhlaWdodD0iNjAiLz48cmVjdCBmaWxsPSIjRjRGMkVEIiB4PSIxMy4wNCIgeT0iODMuMzkiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIvPjxyZWN0IGZpbGw9IiNGNEYyRUQiIHg9IjgzLjM5IiB5PSI4My4zOSIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIi8%2BPC9zdmc%2BCg%3D%3D)](https://github.com/brustack)
+![View Transitions API](https://img.shields.io/badge/View%20Transitions%20API-111111?style=for-the-badge)
+![Vanilla JS](https://img.shields.io/badge/Vanilla%20JS-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Vue](https://img.shields.io/badge/Vue-4FC08D?style=for-the-badge&logo=vuedotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Nuxt](https://img.shields.io/badge/Nuxt-00DC82?style=for-the-badge&logo=nuxt&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 
-🌗 Animated dark/light theme transitions for the web, powered by the [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API).
+Animated theme transitions for the web, powered by the [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API). A framework-agnostic core with a thin adapter per framework.
 
-[Live demo](https://theme-transitions.brustack.dev) &middot; [Report a bug](https://github.com/brustack/theme-transitions/issues)
+- ✅ Multiple effects to choose from
+- ✅ Zero flash of the wrong theme on load
+- ✅ Syncs automatically with OS `prefers-color-scheme`
+- ✅ Custom themes beyond light/dark
+- ✅ Vue, React, Nuxt, and Next.js adapters, all built on the same framework-agnostic core
 
-![Demo: clicking anywhere on the page triggers an animated theme transition originating from the cursor](.github/assets/demo.gif)
+<br>
 
-A framework-agnostic core with a thin adapter per framework. Vue, React, Nuxt, and Next.js are available today.
+<p align="center">
+  <img src=".github/assets/demo.gif" alt="Demo: clicking anywhere on the page triggers an animated theme transition originating from the cursor" />
+</p>
+
+<p align="center">Check out the <a href="https://theme-transitions.brustack.dev">Live Example</a> to try it for yourself, or <a href="https://github.com/brustack/theme-transitions/issues">report a bug</a>.</p>
 
 > [!NOTE]
 > This is the **source monorepo**, for contributing to the packages themselves. If you just want to *use* one of them in your own project, jump straight to its README via the table below and `npm install` it normally. Don't clone this repo or copy a demo app out of it.
-
-## Features
-
-- Spread and fade transition effects, triggered from any click origin
-- Automatic theme persistence and system-preference detection
-- Custom themes beyond light/dark, registered via a `themes` option
-- No flash of the wrong theme on page load
-- Zero dependencies in the core; each adapter only depends on its own framework
 
 ## Packages
 
