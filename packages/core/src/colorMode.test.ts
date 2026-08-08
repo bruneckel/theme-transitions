@@ -70,20 +70,17 @@ describe('readStoredPreference', () => {
 		expect(readStoredPreference()).toBe('system');
 	});
 
-	it('returns the stored value when it is a valid ThemeMode', () => {
+	it('returns "system" when nothing is stored', () => {
 		vi.stubGlobal('window', {});
 		vi.stubGlobal('localStorage', createLocalStorageMock());
-		localStorage.setItem('tt:theme', 'dark');
-		expect(readStoredPreference()).toBe('dark');
+		expect(readStoredPreference()).toBe('system');
 	});
 
-	it('returns "system" for missing or garbage stored values', () => {
+	it('returns the stored value verbatim, including a custom theme name', () => {
 		vi.stubGlobal('window', {});
 		vi.stubGlobal('localStorage', createLocalStorageMock());
-		expect(readStoredPreference()).toBe('system');
-
-		localStorage.setItem('tt:theme', 'not-a-real-mode');
-		expect(readStoredPreference()).toBe('system');
+		localStorage.setItem('tt:theme', 'pink');
+		expect(readStoredPreference()).toBe('pink');
 	});
 });
 
@@ -108,16 +105,31 @@ describe('applyThemeClass', () => {
 		expect(() => applyThemeClass('dark')).not.toThrow();
 	});
 
-	it('adds the resolved class and removes the opposite one', () => {
+	it('adds the new class and, when given a previous value, removes it', () => {
 		const documentMock = createDocumentMock();
 		vi.stubGlobal('document', documentMock);
 		applyThemeClass('dark');
 		expect(documentMock.classes.has('dark')).toBe(true);
-		expect(documentMock.classes.has('light')).toBe(false);
 
-		applyThemeClass('light');
+		applyThemeClass('light', 'dark');
 		expect(documentMock.classes.has('light')).toBe(true);
 		expect(documentMock.classes.has('dark')).toBe(false);
+	});
+
+	it('does not remove anything when no previous value is given', () => {
+		const documentMock = createDocumentMock();
+		vi.stubGlobal('document', documentMock);
+		applyThemeClass('dark');
+		applyThemeClass('pink');
+		expect(documentMock.classes.has('dark')).toBe(true);
+		expect(documentMock.classes.has('pink')).toBe(true);
+	});
+
+	it('applies a custom theme name the same way as a built-in one', () => {
+		const documentMock = createDocumentMock();
+		vi.stubGlobal('document', documentMock);
+		applyThemeClass('sunset');
+		expect(documentMock.classes.has('sunset')).toBe(true);
 	});
 });
 
@@ -147,6 +159,19 @@ describe('buildColorModeInitScript', () => {
 
 		expect(documentMock.classes.has('dark')).toBe(true);
 		expect(documentMock.classes.has('light')).toBe(false);
+	});
+
+	it('applies a custom stored theme name on a fresh run, not just light/dark', () => {
+		vi.stubGlobal('matchMedia', undefined);
+		vi.stubGlobal('window', {});
+		vi.stubGlobal('localStorage', createLocalStorageMock());
+		const documentMock = createDocumentMock();
+		vi.stubGlobal('document', documentMock);
+
+		writeStoredPreference('sunset');
+		new Function(buildColorModeInitScript())();
+
+		expect(documentMock.classes.has('sunset')).toBe(true);
 	});
 
 	it('does not reference any identifier from outside the generated script (would break under a minifier that renames module-level bindings)', () => {

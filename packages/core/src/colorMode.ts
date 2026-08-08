@@ -1,4 +1,4 @@
-import type { ThemeMode } from './types';
+import type { ThemeName } from './types';
 
 const STORAGE_KEY = 'tt:theme';
 
@@ -10,20 +10,20 @@ export const getSystemTheme = (): 'light' | 'dark' => {
 	return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 };
 
-export const resolveTheme = (preference: ThemeMode): 'light' | 'dark' => {
+export const resolveTheme = (preference: ThemeName): string => {
 	return preference === 'system' ? getSystemTheme() : preference;
 };
 
-export const readStoredPreference = (): ThemeMode => {
+export const readStoredPreference = (): ThemeName => {
 	if (typeof globalThis.window === 'undefined') {
 		return 'system';
 	}
 
 	const stored = localStorage.getItem(STORAGE_KEY);
-	return stored === 'light' || stored === 'dark' || stored === 'system' ? stored : 'system';
+	return stored || 'system';
 };
 
-export const writeStoredPreference = (preference: ThemeMode): void => {
+export const writeStoredPreference = (preference: ThemeName): void => {
 	if (typeof window === 'undefined') {
 		return;
 	}
@@ -31,14 +31,16 @@ export const writeStoredPreference = (preference: ThemeMode): void => {
 	localStorage.setItem(STORAGE_KEY, preference);
 };
 
-export const applyThemeClass = (value: 'light' | 'dark'): void => {
+export const applyThemeClass = (value: string, previous?: string): void => {
 	if (typeof document === 'undefined') {
 		return;
 	}
 
 	const root = document.documentElement;
+	if (previous && previous !== value) {
+		root.classList.remove(previous);
+	}
 	root.classList.add(value);
-	root.classList.remove(value === 'dark' ? 'light' : 'dark');
 };
 
 const DANGEROUS_TOKEN = /\btypeof window\b/;
@@ -55,6 +57,8 @@ const DANGEROUS_TOKEN = /\btypeof window\b/;
  * throws a ReferenceError. Every name this function touches is declared
  * inside its own body, so no consumer's minifier can rename one copy of a
  * name without renaming every other use of it inside this same function scope.
+ * applyThemeClass here only ever adds a class (no previous-value removal):
+ * this script runs once, on a page with no theme class applied yet.
  */
 const initColorMode = (): void => {
 	const getSystemTheme = (): 'light' | 'dark' => {
@@ -65,8 +69,8 @@ const initColorMode = (): void => {
 		return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 	};
 
-	const resolveTheme = (preference: string): 'light' | 'dark' => {
-		return preference === 'system' ? getSystemTheme() : (preference as 'light' | 'dark');
+	const resolveTheme = (preference: string): string => {
+		return preference === 'system' ? getSystemTheme() : preference;
 	};
 
 	const readStoredPreference = (): string => {
@@ -75,17 +79,15 @@ const initColorMode = (): void => {
 		}
 
 		const stored = localStorage.getItem('tt:theme');
-		return stored === 'light' || stored === 'dark' || stored === 'system' ? stored : 'system';
+		return stored || 'system';
 	};
 
-	const applyThemeClass = (value: 'light' | 'dark'): void => {
+	const applyThemeClass = (value: string): void => {
 		if (typeof document === 'undefined') {
 			return;
 		}
 
-		const root = document.documentElement;
-		root.classList.add(value);
-		root.classList.remove(value === 'dark' ? 'light' : 'dark');
+		document.documentElement.classList.add(value);
 	};
 
 	applyThemeClass(resolveTheme(readStoredPreference()));
