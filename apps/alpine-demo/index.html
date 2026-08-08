@@ -75,18 +75,10 @@
 								:disabled="isAnimating || mode === option"
 								@click="setTheme(option, optionsFor($event))"
 							>
-								<svg x-show="option === 'system'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-									<rect width="20" height="14" x="2" y="3" rx="2" /><line x1="8" x2="16" y1="21" y2="21" /><line x1="12" x2="12" y1="17" y2="21" />
-								</svg>
-								<svg x-show="option === 'light'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-									<circle cx="12" cy="12" r="4" /><path d="M12 2v2" /><path d="M12 20v2" /><path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" /><path d="M2 12h2" /><path d="M20 12h2" /><path d="m6.34 17.66-1.41 1.41" /><path d="m19.07 4.93-1.41 1.41" />
-								</svg>
-								<svg x-show="option === 'dark'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-									<path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
-								</svg>
-								<svg x-show="option === 'sepia'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-									<path d="M12 2.69 17.66 8.5a8 8 0 1 1-11.31 0z" />
-								</svg>
+								<svg x-show="option === 'system'" aria-hidden="true"><use href="icons.svg#icon-monitor"></use></svg>
+								<svg x-show="option === 'light'" aria-hidden="true"><use href="icons.svg#icon-sun"></use></svg>
+								<svg x-show="option === 'dark'" aria-hidden="true"><use href="icons.svg#icon-moon"></use></svg>
+								<svg x-show="option === 'sepia'" aria-hidden="true"><use href="icons.svg#icon-droplet"></use></svg>
 								<span x-text="option.charAt(0).toUpperCase() + option.slice(1)"></span>
 							</button>
 						</template>
@@ -101,10 +93,7 @@
 							aria-label="Effect settings"
 							@click="settingsOpen = !settingsOpen"
 						>
-							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-								<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.08a2 2 0 0 1 1 1.74v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-								<circle cx="12" cy="12" r="3" />
-							</svg>
+							<svg aria-hidden="true"><use href="icons.svg#icon-settings"></use></svg>
 							<span x-show="isModified" class="modified-dot" aria-hidden="true"></span>
 						</button>
 
@@ -120,9 +109,7 @@
 										title="Reset to defaults"
 										@click="resetToDefaults()"
 									>
-										<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-											<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" />
-										</svg>
+										<svg aria-hidden="true"><use href="icons.svg#icon-rotate-ccw"></use></svg>
 									</button>
 								</div>
 
