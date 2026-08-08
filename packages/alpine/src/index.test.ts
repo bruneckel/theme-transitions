@@ -45,7 +45,11 @@ import themeTransition from './index';
 // Capture that factory via a fake Alpine object instead of using the real library.
 const registerAndBuild = (options?: object) => {
 	let factory: ((opts?: object) => Record<string, unknown>) | undefined;
-	const fakeAlpine = { data: (_name: string, f: typeof factory) => { factory = f; } };
+	const fakeAlpine = {
+		data: (_name: string, f: typeof factory) => {
+			factory = f;
+		},
+	};
 
 	themeTransition(fakeAlpine as never);
 
