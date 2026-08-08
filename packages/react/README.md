@@ -33,6 +33,15 @@ pnpm add @brustack/react-theme-transitions
 yarn add @brustack/react-theme-transitions
 ```
 
+Prefer to see it running first?
+
+```sh
+git clone https://github.com/brustack/theme-transitions.git
+cd theme-transitions
+npm run install:react-demo
+npm run dev:react-demo
+```
+
 ## Usage
 
 ```tsx
@@ -54,7 +63,7 @@ Binding `toggleTheme` directly to `onClick` works because it accepts React's `Mo
 
 ## Styling
 
-`useThemeTransition` toggles a `dark`/`light` class on `<html>`. Style your palette off that class with any approach.
+`useThemeTransition` applies the current theme's name (`dark`, `light`, or a custom name, see Custom themes below) as a class on `<html>`. Style your palette off that class with any approach.
 
 ### CSS variables
 

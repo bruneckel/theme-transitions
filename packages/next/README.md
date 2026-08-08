@@ -35,6 +35,15 @@ yarn add @brustack/next-theme-transitions
 
 App Router only. Pages Router (`_app.tsx`/`_document.tsx`) isn't supported.
 
+Prefer to see it running first?
+
+```sh
+git clone https://github.com/brustack/theme-transitions.git
+cd theme-transitions
+npm run install:next-demo
+npm run dev:next-demo
+```
+
 ## Usage
 
 Add `ThemeScript` to your root layout's `<head>`. This is what prevents a flash of the wrong theme on load; it renders a plain inline `<script>` on the server, no client JavaScript required for this part:
@@ -79,7 +88,7 @@ Binding `toggleTheme` directly to `onClick` works because it accepts React's `Mo
 
 ## Styling
 
-`ThemeScript`/`useThemeTransition` toggle a `dark`/`light` class on `<html>`. Style your palette off that class with any approach.
+`ThemeScript`/`useThemeTransition` apply the current theme's name (`dark`, `light`, or a custom name, see Custom themes below) as a class on `<html>`. Style your palette off that class with any approach.
 
 ### CSS variables
 

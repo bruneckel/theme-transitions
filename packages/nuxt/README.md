@@ -39,6 +39,15 @@ export default defineNuxtConfig({
 })
 ```
 
+Prefer to see it running first?
+
+```sh
+git clone https://github.com/brustack/theme-transitions.git
+cd theme-transitions
+npm run install:nuxt-demo
+npm run dev:nuxt-demo
+```
+
 ## Usage
 
 ```vue
@@ -57,7 +66,7 @@ Binding `toggleTheme` directly to `@click` works because it accepts the native `
 
 ## Styling
 
-`useThemeTransition` toggles a `dark`/`light` class on `<html>`. Style your palette off that class with any approach.
+`useThemeTransition` applies the current theme's name (`dark`, `light`, or a custom name, see Custom themes below) as a class on `<html>`. Style your palette off that class with any approach.
 
 ### CSS variables
 

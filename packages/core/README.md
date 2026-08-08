@@ -57,7 +57,7 @@ This wires up the interactive toggle. It doesn't yet prevent a flash of the wron
 
 ## Styling
 
-The controller toggles a `dark`/`light` class on `<html>`. Style your palette off that class with any approach.
+The controller applies the current theme's name (`dark`, `light`, or a custom name, see Custom themes below) as a class on `<html>`. Style your palette off that class with any approach.
 
 ### CSS variables
 
