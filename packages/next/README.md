@@ -10,6 +10,7 @@ Next.js App Router hook and anti-flash script component for animated dark/light 
 - ✅ Multiple effects to choose from
 - ✅ Zero flash of the wrong theme on load via a Server Component script
 - ✅ Syncs automatically with OS `prefers-color-scheme`
+- ✅ Custom themes beyond light/dark
 - ✅ Origin auto-derived from the click event, bind `toggleTheme` straight to `onClick`
 - ✅ App Router only, no Context, no Provider
 - ✅ No dependency on the React adapter
@@ -182,15 +183,30 @@ useThemeTransition({ variant: 'spread', duration: '1.5s' })
 
 Pass a `MouseEvent` (as shown in Usage) or an options object to `toggleTheme`/`setTheme` to override just that one call.
 
+### Custom themes
+
+Register extra theme names beyond `light`/`dark`/`system` via `themes`, passed to both `ThemeScript` and `useThemeTransition`:
+
+```tsx
+<ThemeScript themes={['sepia', 'sunset']} />
+```
+
+```tsx
+useThemeTransition({ themes: ['sepia', 'sunset'] })
+```
+
+`setTheme('sepia')` then applies a `sepia` class the same way `light`/`dark` do (see Styling above). The hook's `themes` array always includes `['light', 'dark', 'system', ...your custom names]` on the client; during SSR it only reports the 3 built-ins, since custom names aren't knowable at module-load time, the real list takes over once the client hydrates. `toggleTheme()` is unaffected, it always flips between `light` and `dark`.
+
 ## API
 
 | | |
 |---|---|
-| `theme` | Current resolved theme: `'light'` or `'dark'` |
-| `mode` | Current preference: `'light'`, `'dark'`, or `'system'` |
+| `theme` | Current resolved theme: `'light'`, `'dark'`, or a custom theme name |
+| `mode` | Current preference: `'light'`, `'dark'`, `'system'`, or a custom theme name |
 | `isAnimating` | `true` while a transition is running |
+| `themes` | All registered theme names: `['light', 'dark', 'system', ...custom]` (built-ins only during SSR) |
 | `toggleTheme(eventOrOptions?)` | Switch between light and dark |
-| `setTheme(mode, eventOrOptions?)` | Set `light`, `dark`, or `system` |
+| `setTheme(mode, eventOrOptions?)` | Set `light`, `dark`, `system`, or a custom theme name |
 
 ## Notes
 

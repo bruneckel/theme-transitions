@@ -10,6 +10,7 @@ Nuxt module for animated dark/light theme transitions using the View Transitions
 - ✅ Multiple effects to choose from
 - ✅ Zero flash of the wrong theme on load
 - ✅ Syncs automatically with OS `prefers-color-scheme`
+- ✅ Custom themes beyond light/dark
 - ✅ Auto-imported `useThemeTransition`, zero-config Nuxt module
 - ✅ Works with Nuxt 3 and Nuxt 4
 
@@ -119,15 +120,32 @@ Restart the dev server after changing `themeTransition`.
 
 `toggleTheme`/`setTheme` also accept a `MouseEvent` (as shown in Usage) or an explicit options object, e.g. `{ origin, variant, duration }`, to override the configured value for just that one call. `origin` is required for `spread`, derive it with `originFromEvent(event)` or `originFromElement(el)`.
 
+### Custom themes
+
+Register extra theme names beyond `light`/`dark`/`system` via `themeTransition.themes`:
+
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+  modules: ['@brustack/nuxt-theme-transitions'],
+  themeTransition: {
+    themes: ['sepia', 'sunset'],
+  },
+})
+```
+
+`setTheme('sepia')` then applies a `sepia` class the same way `light`/`dark` do (see Styling above). `themes` always includes `['light', 'dark', 'system', ...your custom names]` once mounted, useful for building a theme switcher. `toggleTheme()` is unaffected, it always flips between `light` and `dark`.
+
 ## API
 
 | | |
 |---|---|
 | `toggleTheme(eventOrOptions?)` | Switch between light and dark |
-| `setTheme(mode, eventOrOptions?)` | Set `light`, `dark`, or `system` |
-| `theme` | Current resolved theme: `'light'` or `'dark'` |
-| `mode` | Current preference: `'light'`, `'dark'`, or `'system'` |
+| `setTheme(mode, eventOrOptions?)` | Set `light`, `dark`, `system`, or a custom theme name |
+| `theme` | Current resolved theme: `'light'`, `'dark'`, or a custom theme name |
+| `mode` | Current preference: `'light'`, `'dark'`, `'system'`, or a custom theme name |
 | `isAnimating` | `true` while a transition is running |
+| `themes` | All registered theme names: `['light', 'dark', 'system', ...custom]` (built-ins only before mount) |
 | `originFromEvent(event)` | Click position for spread |
 | `originFromElement(el)` | Element center for spread |
 

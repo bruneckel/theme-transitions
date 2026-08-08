@@ -10,6 +10,7 @@ React hook for animated dark/light theme transitions using the View Transitions 
 - ✅ Multiple effects to choose from
 - ✅ Zero flash of the wrong theme on load
 - ✅ Syncs automatically with OS `prefers-color-scheme`
+- ✅ Custom themes beyond light/dark
 - ✅ Built on `useSyncExternalStore`, safe under `StrictMode`
 - ✅ Origin auto-derived from the click event, bind `toggleTheme` straight to `onClick`
 - ✅ No Context, no Provider, just a hook
@@ -134,15 +135,26 @@ useThemeTransition({ variant: 'spread', duration: '1.5s' })
 
 The first call in the app sets the shared default. Pass a `MouseEvent` (as shown in Usage) or an options object to `toggleTheme`/`setTheme` to override just that one call.
 
+### Custom themes
+
+Register extra theme names beyond `light`/`dark`/`system` via `themes`:
+
+```ts
+useThemeTransition({ themes: ['sepia', 'sunset'] })
+```
+
+`setTheme('sepia')` then applies a `sepia` class the same way `light`/`dark` do (see Styling above). The hook's `themes` array always includes `['light', 'dark', 'system', ...your custom names]`, useful for building a theme switcher. `toggleTheme()` is unaffected, it always flips between `light` and `dark`.
+
 ## API
 
 | | |
 |---|---|
-| `theme` | Current resolved theme: `'light'` or `'dark'` |
-| `mode` | Current preference: `'light'`, `'dark'`, or `'system'` |
+| `theme` | Current resolved theme: `'light'`, `'dark'`, or a custom theme name |
+| `mode` | Current preference: `'light'`, `'dark'`, `'system'`, or a custom theme name |
 | `isAnimating` | `true` while a transition is running |
+| `themes` | All registered theme names: `['light', 'dark', 'system', ...custom]` |
 | `toggleTheme(eventOrOptions?)` | Switch between light and dark |
-| `setTheme(mode, eventOrOptions?)` | Set `light`, `dark`, or `system` |
+| `setTheme(mode, eventOrOptions?)` | Set `light`, `dark`, `system`, or a custom theme name |
 
 ## Vite plugin
 

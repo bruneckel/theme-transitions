@@ -10,6 +10,7 @@ Framework-agnostic core for animated dark/light theme transitions using the View
 - ✅ Multiple effects to choose from
 - ✅ Zero flash of the wrong theme on load
 - ✅ Syncs automatically with OS `prefers-color-scheme`
+- ✅ Custom themes beyond light/dark
 - ✅ Vite plugin included, any other bundler supported via two exported functions
 - ✅ Framework-agnostic, thin adapters for Vue, React, Nuxt, and Next.js
 
@@ -110,6 +111,16 @@ getController({ variant: 'spread', duration: '1.5s' })
 
 The first call in a process sets the shared default; `createController(options)` creates an independent instance instead. `toggleTheme`/`setTheme` accept a `TransitionOptions` object (same shape, plus `origin`, required for `spread`, derive it with `originFromEvent(event)` or `originFromElement(el)`) to override just that one call.
 
+### Custom themes
+
+Register extra theme names beyond `light`/`dark`/`system` via `themes`:
+
+```ts
+getController({ themes: ['sepia', 'sunset'] })
+```
+
+`setTheme('sepia')` then applies a `sepia` class the same way `light`/`dark` do (see Styling above). `controller.getState().themes` always includes `['light', 'dark', 'system', ...your custom names]`, useful for building a theme switcher. `toggleTheme()` is unaffected, it always flips between `light` and `dark`.
+
 ## API
 
 | | |
@@ -117,8 +128,8 @@ The first call in a process sets the shared default; `createController(options)`
 | `getController(options?)` | Returns the shared controller singleton |
 | `createController(options?)` | Returns an independent, non-singleton controller |
 | `controller.toggleTheme(options?)` | Switch between light and dark |
-| `controller.setTheme(mode, options?)` | Set `light`, `dark`, or `system` |
-| `controller.getState()` | Returns `{ theme, mode, isAnimating }` |
+| `controller.setTheme(mode, options?)` | Set `light`, `dark`, `system`, or a custom theme name |
+| `controller.getState()` | Returns `{ theme, mode, isAnimating, themes }` |
 | `controller.subscribe(listener)` | Runs `listener` on every state change, returns an unsubscribe function |
 | `originFromEvent(event)` | Click position for spread |
 | `originFromElement(el)` | Element center for spread |

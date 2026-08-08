@@ -24,6 +24,7 @@ A framework-agnostic core with a thin adapter per framework. Vue, React, Nuxt, a
 
 - Spread and fade transition effects, triggered from any click origin
 - Automatic theme persistence and system-preference detection
+- Custom themes beyond light/dark, registered via a `themes` option
 - No flash of the wrong theme on page load
 - Zero dependencies in the core; each adapter only depends on its own framework
 
