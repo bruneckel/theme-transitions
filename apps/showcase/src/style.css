@@ -19,6 +19,16 @@
   color-scheme: dark;
 }
 
+:root.sepia {
+  --bg: #f4ecd8;
+  --text: #4b3621;
+  --text-muted: #8a6d4b;
+  --border: #d9c8a5;
+  --surface: #efe4c8;
+  --accent-incoming: #b5651d;
+  color-scheme: light;
+}
+
 * {
   box-sizing: border-box;
 }

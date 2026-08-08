@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { originFromElement } from "@brustack/theme-transitions-core";
 import type {
-  ThemeMode,
   ThemeName,
   ThemeOrigin,
 } from "@brustack/theme-transitions-core";
@@ -12,10 +11,10 @@ defineProps<{
 }>();
 
 const emit = defineEmits<{
-  select: [mode: ThemeMode, origin: ThemeOrigin | null];
+  select: [mode: ThemeName, origin: ThemeOrigin | null];
 }>();
 
-const options: ThemeMode[] = ["system", "light", "dark"];
+const options: ThemeName[] = ["system", "light", "dark", "sepia"];
 </script>
 
 <template>

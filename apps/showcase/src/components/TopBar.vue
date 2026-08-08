@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type {
-  ThemeMode,
   ThemeName,
   ThemeOrigin,
 } from "@brustack/theme-transitions-core";
@@ -18,7 +17,7 @@ const effectOptions = defineModel<EffectOptions>("effectOptions", {
 });
 
 defineEmits<{
-  selectMode: [mode: ThemeMode, origin: ThemeOrigin | null];
+  selectMode: [mode: ThemeName, origin: ThemeOrigin | null];
 }>();
 </script>
 

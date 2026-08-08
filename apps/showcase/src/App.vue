@@ -5,7 +5,7 @@ import {
   originFromEvent,
   resolveTheme,
 } from "@brustack/theme-transitions-core";
-import type { ThemeMode, ThemeOrigin } from "@brustack/theme-transitions-core";
+import type { ThemeName, ThemeOrigin } from "@brustack/theme-transitions-core";
 import TopBar from "./components/TopBar.vue";
 import Hero from "./components/Hero.vue";
 import AppFooter from "./components/AppFooter.vue";
@@ -13,6 +13,7 @@ import type { EffectOptions } from "./components/EffectPicker.vue";
 
 const { theme, mode, toggleTheme, setTheme } = useThemeTransition({
   variant: "spread",
+  themes: ["sepia"],
 });
 
 const effectOptions = ref<EffectOptions>({
@@ -30,10 +31,13 @@ const fireGlow = (x: number, y: number, color: string) => {
   });
 };
 
-const glowColorFor = (nextTheme: string) =>
-  nextTheme === "dark" ? "#7C6CF0" : "#F5A623";
+const glowColorFor = (nextTheme: string) => {
+  if (nextTheme === "dark") return "#7C6CF0";
+  if (nextTheme === "sepia") return "#B5651D";
+  return "#F5A623";
+};
 
-const handleSelectMode = (nextMode: ThemeMode, origin: ThemeOrigin | null) => {
+const handleSelectMode = (nextMode: ThemeName, origin: ThemeOrigin | null) => {
   const nextTheme = resolveTheme(nextMode);
 
   if (nextTheme !== theme.value && origin) {
