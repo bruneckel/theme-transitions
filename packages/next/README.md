@@ -45,14 +45,14 @@ import { ThemeScript } from '@brustack/next-theme-transitions';
 import '@brustack/theme-transitions-core/style.css';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-	return (
-		<html lang="en" suppressHydrationWarning>
-			<head>
-				<ThemeScript />
-			</head>
-			<body>{children}</body>
-		</html>
-	);
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
 }
 ```
 
@@ -65,13 +65,13 @@ Then use `useThemeTransition` from any Client Component:
 import { useThemeTransition } from '@brustack/next-theme-transitions';
 
 export const ThemeToggle = () => {
-	const { theme, isAnimating, toggleTheme } = useThemeTransition();
+  const { theme, isAnimating, toggleTheme } = useThemeTransition();
 
-	return (
-		<button disabled={isAnimating} onClick={toggleTheme}>
-			{theme}
-		</button>
-	);
+  return (
+    <button disabled={isAnimating} onClick={toggleTheme}>
+      {theme}
+    </button>
+  );
 };
 ```
 
@@ -85,23 +85,23 @@ Binding `toggleTheme` directly to `onClick` works because it accepts React's `Mo
 
 ```css
 :root {
-	--bg: #ffffff;
-	--text: #111111;
+  --bg: #ffffff;
+  --text: #111111;
 }
 
 html.dark {
-	--bg: #0b0b10;
-	--text: #f4f2ed;
+  --bg: #0b0b10;
+  --text: #f4f2ed;
 }
 
 html.sepia {
-	--bg: #f4ecd8;
-	--text: #4b3621;
+  --bg: #f4ecd8;
+  --text: #4b3621;
 }
 
 body {
-	background: var(--bg);
-	color: var(--text);
+  background: var(--bg);
+  color: var(--text);
 }
 ```
 
@@ -112,15 +112,15 @@ Set `darkMode: 'class'` in your Tailwind config (see Install above), then map yo
 ```js
 // tailwind.config.js
 module.exports = {
-	darkMode: 'class',
-	theme: {
-		extend: {
-			colors: {
-				bg: 'var(--bg)',
-				text: 'var(--text)',
-			},
-		},
-	},
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        bg: 'var(--bg)',
+        text: 'var(--text)',
+      },
+    },
+  },
 };
 ```
 
@@ -133,20 +133,20 @@ module.exports = {
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
-	:root {
-		--bg: #ffffff;
-		--text: #111111;
-	}
+  :root {
+    --bg: #ffffff;
+    --text: #111111;
+  }
 
-	html.dark {
-		--bg: #0b0b10;
-		--text: #f4f2ed;
-	}
+  html.dark {
+    --bg: #0b0b10;
+    --text: #f4f2ed;
+  }
 
-	html.sepia {
-		--bg: #f4ecd8;
-		--text: #4b3621;
-	}
+  html.sepia {
+    --bg: #f4ecd8;
+    --text: #4b3621;
+  }
 `;
 ```
 
@@ -155,17 +155,17 @@ export const GlobalStyle = createGlobalStyle`
 import { GlobalStyle } from './global-style';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-	return (
-		<html lang="en" suppressHydrationWarning>
-			<head>
-				<ThemeScript />
-			</head>
-			<body>
-				<GlobalStyle />
-				{children}
-			</body>
-		</html>
-	);
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
+      <body>
+        <GlobalStyle />
+        {children}
+      </body>
+    </html>
+  );
 }
 ```
 

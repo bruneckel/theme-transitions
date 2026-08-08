@@ -63,23 +63,23 @@ Binding `toggleTheme` directly to `@click` works because it accepts the native `
 
 ```css
 :root {
-	--bg: #ffffff;
-	--text: #111111;
+  --bg: #ffffff;
+  --text: #111111;
 }
 
 html.dark {
-	--bg: #0b0b10;
-	--text: #f4f2ed;
+  --bg: #0b0b10;
+  --text: #f4f2ed;
 }
 
 html.sepia {
-	--bg: #f4ecd8;
-	--text: #4b3621;
+  --bg: #f4ecd8;
+  --text: #4b3621;
 }
 
 body {
-	background: var(--bg);
-	color: var(--text);
+  background: var(--bg);
+  color: var(--text);
 }
 ```
 
@@ -90,15 +90,15 @@ Set `darkMode: 'class'` in your Tailwind config (see Install above), then map yo
 ```js
 // tailwind.config.js
 module.exports = {
-	darkMode: 'class',
-	theme: {
-		extend: {
-			colors: {
-				bg: 'var(--bg)',
-				text: 'var(--text)',
-			},
-		},
-	},
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        bg: 'var(--bg)',
+        text: 'var(--text)',
+      },
+    },
+  },
 };
 ```
 

@@ -40,13 +40,13 @@ import { useThemeTransition } from '@brustack/react-theme-transitions';
 import '@brustack/theme-transitions-core/style.css';
 
 export const ThemeToggle = () => {
-	const { theme, isAnimating, toggleTheme } = useThemeTransition();
+  const { theme, isAnimating, toggleTheme } = useThemeTransition();
 
-	return (
-		<button disabled={isAnimating} onClick={toggleTheme}>
-			{theme}
-		</button>
-	);
+  return (
+    <button disabled={isAnimating} onClick={toggleTheme}>
+      {theme}
+    </button>
+  );
 };
 ```
 
@@ -60,23 +60,23 @@ Binding `toggleTheme` directly to `onClick` works because it accepts React's `Mo
 
 ```css
 :root {
-	--bg: #ffffff;
-	--text: #111111;
+  --bg: #ffffff;
+  --text: #111111;
 }
 
 html.dark {
-	--bg: #0b0b10;
-	--text: #f4f2ed;
+  --bg: #0b0b10;
+  --text: #f4f2ed;
 }
 
 html.sepia {
-	--bg: #f4ecd8;
-	--text: #4b3621;
+  --bg: #f4ecd8;
+  --text: #4b3621;
 }
 
 body {
-	background: var(--bg);
-	color: var(--text);
+  background: var(--bg);
+  color: var(--text);
 }
 ```
 
@@ -87,15 +87,15 @@ Set `darkMode: 'class'` in your Tailwind config (see Install above), then map yo
 ```js
 // tailwind.config.js
 module.exports = {
-	darkMode: 'class',
-	theme: {
-		extend: {
-			colors: {
-				bg: 'var(--bg)',
-				text: 'var(--text)',
-			},
-		},
-	},
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        bg: 'var(--bg)',
+        text: 'var(--text)',
+      },
+    },
+  },
 };
 ```
 
@@ -107,27 +107,27 @@ import { createGlobalStyle } from 'styled-components';
 import { ThemeToggle } from './theme-toggle';
 
 const GlobalStyle = createGlobalStyle`
-	:root {
-		--bg: #ffffff;
-		--text: #111111;
-	}
+  :root {
+    --bg: #ffffff;
+    --text: #111111;
+  }
 
-	html.dark {
-		--bg: #0b0b10;
-		--text: #f4f2ed;
-	}
+  html.dark {
+    --bg: #0b0b10;
+    --text: #f4f2ed;
+  }
 
-	html.sepia {
-		--bg: #f4ecd8;
-		--text: #4b3621;
-	}
+  html.sepia {
+    --bg: #f4ecd8;
+    --text: #4b3621;
+  }
 `;
 
 export const App = () => (
-	<>
-		<GlobalStyle />
-		<ThemeToggle />
-	</>
+  <>
+    <GlobalStyle />
+    <ThemeToggle />
+  </>
 );
 ```
 
@@ -176,7 +176,7 @@ import react from '@vitejs/plugin-react';
 import { themeTransitions } from '@brustack/theme-transitions-core/vite';
 
 export default defineConfig({
-	plugins: [react(), themeTransitions()],
+  plugins: [react(), themeTransitions()],
 });
 ```
 
@@ -196,7 +196,7 @@ With webpack and `html-webpack-plugin`:
 const { buildColorModeInitScript } = require('@brustack/theme-transitions-core');
 
 new HtmlWebpackPlugin({
-	templateParameters: { themeInitScript: buildColorModeInitScript() },
+  templateParameters: { themeInitScript: buildColorModeInitScript() },
 });
 ```
 
@@ -211,9 +211,9 @@ Webpack also needs a CSS rule that reaches into `node_modules` for the core pack
 
 ```js
 {
-	test: /\.css$/,
-	include: [path.resolve(__dirname, 'node_modules/@brustack/theme-transitions-core')],
-	use: ['style-loader', 'css-loader'],
+  test: /\.css$/,
+  include: [path.resolve(__dirname, 'node_modules/@brustack/theme-transitions-core')],
+  use: ['style-loader', 'css-loader'],
 }
 ```
 
