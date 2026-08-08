@@ -179,6 +179,8 @@ new HtmlWebpackPlugin({
 
 The script must run in `<head>`, before the page paints, regardless of where your bundle's own `<script>` tags are injected. To also set app-wide default effect options (the same thing the Vite plugin's argument does), prepend `buildConfigInitScript(options)` (which sets `window.__themeConfig`) to the same string.
 
+For zero-build/CDN consumers who can't call `buildColorModeInitScript()` themselves, this package also ships `dist/theme-init.js`, a prebuilt, static copy of the same anti-flash init script. Load it directly with a `<script src="...theme-init.js"></script>` tag in `<head>`.
+
 Webpack also needs a CSS rule that reaches into `node_modules` for this package's stylesheet. If your existing `.css` rule excludes `node_modules` (common when scoping CSS Modules to your own source), add this package's path to that rule's `include`:
 
 ```js
