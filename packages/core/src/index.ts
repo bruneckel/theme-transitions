@@ -5,6 +5,7 @@ export type {
 	ThemeEffect,
 	ThemeEffects,
 	ThemeMode,
+	ThemeName,
 	ThemeOptions,
 	ThemeOrigin,
 	TransitionOptions,

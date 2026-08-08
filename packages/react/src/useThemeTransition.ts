@@ -2,7 +2,7 @@ import { useCallback, useSyncExternalStore } from 'react';
 import type { MouseEvent as ReactMouseEvent } from 'react';
 import { getController, resolveOptions } from '@brustack/theme-transitions-core';
 import type {
-	ThemeMode,
+	ThemeName,
 	ThemeOptions,
 	TransitionOptions,
 } from '@brustack/theme-transitions-core';
@@ -19,7 +19,7 @@ export const useThemeTransition = (opts?: ThemeOptions) => {
 	);
 
 	const setTheme = useCallback(
-		(mode: ThemeMode, eventOrOpts?: ReactMouseEvent | TransitionOptions) =>
+		(mode: ThemeName, eventOrOpts?: ReactMouseEvent | TransitionOptions) =>
 			controller.setTheme(mode, resolveOptions(eventOrOpts)),
 		[controller],
 	);
@@ -28,6 +28,7 @@ export const useThemeTransition = (opts?: ThemeOptions) => {
 		theme: state.theme,
 		mode: state.mode,
 		isAnimating: state.isAnimating,
+		themes: state.themes,
 		toggleTheme,
 		setTheme,
 	};
