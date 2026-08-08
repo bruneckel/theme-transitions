@@ -1,5 +1,11 @@
 # @brustack/theme-transitions-core
 
+## 2.1.0
+
+### Minor Changes
+
+- Update README docs for custom themes and local demo instructions.
+
 ## 2.0.0
 
 ### Major Changes
