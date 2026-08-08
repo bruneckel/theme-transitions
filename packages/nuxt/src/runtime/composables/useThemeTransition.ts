@@ -2,7 +2,7 @@ import { onMounted, onUnmounted, useRuntimeConfig, useState } from '#imports';
 import { getController, resolveOptions } from '@brustack/theme-transitions-core';
 import type {
 	ThemeController,
-	ThemeMode,
+	ThemeName,
 	TransitionOptions,
 } from '@brustack/theme-transitions-core';
 
@@ -11,9 +11,10 @@ export type { ThemeOrigin, TransitionOptions } from '@brustack/theme-transitions
 export const useThemeTransition = () => {
 	const moduleOptions = useRuntimeConfig().public.themeTransition;
 
-	const theme = useState<'light' | 'dark'>('theme-transition-color', () => 'light');
-	const mode = useState<ThemeMode>('theme-transition-mode', () => 'system');
+	const theme = useState<string>('theme-transition-color', () => 'light');
+	const mode = useState<string>('theme-transition-mode', () => 'system');
 	const isAnimating = useState('theme-transition-animating', () => false);
+	const themes = useState<string[]>('theme-transition-themes', () => ['light', 'dark', 'system']);
 
 	let controller: ThemeController | undefined;
 
@@ -35,6 +36,7 @@ export const useThemeTransition = () => {
 			theme.value = state.theme;
 			mode.value = state.mode;
 			isAnimating.value = state.isAnimating;
+			themes.value = state.themes;
 		};
 
 		sync();
@@ -46,7 +48,7 @@ export const useThemeTransition = () => {
 		await requireController().toggleTheme(resolveOptions(eventOrOpts));
 	};
 
-	const setTheme = async (mode: ThemeMode, eventOrOpts?: MouseEvent | TransitionOptions) => {
+	const setTheme = async (mode: ThemeName, eventOrOpts?: MouseEvent | TransitionOptions) => {
 		await requireController().setTheme(mode, resolveOptions(eventOrOpts));
 	};
 
@@ -54,6 +56,7 @@ export const useThemeTransition = () => {
 		theme,
 		mode,
 		isAnimating,
+		themes,
 		toggleTheme,
 		setTheme,
 	};
