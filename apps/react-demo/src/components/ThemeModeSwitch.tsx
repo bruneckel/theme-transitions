@@ -1,11 +1,11 @@
-import type { ThemeMode } from '@brustack/theme-transitions-core';
+import type { ThemeMode, ThemeName } from '@brustack/theme-transitions-core';
 import { IconMonitor } from './icons/IconMonitor';
 import { IconMoon } from './icons/IconMoon';
 import { IconSun } from './icons/IconSun';
 import './ThemeModeSwitch.css';
 
 export interface ThemeModeSwitchProps {
-	mode: ThemeMode;
+	mode: ThemeName;
 	disabled: boolean;
 	onSelect: (mode: ThemeMode, event: React.MouseEvent) => void;
 }

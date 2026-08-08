@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import type { ThemeMode, ThemeOrigin } from "@brustack/theme-transitions-core";
+import type {
+  ThemeMode,
+  ThemeName,
+  ThemeOrigin,
+} from "@brustack/theme-transitions-core";
 import Wordmark from "./Wordmark.vue";
 import ModePicker from "./ModePicker.vue";
 import EffectPicker, { type EffectOptions } from "./EffectPicker.vue";
 
 defineProps<{
-  mode: ThemeMode;
-  theme: "light" | "dark";
+  mode: ThemeName;
+  theme: ThemeName;
 }>();
 
 const effectOptions = defineModel<EffectOptions>("effectOptions", {

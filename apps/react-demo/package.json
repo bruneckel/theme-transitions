@@ -5,7 +5,8 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
-		"build": "vite build"
+		"build": "vite build",
+		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@brustack/theme-transitions-core": "^1.0.0",

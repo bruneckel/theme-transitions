@@ -30,7 +30,7 @@ const fireGlow = (x: number, y: number, color: string) => {
   });
 };
 
-const glowColorFor = (nextTheme: "light" | "dark") =>
+const glowColorFor = (nextTheme: string) =>
   nextTheme === "dark" ? "#7C6CF0" : "#F5A623";
 
 const handleSelectMode = (nextMode: ThemeMode, origin: ThemeOrigin | null) => {

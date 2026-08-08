@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { Component } from "vue";
-import type { ThemeMode } from "@brustack/theme-transitions-core";
+import type { ThemeMode, ThemeName } from "@brustack/theme-transitions-core";
 import IconMonitor from "./icons/IconMonitor.vue";
 import IconMoon from "./icons/IconMoon.vue";
 import IconSun from "./icons/IconSun.vue";
 
 defineProps<{
-  mode: ThemeMode;
+  mode: ThemeName;
   disabled: boolean;
 }>();
 

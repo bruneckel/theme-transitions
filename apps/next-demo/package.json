@@ -4,7 +4,8 @@
 	"version": "0.0.0",
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build"
+		"build": "next build",
+		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@brustack/theme-transitions-core": "^1.0.0",
