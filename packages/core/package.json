@@ -45,7 +45,7 @@
 		"vite": "^8.2.0"
 	},
 	"scripts": {
-		"build": "unbuild && node scripts/build-css.mjs",
+		"build": "unbuild && node scripts/build-css.mjs && node scripts/build-init.mjs",
 		"prepublishOnly": "npm run build",
 		"typecheck": "tsc --noEmit"
 	},
