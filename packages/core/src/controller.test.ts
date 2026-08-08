@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const state = vi.hoisted(() => ({
-	stored: 'light' as 'light' | 'dark' | 'system',
+	stored: 'light' as string,
 	system: 'light' as 'light' | 'dark',
 }));
 
@@ -12,10 +12,10 @@ const mocks = vi.hoisted(() => ({
 
 vi.mock('./colorMode', () => ({
 	getSystemTheme: () => state.system,
-	resolveTheme: (preference: 'light' | 'dark' | 'system') =>
+	resolveTheme: (preference: string) =>
 		preference === 'system' ? state.system : preference,
 	readStoredPreference: () => state.stored,
-	writeStoredPreference: (preference: 'light' | 'dark' | 'system') => {
+	writeStoredPreference: (preference: string) => {
 		state.stored = preference;
 		mocks.writeStoredPreference(preference);
 	},
@@ -56,7 +56,12 @@ describe('createController', () => {
 	it('initializes theme and mode from the stored preference', () => {
 		state.stored = 'dark';
 		const controller = createController();
-		expect(controller.getState()).toEqual({ theme: 'dark', mode: 'dark', isAnimating: false });
+		expect(controller.getState()).toEqual({
+			theme: 'dark',
+			mode: 'dark',
+			isAnimating: false,
+			themes: ['light', 'dark', 'system'],
+		});
 	});
 
 	it('toggleTheme flips light to dark, persists the resolved value, and updates mode', async () => {
@@ -66,7 +71,7 @@ describe('createController', () => {
 		expect(controller.getState().theme).toBe('dark');
 		expect(controller.getState().mode).toBe('dark');
 		expect(mocks.writeStoredPreference).toHaveBeenCalledWith('dark');
-		expect(mocks.applyThemeClass).toHaveBeenCalledWith('dark');
+		expect(mocks.applyThemeClass).toHaveBeenCalledWith('dark', 'light');
 	});
 
 	it('toggleTheme flips dark back to light', async () => {
@@ -118,7 +123,12 @@ describe('createController', () => {
 		await controller.setTheme('system');
 
 		expect(mocks.writeStoredPreference).toHaveBeenCalledWith('system');
-		expect(controller.getState()).toEqual({ theme: 'light', mode: 'system', isAnimating: false });
+		expect(controller.getState()).toEqual({
+			theme: 'light',
+			mode: 'system',
+			isAnimating: false,
+			themes: ['light', 'dark', 'system'],
+		});
 		expect(runThemeTransition).not.toHaveBeenCalled();
 	});
 
@@ -131,7 +141,12 @@ describe('createController', () => {
 		await controller.setTheme('dark');
 
 		expect(mocks.writeStoredPreference).toHaveBeenCalledWith('dark');
-		expect(controller.getState()).toEqual({ theme: 'dark', mode: 'dark', isAnimating: false });
+		expect(controller.getState()).toEqual({
+			theme: 'dark',
+			mode: 'dark',
+			isAnimating: false,
+			themes: ['light', 'dark', 'system'],
+		});
 		expect(runThemeTransition).not.toHaveBeenCalled();
 	});
 
@@ -257,7 +272,7 @@ describe('system preference sync', () => {
 		media.fireChange();
 
 		expect(controller.getState().theme).toBe('dark');
-		expect(mocks.applyThemeClass).toHaveBeenCalledWith('dark');
+		expect(mocks.applyThemeClass).toHaveBeenCalledWith('dark', 'light');
 	});
 
 	it('ignores a system preference change when the stored preference is explicit', () => {
@@ -323,6 +338,38 @@ describe('plugin config (window.__themeConfig)', () => {
 
 	it('behaves exactly as before when there is no plugin config', () => {
 		const controller = createController();
-		expect(controller.getState()).toEqual({ theme: 'light', mode: 'light', isAnimating: false });
+		expect(controller.getState()).toEqual({
+			theme: 'light',
+			mode: 'light',
+			isAnimating: false,
+			themes: ['light', 'dark', 'system'],
+		});
+	});
+});
+
+describe('custom themes', () => {
+	it('supports setting a custom theme name beyond light/dark', async () => {
+		const controller = createController({ themes: ['pink'] });
+		await controller.setTheme('pink');
+
+		expect(controller.getState().theme).toBe('pink');
+		expect(controller.getState().mode).toBe('pink');
+		expect(mocks.writeStoredPreference).toHaveBeenCalledWith('pink');
+		expect(mocks.applyThemeClass).toHaveBeenCalledWith('pink', 'light');
+	});
+
+	it('includes custom themes alongside light/dark/system in state.themes', () => {
+		const controller = createController({ themes: ['pink', 'sunset'] });
+		expect(controller.getState().themes).toEqual(['light', 'dark', 'system', 'pink', 'sunset']);
+	});
+
+	it('deduplicates a custom theme name that collides with a built-in one', () => {
+		const controller = createController({ themes: ['light', 'pink'] });
+		expect(controller.getState().themes).toEqual(['light', 'dark', 'system', 'pink']);
+	});
+
+	it('defaults to just the built-in themes when none are configured', () => {
+		const controller = createController();
+		expect(controller.getState().themes).toEqual(['light', 'dark', 'system']);
 	});
 });

@@ -1,7 +1,7 @@
 import type {
 	EffectOptions,
 	ThemeEffect,
-	ThemeMode,
+	ThemeName,
 	ThemeOptions,
 	TransitionOptions,
 } from './types';
@@ -21,16 +21,17 @@ declare global {
 }
 
 export interface ThemeState {
-	theme: 'light' | 'dark';
-	mode: ThemeMode;
+	theme: ThemeName;
+	mode: ThemeName;
 	isAnimating: boolean;
+	themes: string[];
 }
 
 export interface ThemeController {
 	getState: () => ThemeState;
 	subscribe: (listener: () => void) => () => void;
 	toggleTheme: (options?: TransitionOptions) => Promise<void>;
-	setTheme: (mode: ThemeMode, options?: TransitionOptions) => Promise<void>;
+	setTheme: (mode: ThemeName, options?: TransitionOptions) => Promise<void>;
 }
 
 const readPluginConfig = (): ThemeOptions => {
@@ -68,6 +69,7 @@ export const createController = (options?: ThemeOptions): ThemeController => {
 	const mergedOptions: ThemeOptions = { ...readPluginConfig(), ...options };
 	const effects = resolveThemeEffects(mergedOptions);
 	const configVariant = mergedOptions.variant ?? 'fade';
+	const themes = [...new Set(['light', 'dark', 'system', ...(mergedOptions.themes ?? [])])];
 
 	const storedPreference = readStoredPreference();
 
@@ -75,6 +77,7 @@ export const createController = (options?: ThemeOptions): ThemeController => {
 		theme: resolveTheme(storedPreference),
 		mode: storedPreference,
 		isAnimating: false,
+		themes,
 	};
 
 	const listeners = new Set<() => void>();
@@ -97,13 +100,13 @@ export const createController = (options?: ThemeOptions): ThemeController => {
 			}
 
 			const resolved = resolveTheme('system');
-			applyThemeClass(resolved);
+			applyThemeClass(resolved, state.theme);
 			setState({ theme: resolved });
 		});
 	}
 
 	const applyTheme = async (
-		nextMode: ThemeMode,
+		nextMode: ThemeName,
 		callOptions: TransitionOptions = {},
 	) => {
 		if (state.isAnimating) {
@@ -114,7 +117,7 @@ export const createController = (options?: ThemeOptions): ThemeController => {
 
 		const commit = () => {
 			writeStoredPreference(nextMode);
-			applyThemeClass(resolved);
+			applyThemeClass(resolved, state.theme);
 			setState({ theme: resolved, mode: nextMode });
 		};
 
@@ -146,7 +149,7 @@ export const createController = (options?: ThemeOptions): ThemeController => {
 	};
 
 	const setTheme = async (
-		mode: ThemeMode,
+		mode: ThemeName,
 		callOptions: TransitionOptions = {},
 	) => {
 		if (state.mode === mode) {
