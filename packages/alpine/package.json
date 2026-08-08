@@ -1,0 +1,59 @@
+{
+	"name": "@brustack/alpine-theme-transitions",
+	"version": "0.1.0",
+	"description": "Alpine.js plugin for animated dark/light theme transitions using the View Transitions API",
+	"author": "Bruno Neckel",
+	"license": "MIT",
+	"type": "module",
+	"main": "./dist/index.mjs",
+	"types": "./dist/index.d.mts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.mts",
+			"import": "./dist/index.mjs"
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/brustack/theme-transitions.git",
+		"directory": "packages/alpine"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"peerDependencies": {
+		"alpinejs": "^3.0.0"
+	},
+	"dependencies": {
+		"@brustack/theme-transitions-core": "^2.1.0"
+	},
+	"devDependencies": {
+		"alpinejs": "^3.15.12",
+		"esbuild": "^0.28.1",
+		"happy-dom": "^20.11.1"
+	},
+	"scripts": {
+		"build": "unbuild && node scripts/build-cdn.mjs",
+		"prepublishOnly": "npm run build",
+		"typecheck": "tsc --noEmit"
+	},
+	"keywords": [
+		"alpine",
+		"alpinejs",
+		"alpine-plugin",
+		"theme",
+		"theme-toggle",
+		"theme-switcher",
+		"dark-mode",
+		"dark-theme",
+		"view-transitions",
+		"view-transitions-api",
+		"spread",
+		"fade",
+		"transition",
+		"animation"
+	]
+}
