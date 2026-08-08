@@ -48,6 +48,14 @@ export default defineConfig({
 					environment: 'happy-dom',
 				},
 			},
+			{
+				extends: true,
+				test: {
+					name: 'alpine',
+					include: ['packages/alpine/src/**/*.test.ts'],
+					environment: 'happy-dom',
+				},
+			},
 		],
 	},
 });
