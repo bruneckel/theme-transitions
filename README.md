@@ -8,6 +8,7 @@
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 ![Vue](https://img.shields.io/badge/Vue-4FC08D?style=for-the-badge&logo=vuedotjs&logoColor=white)
 ![Nuxt](https://img.shields.io/badge/Nuxt-00DC82?style=for-the-badge&logo=nuxt&logoColor=white)
+![Alpine.js](https://img.shields.io/badge/Alpine.js-8BC0D0?style=for-the-badge&logo=alpinedotjs&logoColor=black)
 
 Animated theme transitions for the web, powered by the [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API). A framework-agnostic core with a thin adapter per framework.
 
@@ -15,7 +16,7 @@ Animated theme transitions for the web, powered by the [View Transitions API](ht
 - ✅ Zero flash of the wrong theme on load
 - ✅ Syncs automatically with OS `prefers-color-scheme`
 - ✅ Custom themes beyond light/dark
-- ✅ Vue, React, Nuxt, and Next.js adapters, all built on the same framework-agnostic core
+- ✅ Vue, React, Nuxt, Next.js, and Alpine.js adapters, all built on the same framework-agnostic core
 
 <br>
 
